@@ -1,0 +1,242 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Colors from main presentation
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+
+% Box styles
+\tcbset{
+    theorybox/.style={colback=mlblue!10, colframe=mlblue!50, title=#1},
+    discoverybox/.style={colback=mlgreen!10, colframe=mlgreen!50, title=#1},
+    hintbox/.style={colback=mlorange!10, colframe=mlorange!50, title=#1}
+}
+
+\title{\textbf{Week 2: Discovery Handout}\\
+\Large Understanding Emotions in Text\\
+\normalsize ML/AI for Design Thinking}
+\author{Pre-Class Exploration}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[discoverybox={Your Mission}]
+\textbf{Before we dive into theory, let's discover why understanding emotions in text is harder than it seems!}\\
+Work through these exercises. Use the theory hints when stuck. Discuss findings with your partner.
+\end{tcolorbox}
+
+% ============================================
+% PART A: SENTIMENT DISCOVERY
+% ============================================
+
+\section*{Part A: Sentiment Discovery (10 min)}
+
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\textbf{Exercise 1:} Rate these reviews as Positive (+), Negative (-), or Neutral (0):
+
+\begin{enumerate}[label=\alph*)]
+\item ``This app is absolutely perfect if you enjoy frustration'' \hfill Your rating: \_\_\_
+\item ``Not bad at all'' \hfill Your rating: \_\_\_
+\item ``It works.'' \hfill Your rating: \_\_\_
+\item ``Can't complain about the price, you get what you pay for'' \hfill Your rating: \_\_\_
+\item ``I've never been so impressed... by how slow an app can be'' \hfill Your rating: \_\_\_
+\end{enumerate}
+
+\textbf{Question:} Which ones were hardest to classify? Why?\\
+\vspace{1.5cm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[hintbox={Theory Hint 1}]
+\textbf{Sarcasm} uses positive words to express negative sentiment. Look for:
+\begin{itemize}[noitemsep]
+\item Exaggerated positive language (``absolutely perfect'')
+\item Unexpected endings (``...if you enjoy frustration'')
+\item Context reversal
+\end{itemize}
+\textbf{Double negatives} (``not bad'') often express mild positivity.
+\end{tcolorbox}
+
+% ============================================
+% PART B: CONTEXT MATTERS
+% ============================================
+
+\section*{Part B: Context Changes Everything (10 min)}
+
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\textbf{Exercise 2:} The word ``fast'' appears in these reviews. Determine the sentiment:
+
+\begin{enumerate}[label=\alph*)]
+\item ``The delivery was incredibly fast'' \hfill Sentiment: \_\_\_
+\item ``The battery drains fast'' \hfill Sentiment: \_\_\_
+\item ``Fast customer service response!'' \hfill Sentiment: \_\_\_
+\item ``Too fast to be thorough'' \hfill Sentiment: \_\_\_
+\end{enumerate}
+
+\textbf{Discovery Question:} Can a single word have fixed sentiment? Explain:\\
+\vspace{2cm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[hintbox={Theory Hint 2}]
+\textbf{Bidirectional Understanding:} BERT reads text in both directions simultaneously:
+\begin{itemize}[noitemsep]
+\item Traditional: Read left $\rightarrow$ right only
+\item BERT: Read left $\rightarrow$ right AND right $\rightarrow$ left
+\item Result: ``fast'' + ``battery drain'' = negative context
+\item Result: ``fast'' + ``delivery'' = positive context
+\end{itemize}
+This is why BERT understands ``not bad'' as positive (sees ``not'' + ``bad'' together).
+\end{tcolorbox}
+
+% ============================================
+% PART C: ATTENTION MECHANISM
+% ============================================
+
+\section*{Part C: What Words Matter Most? (10 min)}
+
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\textbf{Exercise 3:} In this review, underline the 3 most important words for understanding sentiment:
+
+\textit{``The interface is clean and intuitive, but the app crashes constantly, making it completely unusable despite the beautiful design and smooth animations when it actually works.''}
+
+Your top 3 words: \_\_\_\_\_\_\_\_ , \_\_\_\_\_\_\_\_ , \_\_\_\_\_\_\_\_
+
+\textbf{Partner Discussion:} Did you choose the same words? Why might they differ?
+\end{tcolorbox}
+
+\begin{tcolorbox}[hintbox={Theory Hint 3}]
+\textbf{Attention Mechanism:} BERT assigns importance scores to words:
+\begin{itemize}[noitemsep]
+\item High attention: ``crashes'', ``unusable'', ``but''
+\item Lower attention: ``the'', ``and'', ``is''
+\item Context-dependent: ``works'' gets high attention near ``actually''
+\end{itemize}
+Formula preview: $\text{Attention} = \text{How much should I focus on each word?}$
+\end{tcolorbox}
+
+\newpage
+
+% ============================================
+% PART D: EMOTION SPECTRUM
+% ============================================
+
+\section*{Part D: Beyond Positive/Negative (10 min)}
+
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\textbf{Exercise 4:} Match these reviews to emotions (Joy, Anger, Fear, Surprise, Sadness):
+
+\begin{enumerate}[label=\alph*)]
+\item ``I'm worried my data isn't secure'' \hfill Emotion: \_\_\_\_\_\_\_\_
+\item ``Can't believe how much this has improved!'' \hfill Emotion: \_\_\_\_\_\_\_\_
+\item ``Disappointed it doesn't work on older phones'' \hfill Emotion: \_\_\_\_\_\_\_\_
+\item ``This is absolutely unacceptable!'' \hfill Emotion: \_\_\_\_\_\_\_\_
+\item ``Exceeded all my expectations!'' \hfill Emotion: \_\_\_\_\_\_\_\_
+\end{enumerate}
+
+\textbf{Design Question:} How would you redesign a product differently for users feeling fear vs anger?\\
+\vspace{2cm}
+\end{tcolorbox}
+
+\begin{tcolorbox}[hintbox={Theory Hint 4}]
+\textbf{Emotion Categories:} Modern NLP goes beyond binary sentiment:
+\begin{multicols}{2}
+\begin{itemize}[noitemsep]
+\item \textbf{Joy:} excitement, satisfaction, delight
+\item \textbf{Anger:} frustration, irritation, rage
+\item \textbf{Fear:} worry, concern, anxiety
+\item \textbf{Surprise:} amazement, shock, unexpected
+\item \textbf{Sadness:} disappointment, regret, loss
+\item \textbf{Disgust:} rejection, aversion, distaste
+\end{itemize}
+\end{multicols}
+Each emotion $\rightarrow$ different design response!
+\end{tcolorbox}
+
+% ============================================
+% PART E: WORD EMBEDDINGS
+% ============================================
+
+\section*{Part E: Words in Space (5 min)}
+
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\textbf{Exercise 5:} If words were points in space, which pairs would be closest?
+
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*)]
+\item good $\leftrightarrow$ excellent
+\item good $\leftrightarrow$ bad  
+\item fast $\leftrightarrow$ quick
+\item fast $\leftrightarrow$ slow
+\item happy $\leftrightarrow$ joyful
+\item happy $\leftrightarrow$ sad
+\end{enumerate}
+\end{multicols}
+
+Circle the closest pairs. \textbf{Bonus:} Can you draw a simple 2D map showing these relationships?
+\end{tcolorbox}
+
+\begin{tcolorbox}[hintbox={Theory Hint 5}]
+\textbf{Word Embeddings:} BERT converts words to 768-dimensional vectors:
+\begin{itemize}[noitemsep]
+\item Similar meaning = closer in space
+\item ``good'' is closer to ``excellent'' than to ``bad''
+\item Context changes position: ``bank'' (river) vs ``bank'' (money)
+\item We use t-SNE to visualize in 2D (like a map projection)
+\end{itemize}
+\end{tcolorbox}
+
+% ============================================
+% SYNTHESIS SECTION
+% ============================================
+
+\section*{Synthesis: Connect to Design (5 min)}
+
+\begin{tcolorbox}[discoverybox={Design Thinking Connection}]
+\textbf{Final Reflection:} Based on your discoveries, answer:
+
+\begin{enumerate}
+\item \textbf{Empathy Challenge:} If you only counted positive/negative keywords, what emotions would you miss?\\
+\vspace{1.5cm}
+
+\item \textbf{Scale Problem:} You have 10,000 reviews. How long to read them all? (Assume 30 seconds each)\\
+\vspace{1cm}
+
+\item \textbf{Design Impact:} Name one feature you'd build differently after understanding hidden emotions:\\
+\vspace{1.5cm}
+\end{enumerate}
+\end{tcolorbox}
+
+% ============================================
+% PREPARATION BOX
+% ============================================
+
+\begin{tcolorbox}[theorybox={Prepare for Class}]
+\textbf{What we'll explore today:}
+\begin{itemize}[noitemsep]
+\item How BERT achieves 87\% sarcasm detection (vs 15\% for keywords)
+\item Why bidirectional reading changes everything
+\item Attention mechanisms: the key to understanding
+\item Real examples: Netflix emotions, Airbnb hostile review detection
+\item Hands-on: Using BERT to analyze product reviews
+\end{itemize}
+
+\textbf{Key Terms to Remember:}
+BERT, Transformer, Attention, Embedding, Bidirectional, Context, Fine-tuning
+\end{tcolorbox}
+
+\vfill
+\begin{center}
+\textcolor{gray}{\small Week 2: NLP with Transformers + Empathize | ML/AI for Design Thinking}
+\end{center}
+
+\end{document}

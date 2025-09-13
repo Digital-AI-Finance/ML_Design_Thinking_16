@@ -1,0 +1,1366 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Color definitions - consistent emotion colors
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+\definecolor{mlgray}{RGB}{140, 86, 75}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Title information
+\title{Week 2: Understanding Emotions in Text}
+\subtitle{BERT + Empathize = What Users Really Mean}
+\author{ML/AI/GenAI for Design Thinking}
+\institute{BSc Course - 12 Week Program}
+\date{2024}
+
+\begin{document}
+
+% ============================================
+% TITLE SLIDE
+% ============================================
+
+% Slide 1: Title
+\begin{frame}
+\titlepage
+\end{frame}
+
+% ============================================
+% PART 1: THE HIDDEN PROBLEM (Slides 2-6)
+% ============================================
+
+% Section Divider
+\begin{frame}
+\begin{center}
+\Huge\textbf{Part 1: The Hidden Problem}\\
+\vspace{1em}
+\Large\textit{What we miss in user feedback}\\
+\vspace{2em}
+\normalsize\textcolor{mlgray}{Part 1 of 4}
+\end{center}
+\end{frame}
+
+% Slide 2: Colorful Sentiment Clusters
+\begin{frame}{The Sentiment Landscape}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{charts/sentiment_clusters.pdf}
+\end{center}
+\begin{tcolorbox}[colback=mlblue!20]
+\centering
+\textbf{Challenge: How do we navigate this complex emotional landscape at scale?}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 3: Hidden Emotions in Text
+\begin{frame}{The Problem: Hidden Emotions in Text}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{What users write:}
+\begin{itemize}
+\item ``Great product... if you like disappointment''
+\item ``Not bad at all''
+\item ``Fine.''
+\item ``Can't complain''
+\end{itemize}
+
+\vspace{1em}
+\textbf{Design Thinking blind spot:}
+\begin{itemize}
+\item Missing real pain points
+\item Building wrong features
+\item Misreading user satisfaction
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{What they actually mean:}
+\begin{itemize}
+\item Angry (sarcasm)
+\item Happy (double negative)
+\item Unhappy (short response)
+\item Forced acceptance
+\end{itemize}
+
+\vspace{1em}
+\textbf{Design Thinking opportunity:}
+\begin{itemize}
+\item Understand true feelings
+\item Identify hidden frustrations
+\item Discover unspoken needs
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlred!20]
+\centering
+\textbf{For Design Thinking: Words alone miss 45\% of user emotions}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 4: Why Keywords Fail
+\begin{frame}{Why Keyword Matching Fails}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{The ``Not Bad'' Problem:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Text} & \textbf{Keywords} & \textbf{Reality} \\
+\midrule
+``Not bad'' & Negative & Positive \\
+``Terribly good'' & Mixed & Very Positive \\
+``Love waiting'' & Positive & Sarcastic \\
+``Could be worse'' & Negative & Neutral \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\textbf{Why it fails:}
+\begin{itemize}
+\item Counts words, ignores relationships
+\item Misses context completely
+\item Can't detect sarcasm
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Impact of Failures:}
+\begin{itemize}
+\item \textbf{False positives:} Thinking users are happy when they're not
+\item \textbf{Missed sarcasm:} Building on ``praised'' features that users hate
+\item \textbf{Wrong priorities:} Focusing on the wrong problems
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Real cost:}
+\begin{itemize}
+\item 68\% of users leave due to perceived indifference
+\item Wrong features = wasted development
+\item Missed insights = lost opportunities
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 5: The Challenge with Design Focus
+\begin{frame}{The Challenge: Understanding Context for Design Thinking}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Current Problems:}
+\begin{itemize}
+\item Manual analysis: 100 reviews/day max
+\item Digital products: 10,000+ reviews/day
+\item Each review: Unique human experience
+\item Context lost in aggregation
+\end{itemize}
+
+\vspace{1em}
+\textbf{What we need:}
+\begin{enumerate}
+\item See word relationships
+\item Understand order matters
+\item Detect sarcasm and tone
+\item Process at scale
+\end{enumerate}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Needs:}
+\begin{itemize}
+\item \textbf{Empathize:} Feel what thousands feel
+\item \textbf{Define:} Find real problems, not symptoms
+\item \textbf{Ideate:} Generate solutions for actual needs
+\item \textbf{Test:} Measure emotional impact
+\end{itemize}
+
+\vspace{1em}
+\textbf{The Goal:}\\
+Scale empathy without losing humanity
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\textbf{Solution: BERT - Reading text like humans, at machine scale}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 2: BERT - THE TECHNOLOGY (Slides 7-15)
+% ============================================
+
+% Section Divider
+\begin{frame}
+\begin{center}
+\Huge\textbf{Part 2: BERT - The Technology}\\
+\vspace{1em}
+\Large\textit{Understanding context like humans do}\\
+\vspace{2em}
+\normalsize\textcolor{mlgray}{Part 2 of 4}
+\end{center}
+\end{frame}
+
+% Slide 6: What is BERT with Design Focus
+\begin{frame}{What is BERT?}
+\textbf{BERT = Bidirectional Encoder Representations from Transformers}
+
+\vspace{0.5em}
+Simple explanation: \textbf{BERT reads all words at once, not one by one}
+
+\begin{columns}[t]
+\column{0.48\textwidth}
+\begin{tcolorbox}[colback=mlred!10]
+\textbf{Traditional (Sequential):}\\
+The $\rightarrow$ movie $\rightarrow$ was $\rightarrow$ not $\rightarrow$ bad\\
+\small(Reads left to right, misses connections)
+\end{tcolorbox}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!10]
+\textbf{BERT (Parallel):}\\
+The movie was not bad\\
+\small(Sees everything, understands ``not bad'' = good)
+\end{tcolorbox}
+
+\column{0.48\textwidth}
+\textbf{For Designers, this means:}
+\begin{itemize}
+\item Understand user feelings in context
+\item Catch subtle frustrations
+\item Identify what users really want
+\item No more keyword guessing
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Design Thinking Impact:}
+\begin{itemize}
+\item 87\% sarcasm detection
+\item Find hidden pain points
+\item Understand feature requests
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 7: Bidirectional Reading with Design Impact
+\begin{frame}{Bidirectional: Seeing Past AND Future}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Example: ``The app was \_\_\_ frustrating''}
+
+\vspace{0.5em}
+\textbf{Old Way (Left to Right):}
+\begin{itemize}
+\item Sees: ``The app was''
+\item Guesses: good? bad? slow?
+\item Can't use ``frustrating'' as hint
+\item Often wrong
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{BERT (Both Directions):}
+\begin{itemize}
+\item Sees: ``The app was'' + ``frustrating''
+\item Knows: probably ``very'' or ``incredibly''
+\item Uses full context
+\item Much more accurate
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Implications:}
+\begin{itemize}
+\item \textbf{Intensity matters:} ``Very frustrating'' vs ``Slightly frustrating''
+\item \textbf{Context reveals priority:} What made it frustrating?
+\item \textbf{Emotional nuance:} Frustrated vs Angry vs Disappointed
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Real Example:}\\
+``The checkout process was \_\_\_ confusing''
+\begin{itemize}
+\item BERT finds: ``incredibly''
+\item Design action: Simplify checkout
+\item Result: 23\% fewer cart abandonments
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{Design Thinking Benefit: Catches problems keyword analysis misses completely}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 8: Attention Mechanism with Design Insights
+\begin{frame}{Attention: BERT Focuses on Emotional Triggers}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{charts/bert_attention_heatmap.pdf}
+\end{center}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{What attention shows:}
+\begin{itemize}
+\item ``Not'' strongly links to ``bad''
+\item ``Great'' connects to ``disappointment''
+\item Reveals sarcasm patterns
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Insights:}
+\begin{itemize}
+\item Which features trigger emotions
+\item What words signal problems
+\item Where users struggle most
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlpurple!10]
+\centering
+\textbf{Preview: Week 3 dives deep into attention mechanisms for prioritization}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 9: Context Changes Meaning - Design Implications
+\begin{frame}{Context Changes Everything in Design Thinking}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Same Word, Different Meanings:}
+\begin{center}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Word} & \textbf{Contexts} \\
+\midrule
+``Fast'' & Quick delivery (good) \\
+        & Battery drains fast (bad) \\
+``Simple'' & Easy to use (good) \\
+          & Too basic (bad) \\
+``Light'' & Portable (good) \\
+         & Feels cheap (bad) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{BERT understands context:}
+\begin{itemize}
+\item Different meanings per use
+\item Surrounding words determine sentiment
+\item No fixed good/bad words
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Implications:}
+\begin{itemize}
+\item Same feature, different contexts = different user needs
+\item ``Simple'' for beginners vs power users
+\item ``Fast'' performance vs battery life
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Real Design Decision:}\\
+Spotify discovered ``shuffle'' meant:
+\begin{itemize}
+\item Random (tech users)
+\item Variety (casual users)
+\item Discover (new users)
+\end{itemize}
+Result: Three different shuffle modes
+\end{columns}
+\end{frame}
+
+% Slide 10: Training BERT with Customization Focus
+\begin{frame}{Training BERT for Your Product}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10]
+\textbf{Step 1: General Training}\\
+3.3 billion words from books/web\\
+Learns language, grammar, facts
+\end{tcolorbox}
+
+\vspace{0.5em}
+\begin{center}
+\Large $\downarrow$
+\end{center}
+\vspace{0.5em}
+
+\begin{tcolorbox}[colback=mlblue!10]
+\textbf{Step 2: Your Product}\\
+Your reviews and feedback\\
+Learns your users' language
+\end{tcolorbox}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Benefits:}
+\begin{itemize}
+\item Customizable to your domain
+\item Learns your product's jargon
+\item Adapts to user base
+\item Improves over time
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Example Customization:}
+\begin{itemize}
+\item Gaming: ``lag'' = critical issue
+\item Fashion: ``fit'' = top priority
+\item SaaS: ``integration'' = key need
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlpurple!20]
+\centering
+\textbf{Result: BERT speaks your users' language}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 11: BERT Process for Sentiment - Design Focused
+\begin{frame}{How BERT Detects Emotions for Design Thinking}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{BERT's Process:}
+\begin{enumerate}
+\item \textbf{Read everything:} All words at once
+\item \textbf{Connect words:} Find relationships
+\item \textbf{Build understanding:} Recognize patterns
+\item \textbf{Output emotion:} With confidence score
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Example:}\\
+``Not bad for the price''
+\begin{itemize}
+\item Links: ``not'' + ``bad'' = positive
+\item Context: ``for the price'' = qualified
+\item Output: Moderately positive (0.65)
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Application:}
+\begin{enumerate}
+\item \textbf{Emotion detected:} Moderate satisfaction
+\item \textbf{Qualifier found:} Price-sensitive
+\item \textbf{Design insight:} Value perception issue
+\item \textbf{Action:} Highlight value props
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Confidence helps prioritize:}
+\begin{itemize}
+\item High confidence = Clear issue
+\item Low confidence = Investigate more
+\item Mixed signals = User conflict
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 12: Sarcasm Detection with Design Warning
+\begin{frame}{BERT Catches Sarcasm - A Design Thinking Warning}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Sarcasm Patterns BERT Detects:}
+\begin{itemize}
+\item Positive words + negative context
+\item Exaggerated praise
+\item Contradiction signals
+\item Timing mismatches
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Examples Found:}
+\begin{itemize}
+\item ``Great! It crashed again''
+\item ``Love the 3-hour load time''
+\item ``Perfect... if you like broken''
+\item ``Fantastic customer service'' (1 star)
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Warning:}
+\begin{tcolorbox}[colback=mlred!20]
+15\% of ``positive'' reviews contain sarcastic criticism
+\end{tcolorbox}
+
+\textbf{What this means:}
+\begin{itemize}
+\item Your satisfaction scores are inflated
+\item Real problems hidden in ``praise''
+\item Users resort to sarcasm when frustrated
+\item Critical issues being missed
+\end{itemize}
+
+\textbf{Design Response:}
+\begin{itemize}
+\item Check all 5-star reviews for sarcasm
+\item Look for feature ``praise'' patterns
+\item Identify frustration triggers
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 13: Performance with Design Implications
+\begin{frame}{Performance: What 23\% Accuracy Means for Design Thinking}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/sentiment_comparison.pdf}
+\end{center}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Accuracy Improvements:}
+\begin{itemize}
+\item Overall: 72\% $\rightarrow$ 95\% (+23\%)
+\item Sarcasm: 15\% $\rightarrow$ 87\% (+72\%)
+\item Context: 60\% $\rightarrow$ 94\% (+34\%)
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Thinking Implications:}
+\begin{itemize}
+\item Better user personas (95\% accurate)
+\item Real pain points found (87\% sarcasm)
+\item Nuanced feature requests understood
+\item Confidence in design decisions
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 14: Try It Yourself - Practical Code
+\begin{frame}{Try It Yourself: Quick BERT Implementation}
+\begin{tcolorbox}[colback=gray!10]
+\footnotesize
+\texttt{from transformers import pipeline}\\
+\texttt{}\\
+\texttt{\# Load pre-trained BERT for sentiment}\\
+\texttt{analyzer = pipeline("sentiment-analysis")}\\
+\texttt{}\\
+\texttt{\# Analyze your product reviews}\\
+\texttt{reviews = [}\\
+\texttt{\ \ "This product is not bad at all",}\\
+\texttt{\ \ "Love waiting 3 hours for support",}\\
+\texttt{\ \ "Simple to use but too basic"}\\
+\texttt{]}\\
+\texttt{}\\
+\texttt{for review in reviews:}\\
+\texttt{\ \ result = analyzer(review)}\\
+\texttt{\ \ print(f"Text: \{review\}")}\\
+\texttt{\ \ print(f"Result: \{result\}")}\\
+\texttt{}\\
+\texttt{\# Output shows sentiment and confidence score}
+\end{tcolorbox}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Try with your data:}
+\begin{itemize}
+\item Export your reviews to CSV
+\item Run this simple script
+\item Compare with manual analysis
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Next steps:}
+\begin{itemize}
+\item Fine-tune on your domain
+\item Add emotion categories
+\item Build into your workflow
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% ============================================
+% PART 3: EMPATHY AT SCALE (Expanded with real examples)
+% ============================================
+
+% Section Divider
+\begin{frame}
+\begin{center}
+\Huge\textbf{Part 3: Empathy at Scale}\\
+\vspace{1em}
+\Large\textit{From data to real-world design decisions}\\
+\vspace{2em}
+\normalsize\textcolor{mlgray}{Part 3 of 4}
+\end{center}
+\end{frame}
+
+% Slide 15: Empathy at Scale - Two Columns
+\begin{frame}{Empathize at Scale: Understanding Thousands}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Traditional Empathy Methods:}
+\begin{itemize}
+\item User interviews: 20 people/week
+\item Surveys: Low response, biased
+\item Observation: Time-intensive
+\item Focus groups: Groupthink issues
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Limitations:}
+\begin{itemize}
+\item Small sample sizes
+\item Geographic constraints
+\item Time and cost barriers
+\item Vocal minority bias
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{BERT-Enhanced Empathy:}
+\begin{itemize}
+\item Process 10,000+ reviews/day
+\item Understand global users
+\item Find silent majority opinions
+\item Detect emotional patterns
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Advantages:}
+\begin{itemize}
+\item Every user voice heard
+\item Real-time emotional pulse
+\item Unbiased pattern detection
+\item Cultural nuance preserved
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{Design Thinking Power: Feel what thousands feel, understand what they can't articulate}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 16a: Emotional Spectrum Part 1
+\begin{frame}{Emotional Spectrum in User Feedback}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{charts/sentiment_analysis_demo.pdf}
+\end{center}
+
+\column{0.5\textwidth}
+\textbf{Beyond Binary Sentiment:}
+\begin{itemize}
+\item \textbf{Joy:} Delight, satisfaction, excitement
+\item \textbf{Anger:} Frustration, annoyance, rage
+\item \textbf{Fear:} Anxiety, concern, worry
+\item \textbf{Surprise:} Amazement, shock, confusion
+\item \textbf{Sadness:} Disappointment, regret
+\item \textbf{Trust:} Confidence, security, faith
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Emotions Blend:}
+\begin{itemize}
+\item Joy + Surprise = Delight
+\item Fear + Sadness = Despair
+\item Anger + Disgust = Contempt
+\item Trust + Joy = Love
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 16b: Emotional Journey Mapping
+\begin{frame}{The User's Emotional Journey}
+\begin{center}
+\textbf{Mapping Emotions Through the Product Experience}
+\end{center}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Discovery Phase:}
+\begin{itemize}
+\item \textcolor{mlgreen}{Curiosity} $\rightarrow$ Interest
+\item \textcolor{mlorange}{Confusion} $\rightarrow$ Need help
+\item \textcolor{mlblue}{Excitement} $\rightarrow$ Engagement
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Usage Phase:}
+\begin{itemize}
+\item \textcolor{mlgreen}{Satisfaction} $\rightarrow$ Continue
+\item \textcolor{mlred}{Frustration} $\rightarrow$ Seek support
+\item \textcolor{mlpurple}{Delight} $\rightarrow$ Share
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Retention Phase:}
+\begin{itemize}
+\item \textcolor{mlgreen}{Trust} $\rightarrow$ Loyalty
+\item \textcolor{mlred}{Disappointment} $\rightarrow$ Churn risk
+\item \textcolor{mlblue}{Love} $\rightarrow$ Advocacy
+\end{itemize}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!10]
+\textbf{Design Insight:}\\
+Track emotional transitions to identify critical intervention points
+\end{tcolorbox}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\small\textit{Remember: Like the sentiment clusters, emotions are interconnected and fluid}
+\end{center}
+\end{frame}
+
+% Slide 17: From Emotions to Design Actions
+\begin{frame}{From Emotions to Design Thinking Insights}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Emotion-Driven Design Actions:}
+\begin{itemize}
+\item \textbf{Joy (45\%):} Amplify successful features
+\item \textbf{Frustration (25\%):} Simplify workflows
+\item \textbf{Confusion (15\%):} Improve onboarding
+\item \textbf{Delight (10\%):} Create memorable moments
+\item \textbf{Anxiety (5\%):} Add reassurance, guidance
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Priority Matrix:}
+\begin{itemize}
+\item High frequency + High intensity = Fix now
+\item High frequency + Low intensity = Improve
+\item Low frequency + High intensity = Investigate
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Real Design Decisions:}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!10]
+\textbf{Joy $\rightarrow$ Enhance:}\\
+Users love quick checkout\\
+Action: Make it more prominent
+\end{tcolorbox}
+
+\vspace{0.3em}
+\begin{tcolorbox}[colback=mlred!10]
+\textbf{Frustration $\rightarrow$ Simplify:}\\
+Login process causes anger\\
+Action: Add social login
+\end{tcolorbox}
+
+\vspace{0.3em}
+\begin{tcolorbox}[colback=mlorange!10]
+\textbf{Confusion $\rightarrow$ Guide:}\\
+New users lost in features\\
+Action: Progressive disclosure
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% Slide 18: Netflix Real Example (moved from Part 4)
+\begin{frame}{Real World: Netflix Emotion-Driven Design}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{The Challenge:}
+\begin{itemize}
+\item Users: ``Nothing to watch'' paradox
+\item Reality: 15,000+ titles available
+\item Problem: Choice overload
+\item Need: Mood-based discovery
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{BERT Analysis Process:}
+\begin{enumerate}
+\item Analyzed 50M+ subtitles
+\item Mapped emotional arcs
+\item Studied viewing patterns
+\item Correlated mood to content
+\end{enumerate}
+
+\column{0.5\textwidth}
+\textbf{Design Decisions Made:}
+\begin{itemize}
+\item \textbf{Mood categories:} Feel-good, Thrilling, Thought-provoking
+\item \textbf{Emotional thumbnails:} Show mood not just genre
+\item \textbf{Sentiment trajectory:} ``Starts sad, ends happy''
+\item \textbf{Mood continuity:} Next episode emotional preview
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Results:}
+\begin{itemize}
+\item 15\% increase in completion
+\item 23\% fewer browse abandonments
+\item ``Mood match'' top-rated feature
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!20]
+\centering
+\textbf{Key Learning: Understanding emotional needs drives better design than demographics}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 19: More Success Stories (moved from Part 4)
+\begin{frame}{More Success Stories: BERT in Action}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Airbnb: Trust Building}
+\begin{itemize}
+\item Analyzed host descriptions
+\item Found trust-building language
+\item Created writing guidelines
+\item Result: 18\% more bookings
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Duolingo: Motivation Patterns}
+\begin{itemize}
+\item Detected frustration points
+\item Identified celebration moments
+\item Adjusted difficulty curves
+\item Result: 25\% better retention
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Slack: Feature Discovery}
+\begin{itemize}
+\item Found confusion about features
+\item Detected ``aha'' moments
+\item Redesigned onboarding
+\item Result: 40\% faster adoption
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Common Pattern:}
+\begin{tcolorbox}[colback=mlblue!10]
+All used BERT to understand emotional context, not just sentiment scores
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% Slide 20: Human + AI Collaboration
+\begin{frame}{Human + AI: Collaborative Design Intelligence}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{BERT Strengths:}
+\begin{itemize}
+\item Process massive volume
+\item Find hidden patterns
+\item Consistent analysis 24/7
+\item Unbiased detection
+\item Quantify emotions
+\item Track sentiment trends
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{BERT Provides:}
+\begin{itemize}
+\item The ``what'' - patterns found
+\item The ``where'' - problem areas
+\item The ``how much'' - severity
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Human Strengths:}
+\begin{itemize}
+\item Understand context deeply
+\item Creative problem solving
+\item Ethical judgment
+\item Cultural sensitivity
+\item Intuitive leaps
+\item Empathetic response
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Humans Provide:}
+\begin{itemize}
+\item The ``why'' - root causes
+\item The ``how'' - solutions
+\item The ``should we'' - ethics
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\textbf{Best Practice: BERT finds patterns, humans interpret meaning, together create solutions}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 21: Key Takeaway (moved from Part 4)
+\begin{frame}{The Key Insight for Designers}
+\begin{center}
+\Huge\textbf{Context Matters More Than Keywords}
+\end{center}
+
+\vspace{1.5em}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Old Design Research:}
+\begin{itemize}
+\item Count positive/negative words
+\item Average star ratings
+\item Tag cloud analysis
+\item Sentiment percentages
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{BERT-Powered Research:}
+\begin{itemize}
+\item Understand relationships
+\item Detect hidden emotions
+\item Find real problems
+\item Scale human empathy
+\end{itemize}
+\end{columns}
+
+\vspace{1.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\Large\textbf{BERT + Design Thinking = Understanding users at scale with human insight}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 4: THEORETICAL FOUNDATIONS (New theory section)
+% ============================================
+
+% Section Divider
+\begin{frame}
+\begin{center}
+\Huge\textbf{Part 4: Theoretical Foundations}\\
+\vspace{1em}
+\Large\textit{The mathematics behind the magic}\\
+\vspace{2em}
+\normalsize\textcolor{mlgray}{Part 4 of 4}
+\end{center}
+\end{frame}
+
+% Slide 22: Mathematical Foundation of Attention
+\begin{frame}{Mathematical Foundation of Attention}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{The Attention Formula:}
+\begin{center}
+\Large
+$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$
+\end{center}
+
+\vspace{0.5em}
+\textbf{Components:}
+\begin{itemize}
+\item \textbf{Q (Query):} What am I looking for?
+\item \textbf{K (Key):} What information exists?
+\item \textbf{V (Value):} What should I retrieve?
+\item \textbf{$\sqrt{d_k}$:} Scaling factor for stability
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Why This Matters for Design:}
+\begin{itemize}
+\item Attention scores = importance weights
+\item Higher scores = stronger relationships
+\item Shows which words influence meaning
+\item Reveals hidden connections
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Example:}\\
+``Not bad'' $\rightarrow$ High attention between ``not'' and ``bad''\\
+Result: BERT knows this means ``good''
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlpurple!10]
+\centering
+\textbf{Design Impact: Attention reveals what users focus on in their feedback}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 23: Embedding Space Theory
+\begin{frame}{Words as Vectors: The Embedding Space}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{charts/embedding_space_visualization.pdf}
+\end{center}
+
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Key Concepts:}
+\begin{itemize}
+\item Words = 768-dimensional vectors
+\item Similar meanings cluster together
+\item Context changes position
+\item Relationships are geometric
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Applications:}
+\begin{itemize}
+\item Find similar feedback automatically
+\item Group related complaints
+\item Discover unexpected connections
+\item Map emotional territories
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 24: How BERT Learns - Training Theory
+\begin{frame}{How BERT Learns: Self-Supervised Training}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Masked Language Modeling (MLM):}
+\begin{itemize}
+\item Hide 15\% of words randomly
+\item BERT predicts missing words
+\item Example: ``The [MASK] was delicious''
+\item BERT learns: [MASK] = ``food''
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Why This Works:}
+\begin{itemize}
+\item Forces understanding of context
+\item No labeled data needed
+\item Learns from massive text
+\item Captures language patterns
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Next Sentence Prediction (NSP):}
+\begin{itemize}
+\item Given: Sentence A and B
+\item Task: Are they consecutive?
+\item Learns discourse relationships
+\item Understands conversation flow
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Design Thinking Connection:}
+\begin{itemize}
+\item MLM = Understanding context
+\item NSP = Following user journeys
+\item Combined = Full comprehension
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!10]
+\centering
+\textbf{Result: BERT learns language like children do - by filling gaps and making connections}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 25: Transfer Learning Theory
+\begin{frame}{Transfer Learning: From General to Specific}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Two-Stage Process:}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!10]
+\textbf{Stage 1: Pre-training}\\
+\small
+\begin{itemize}
+\item 3.3 billion words
+\item General language understanding
+\item No task-specific labels
+\item Learns universal patterns
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlorange!10]
+\textbf{Stage 2: Fine-tuning}\\
+\small
+\begin{itemize}
+\item Your specific data
+\item Task-focused learning
+\item Much smaller dataset
+\item Adapts to your domain
+\end{itemize}
+\end{tcolorbox}
+
+\column{0.5\textwidth}
+\textbf{Why Transfer Learning Works:}
+\begin{itemize}
+\item Language basics are universal
+\item Specific tasks build on basics
+\item Reduces data requirements
+\item Faster training time
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Design Thinking Analogy:}
+\begin{itemize}
+\item Pre-training = Learning to read
+\item Fine-tuning = Understanding your users
+\item Result = Expert in your domain
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlpurple!20]
+\centering
+\textbf{Efficiency: 1,000 labeled examples can achieve 90\%+ accuracy with transfer learning}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 26: Why Bidirectional Matters - Theory
+\begin{frame}{Why Bidirectional Matters: The Theory}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Traditional (Left-to-Right):}
+\begin{itemize}
+\item Sequential processing
+\item P(word$_n$ | word$_1$...word$_{n-1}$)
+\item Can't see future context
+\item Limited understanding
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{BERT (Bidirectional):}
+\begin{itemize}
+\item Parallel processing
+\item P(word$_n$ | all other words)
+\item Sees full context
+\item Complete understanding
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Mathematical Advantage:}
+\begin{itemize}
+\item More information per prediction
+\item Richer representations
+\item Better disambiguation
+\item Stronger contextual embeddings
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Real Impact:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Task} & \textbf{Uni} & \textbf{Bi} \\
+\midrule
+Sentiment & 82\% & 95\% \\
+Sarcasm & 45\% & 87\% \\
+Context & 71\% & 94\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlred!20]
+\centering
+\textbf{Key Insight: Bidirectional = 2x the context = dramatically better understanding}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 27: Bridge to Next Week
+\begin{frame}{Next Week: From Understanding to Focusing}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{This Week's Achievement:}
+\begin{itemize}
+\item Understand all emotions in text
+\item Process thousands of reviews
+\item Detect sarcasm and context
+\item Scale empathy
+\item Grasp theoretical foundations
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{The New Challenge:}
+\begin{itemize}
+\item Information overload
+\item Too many insights
+\item Which emotions matter most?
+\item How to prioritize?
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Week 3: Attention Mechanisms}
+\begin{itemize}
+\item \textbf{Focus} on critical emotions
+\item \textbf{Prioritize} user pain points
+\item \textbf{Filter} signal from noise
+\item \textbf{Zoom in} on what matters
+\end{itemize}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlpurple!10]
+\textbf{Preview:}\\
+Attention = AI's way of saying\\
+``This is important, look here!''
+\end{tcolorbox}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{Journey: Week 1 (Cluster) $\rightarrow$ Week 2 (Understand) $\rightarrow$ Week 3 (Focus)}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 28: Summary
+\begin{frame}{Week 2 Summary: Theory Meets Practice}
+\begin{columns}
+\column{0.33\textwidth}
+\textbf{Technical Learning:}
+\begin{itemize}
+\item BERT bidirectional
+\item Attention mechanism
+\item Embedding spaces
+\item Transfer learning
+\item 95\% accuracy
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Theory Mastered:}
+\begin{itemize}
+\item Attention formula
+\item Vector semantics
+\item Self-supervision
+\item Context importance
+\item Mathematical foundation
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Design Applications:}
+\begin{itemize}
+\item Scale empathy
+\item Find pain points
+\item Real examples
+\item Proven results
+\item Clear ROI
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\textbf{The Journey: From Chaos to Clarity}\\
+\vspace{0.5em}
+\begin{tabular}{ccccc}
+\textcolor{mlred}{Scattered} & $\rightarrow$ & \textcolor{mlorange}{Clustered} & $\rightarrow$ & \textcolor{mlgreen}{Understood} \\
+\small(Raw data) & & \small(Week 1) & & \small(Week 2) \\
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!20]
+\centering
+\Large\textbf{BERT + Theory + Practice = Design with deep understanding}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% APPENDIX: TECHNICAL DETAILS (Selected slides)
+% ============================================
+
+% Appendix Section Divider
+\begin{frame}
+\begin{center}
+\Huge\textbf{Appendix: Technical Deep Dive}\\
+\vspace{1em}
+\Large\textit{For those who want to go deeper}\\
+\vspace{2em}
+\normalsize\textcolor{mlgray}{Optional Material}
+\end{center}
+\end{frame}
+
+% Keep selected technical appendix slides for reference
+% A1: NLP Evolution Timeline
+\begin{frame}{Appendix A1: NLP Evolution Timeline}
+\textbf{History of Natural Language Processing:}
+
+\begin{itemize}
+\item \textbf{1950s - Rule-Based:} Hand-coded grammar rules
+\item \textbf{1980s - Statistical:} Probabilistic models
+\item \textbf{1990s - Machine Learning:} Naive Bayes, SVM
+\item \textbf{2013 - Word2Vec:} Words as vectors
+\item \textbf{2017 - Transformers:} Attention is all you need
+\item \textbf{2018 - BERT:} Bidirectional pre-training
+\item \textbf{2019 - GPT-2:} Large-scale generation
+\item \textbf{2020+ - Giant Models:} GPT-3, PaLM, Claude
+\end{itemize}
+
+Each generation built on previous insights, leading to today's powerful models.
+\end{frame}
+
+% A2: Model Comparisons
+\begin{frame}{Appendix A2: BERT vs Other Models}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Direction} & \textbf{Use Case} & \textbf{Params} \\
+\midrule
+BERT & Bidirectional & Understanding & 110M \\
+GPT-2 & Left-to-right & Generation & 1.5B \\
+GPT-3 & Left-to-right & Generation & 175B \\
+RoBERTa & Bidirectional & Better BERT & 355M \\
+ALBERT & Bidirectional & Efficient BERT & 12M \\
+XLNet & Permutation & Best of both & 340M \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Differences:}
+\begin{itemize}
+\item GPT: Autoregressive (good for generation)
+\item BERT: Autoencoding (good for understanding)
+\item RoBERTa: BERT with more data, no NSP
+\item ALBERT: Parameter sharing for efficiency
+\end{itemize}
+\end{frame}
+
+% A3: Implementation Code
+\begin{frame}{Appendix A3: Complete BERT Implementation}
+\textbf{Full Working Example:}
+
+\begin{tcolorbox}[colback=gray!10]
+\tiny
+\texttt{from transformers import pipeline, AutoTokenizer}\\
+\texttt{import pandas as pd}\\
+\texttt{}\\
+\texttt{\# Load BERT for sentiment analysis}\\
+\texttt{analyzer = pipeline("sentiment-analysis",}\\
+\texttt{\ \ \ \ model="nlptown/bert-base-multilingual-uncased-sentiment")}\\
+\texttt{}\\
+\texttt{\# Analyze product reviews}\\
+\texttt{reviews = pd.read\_csv("reviews.csv")}\\
+\texttt{results = []}\\
+\texttt{}\\
+\texttt{for review in reviews['text']:}\\
+\texttt{\ \ \ \ result = analyzer(review)}\\
+\texttt{\ \ \ \ results.append(\{}\\
+\texttt{\ \ \ \ \ \ \ \ 'text': review,}\\
+\texttt{\ \ \ \ \ \ \ \ 'sentiment': result[0]['label'],}\\
+\texttt{\ \ \ \ \ \ \ \ 'confidence': result[0]['score']}\\
+\texttt{\ \ \ \ \})}\\
+\texttt{}\\
+\texttt{\# Find sarcasm patterns}\\
+\texttt{sarcasm\_indicators = ['great', 'love', 'fantastic', 'perfect']}\\
+\texttt{low\_ratings = reviews[reviews['rating'] <= 2]}\\
+\texttt{potential\_sarcasm = low\_ratings[}\\
+\texttt{\ \ \ \ low\_ratings['text'].str.contains('|'.join(sarcasm\_indicators))}\\
+\texttt{]}
+\end{tcolorbox}
+
+Full notebook available in course repository with fine-tuning examples.
+\end{frame}
+
+\end{document}

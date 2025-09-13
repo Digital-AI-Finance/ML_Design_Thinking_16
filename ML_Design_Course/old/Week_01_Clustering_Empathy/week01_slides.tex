@@ -1,0 +1,847 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Title information
+\title{Week 1: How do we truly understand our users?}
+\subtitle{From overwhelming data to clear insights}
+\author{ML/AI/GenAI for Design Thinking}
+\institute{BSc Course - 12 Week Program}
+\date{2024}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Section 1: The Problem (5 slides)
+
+% Slide 2: The Challenge
+\begin{frame}[t]{The Challenge: Information Overload}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/clustering_demo.pdf}
+\end{center}
+\vspace{0.5em}
+\begin{itemize}
+\item A startup has \textbf{10,000 product reviews}
+\item Reading all = 83 hours = \textbf{2 full weeks}
+\item Critical insights hidden in the noise
+\end{itemize}
+\end{frame}
+
+% Slide 3: Traditional Approach
+\begin{frame}[t]{Traditional Approach: Manual Sampling}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{What we typically do:}
+\begin{itemize}
+\item Read 100 random reviews (1\%)
+\item Take notes on patterns
+\item Draw conclusions
+\item Hope it represents all users
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{The problems:}
+\begin{itemize}
+\item Miss 99\% of insights
+\item Confirmation bias
+\item Random sampling misses minorities
+\item Time-consuming even for 1\%
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlred!20]
+\centering
+\textbf{Result: Incomplete understanding, missed opportunities}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 4: The Cost
+\begin{frame}[t]{The Hidden Cost: What We're Missing}
+\begin{columns}[T]
+\column{0.33\textwidth}
+\textbf{Hidden Segments}
+\begin{itemize}
+\item Power users (5\%)
+\item Edge cases (8\%)
+\item Silent majority (40\%)
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Unexpected Uses}
+\begin{itemize}
+\item Creative workarounds
+\item Unintended features
+\item New market opportunities
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Critical Issues}
+\begin{itemize}
+\item Rare but severe bugs
+\item Accessibility problems
+\item Cultural differences
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlred}{\textbf{We're designing blind!}}
+\end{center}
+\end{frame}
+
+% Slide 5: Today's Mission
+\begin{frame}[t]{Today's Mission: ML-Powered Understanding}
+\begin{center}
+\Large\textbf{From This...}\\
+\vspace{0.5em}
+\normalsize
+Reading 100 reviews → Guessing about 10,000 users\\
+\vspace{1em}
+\Large\textcolor{mlgreen}{\textbf{...To This}}\\
+\vspace{0.5em}
+\normalsize
+ML analyzes 10,000 reviews → Clear user segments\\
+\vspace{1em}
+\end{center}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\centering
+\textbf{What you'll learn:}
+\begin{itemize}
+\item K-means clustering
+\item Digital empathy at scale
+\item Pattern discovery
+\end{itemize}
+
+\column{0.5\textwidth}
+\centering
+\textbf{What you'll achieve:}
+\begin{itemize}
+\item Hear ALL voices
+\item Find hidden patterns
+\item Make data-driven decisions
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Section 2: ML Concept - Clustering (10 slides)
+
+% Slide 6: What is Clustering
+\begin{frame}[t]{What is Clustering?}
+\begin{center}
+\Large\textbf{Finding natural groups without labels}
+\end{center}
+
+\vspace{1em}
+\textbf{Real-world analogy: Sorting cookies}
+\begin{itemize}
+\item You have 100 mixed cookies
+\item No labels or categories given
+\item You naturally group by similarity:
+\begin{itemize}
+\item Chocolate chip together
+\item Sugar cookies together
+\item Oatmeal raisin together
+\end{itemize}
+\item Groups emerge from characteristics
+\end{itemize}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!20]
+\textbf{Clustering does this automatically with data!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 7: K-means Step 1
+\begin{frame}[t]{How K-means Works: Step 1 - Initialize}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/kmeans_process.pdf}
+\end{center}
+
+\textbf{Step 1: Pick K random centers}
+\begin{itemize}
+\item K = number of groups we want
+\item Start with random positions
+\item These are ``centroids'' (group centers)
+\end{itemize}
+
+\textcolor{mlblue}{Example: K=3 for three user types}
+\end{frame}
+
+% Slide 8: K-means Step 2
+\begin{frame}[t]{How K-means Works: Step 2 - Assign}
+\textbf{Step 2: Assign points to nearest center}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{For each data point:}
+\begin{enumerate}
+\item Calculate distance to all centers
+\item Assign to closest center
+\item Point joins that cluster
+\end{enumerate}
+
+\column{0.5\textwidth}
+\textbf{Distance = Similarity}
+\begin{itemize}
+\item Close = similar
+\item Far = different
+\item Uses Euclidean distance
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\colorbox{mlgreen!20}{\textbf{Points naturally group with similar neighbors}}
+\end{center}
+\end{frame}
+
+% Slide 9: K-means Step 3
+\begin{frame}[t]{How K-means Works: Step 3 - Update and Repeat}
+\textbf{Step 3: Recalculate centers and repeat}
+
+\begin{enumerate}
+\item Find new center of each cluster (mean position)
+\item Centers move to better positions
+\item Repeat assignment step
+\item Continue until centers stop moving
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Convergence:}
+\begin{itemize}
+\item Usually 10-20 iterations
+\item Centers stabilize
+\item Clusters are final
+\end{itemize}
+
+\begin{tcolorbox}[colback=mlblue!20]
+\textbf{Result: Natural groups discovered automatically!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 10: The Math (Simplified)
+\begin{frame}[t]{The Math (Simplified)}
+\textbf{Only one concept to understand: Distance = Similarity}
+
+\vspace{1em}
+\begin{center}
+\Large
+$\text{Distance} = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$
+\end{center}
+
+\vspace{1em}
+\textbf{In plain English:}
+\begin{itemize}
+\item How different are two reviews?
+\item Smaller distance = more similar
+\item We minimize total distance within clusters
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{That's all the math you need!}
+\end{frame}
+
+% Slide 11: Choosing K
+\begin{frame}[t]{Choosing K: The Elbow Method}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/empathy_scale.pdf}
+\end{center}
+
+\textbf{How many clusters?}
+\begin{itemize}
+\item Try different K values (2, 3, 4, 5...)
+\item Measure cluster quality
+\item Look for the ``elbow'' - where improvement slows
+\item Usually between 3-8 for user segmentation
+\end{itemize}
+\end{frame}
+
+% Slide 12: Real Example
+\begin{frame}[t]{Real Example: Clustering Product Reviews}
+\textbf{Input: 10,000 smartphone reviews}
+
+\vspace{0.5em}
+\textbf{K-means discovers 5 clusters:}
+\begin{enumerate}
+\item \textcolor{mlgreen}{\textbf{Happy Users}} (35\%): ``love'', ``perfect'', ``amazing''
+\item \textcolor{mlred}{\textbf{Frustrated Users}} (20\%): ``broken'', ``disappointed'', ``waste''
+\item \textcolor{mlblue}{\textbf{Feature Requests}} (15\%): ``wish'', ``should'', ``needs''
+\item \textcolor{mlorange}{\textbf{Bug Reports}} (10\%): ``crash'', ``freeze'', ``error''
+\item \textcolor{mlpurple}{\textbf{Comparison Shoppers}} (20\%): ``better than'', ``compared to'', ``vs''
+\end{enumerate}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\textbf{Found without reading a single review!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 13: What Clustering Finds
+\begin{frame}[t]{What Clustering Reveals}
+\textbf{Patterns invisible to humans:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Expected findings:}
+\begin{itemize}
+\item Happy vs unhappy
+\item New vs returning users
+\item Price-sensitive segments
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Surprise discoveries:}
+\begin{itemize}
+\item Gift purchasers (different language)
+\item Weekend vs weekday users
+\item Seasonal patterns
+\item Cultural differences
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlblue}{\textbf{ML sees what we miss}}
+\end{center}
+\end{frame}
+
+% Slide 14: Unsupervised Learning
+\begin{frame}[t]{Unsupervised Learning: No Labels Needed}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Supervised Learning}
+\begin{itemize}
+\item Needs labeled examples
+\item ``This is spam'' / ``This is not''
+\item Learns from answers
+\item Predicts categories
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Unsupervised Learning}
+\begin{itemize}
+\item No labels required
+\item Discovers structure
+\item Finds patterns
+\item Reveals unknown groups
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlpurple!20]
+\textbf{Perfect for exploration when you don't know what you're looking for!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 15: When to Use Clustering
+\begin{frame}[t]{When to Use Clustering in Design Thinking}
+\textbf{Perfect for:}
+\begin{itemize}
+\item \textbf{User Segmentation}: Find distinct user groups
+\item \textbf{Behavior Analysis}: Discover usage patterns
+\item \textbf{Content Organization}: Group similar items
+\item \textbf{Anomaly Detection}: Find outliers
+\item \textbf{Feature Discovery}: Identify themes
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Not great for:}
+\begin{itemize}
+\item When you need specific categories
+\item Very small datasets (<100 points)
+\item When groups overlap heavily
+\end{itemize}
+\end{frame}
+
+% Section 3: Design - Empathize (8 slides)
+
+% Slide 16: What is Empathy in Design
+\begin{frame}[t]{What is Empathy in Design?}
+\begin{center}
+\Large\textbf{Understanding users' needs, feelings, and contexts}
+\end{center}
+
+\vspace{1em}
+\textbf{The foundation of human-centered design:}
+\begin{itemize}
+\item Walk in users' shoes
+\item Feel their frustrations
+\item Understand their goals
+\item Recognize their constraints
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Why it matters:}
+\begin{itemize}
+\item Solve real problems, not assumed ones
+\item Create products people actually want
+\item Build emotional connections
+\end{itemize}
+
+\begin{tcolorbox}[colback=mlorange!20]
+\textbf{``Fall in love with the problem, not the solution''}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 17: Traditional Empathy Methods
+\begin{frame}[t]{Traditional Empathy Methods}
+\begin{columns}[T]
+\column{0.33\textwidth}
+\textbf{Interviews}
+\begin{itemize}
+\item Deep insights
+\item Personal stories
+\item 5-20 people
+\item 2 weeks effort
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Observations}
+\begin{itemize}
+\item Natural behavior
+\item Context matters
+\item Time-intensive
+\item Small sample
+\end{itemize}
+
+\column{0.33\textwidth}
+\textbf{Surveys}
+\begin{itemize}
+\item Larger scale
+\item Structured data
+\item Surface-level
+\item Response bias
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\textbf{The Tradeoff: Depth vs Scale}
+\end{center}
+\end{frame}
+
+% Slide 18: The Scale Problem
+\begin{frame}[t]{The Scale Problem in Modern Design Thinking}
+\textbf{The Challenge of Digital Scale:}
+\begin{itemize}
+\item \textbf{1995}: Average product had 100 users to understand
+\item \textbf{2024}: Average app has 100,000+ users globally
+\item That's a \textbf{1000x increase} in complexity
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Why Traditional Methods Break:}
+\begin{itemize}
+\item \textbf{Interviews}: 20 users = 0.02\% coverage
+\item \textbf{Surveys}: 1000 responses = 1\% coverage  
+\item \textbf{Focus Groups}: 50 people = 0.05\% coverage
+\end{itemize}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlred!20]
+\textbf{We're making decisions based on less than 1\% of our users!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 19: The Scale Challenge
+\begin{frame}[t]{The Scale Challenge: Numbers Don't Lie}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/results_comparison.pdf}
+\end{center}
+
+\textbf{Modern Design Reality:}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\begin{itemize}
+\item Millions of users globally
+\item 50+ languages and cultures
+\item 24/7 usage patterns
+\item Mobile, desktop, tablet, voice
+\end{itemize}
+
+\column{0.5\textwidth}
+\begin{itemize}
+\item Rapid feedback cycles needed
+\item Can't interview everyone
+\item Can't observe everyone
+\item But we CAN analyze everyone
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 20: Digital Empathy
+\begin{frame}[t]{Digital Empathy: Data as Voice}
+\begin{center}
+\Large\textbf{``Every click, review, and interaction tells a story''}
+\end{center}
+
+\vspace{1em}
+\textbf{Digital footprints reveal:}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\begin{itemize}
+\item What users do (behavior)
+\item What they say (reviews)
+\item When they struggle (errors)
+\item What they want (searches)
+\end{itemize}
+
+\column{0.5\textwidth}
+\begin{itemize}
+\item How they feel (sentiment)
+\item What they value (choices)
+\item Where they quit (dropoff)
+\item Why they return (loyalty)
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\textbf{ML helps us listen to thousands of voices simultaneously}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 20: Human + Machine Partnership
+\begin{frame}[t]{Human + Machine Partnership}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{What ML Does Well:}
+\begin{itemize}
+\item Process volume
+\item Find patterns
+\item Remove bias
+\item Work 24/7
+\item Quantify sentiment
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{What Humans Do Well:}
+\begin{itemize}
+\item Interpret meaning
+\item Understand context
+\item Feel emotion
+\item Make connections
+\item Create solutions
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlblue}{\textbf{Together: Scalable Empathy}}
+\end{center}
+
+\begin{itemize}
+\item ML finds the patterns
+\item Humans understand why they matter
+\item Result: Deep insights at scale
+\end{itemize}
+\end{frame}
+
+% Slide 21: Empathy at Scale Framework
+\begin{frame}[t]{Empathy at Scale Framework}
+\begin{center}
+\Large\textbf{The 4-Step Process}
+\end{center}
+
+\vspace{0.5em}
+\begin{enumerate}
+\item \textbf{COLLECT} - Gather all user data
+\begin{itemize}
+\item Reviews, support tickets, analytics
+\item The more diverse, the better
+\end{itemize}
+
+\item \textbf{CLUSTER} - Find natural groups
+\begin{itemize}
+\item Apply K-means or similar
+\item Discover segments automatically
+\end{itemize}
+
+\item \textbf{INTERPRET} - Understand each segment
+\begin{itemize}
+\item What defines each group?
+\item What are their needs?
+\end{itemize}
+
+\item \textbf{ACT} - Design for each segment
+\begin{itemize}
+\item Tailored solutions
+\item Prioritized roadmap
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Slide 22: Real Company Example
+\begin{frame}[t]{Real Example: Spotify's Discovery}
+\textbf{The Challenge:}
+\begin{itemize}
+\item Millions of users, diverse tastes
+\item How to personalize for everyone?
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{The ML Solution:}
+\begin{itemize}
+\item Clustered listening patterns
+\item Found unexpected segment: ``Cooking Music'' (12\% of users)
+\item Never explicitly requested
+\item Pattern: Upbeat, no explicit lyrics, 30-45 min sessions
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{The Result:}
+\begin{itemize}
+\item Created ``Cooking'' playlist category
+\item 8 million+ followers
+\item Increased engagement 23\%
+\end{itemize}
+
+\begin{tcolorbox}[colback=mlgreen!20]
+\textbf{ML revealed what users never told them directly}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 23: Avoiding Empathy Pitfalls
+\begin{frame}[t]{Avoiding Digital Empathy Pitfalls}
+\textbf{Remember:}
+\begin{itemize}
+\item \textbf{Data shows WHAT, not WHY}
+\begin{itemize}
+\item Always validate findings with real users
+\item Follow up clusters with interviews
+\end{itemize}
+
+\item \textbf{Correlation is not causation}
+\begin{itemize}
+\item Ice cream sales and crime both increase in summer
+\item Doesn't mean ice cream causes crime!
+\end{itemize}
+
+\item \textbf{Don't lose the human touch}
+\begin{itemize}
+\item Numbers tell a story, but people live it
+\item Always connect data back to real humans
+\end{itemize}
+
+\item \textbf{Beware of echo chambers}
+\begin{itemize}
+\item Vocal minorities can dominate
+\item Silent majority matters too
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section 4: Integration Demo (5 slides)
+
+% Slide 24: Live Demo Setup
+\begin{frame}[t]{Live Demo: Analyzing 10,000 Amazon Reviews}
+\textbf{Our Dataset:}
+\begin{itemize}
+\item 10,000 product reviews for wireless headphones
+\item Mix of 1-5 star ratings
+\item Various review lengths
+\item Real customer feedback
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Preprocessing Steps:}
+\begin{enumerate}
+\item Convert text to numbers (TF-IDF)
+\item Normalize features
+\item Apply K-means with K=5
+\item Analyze results
+\end{enumerate}
+
+\vspace{0.5em}
+\begin{center}
+\colorbox{mlblue!20}{\textbf{Let's see what patterns emerge...}}
+\end{center}
+\end{frame}
+
+% Slide 25-26: Combined Demo Results
+\begin{frame}[t]{Demo Results: 5 Segments Including Hidden Gem}
+\begin{columns}[T]
+\column{0.55\textwidth}
+\textbf{K-means discovers:}
+\begin{enumerate}
+\item \textbf{Price-conscious} (22\%): ``value'', ``cheap''
+\item \textbf{Quality focus} (28\%): ``sound'', ``bass''
+\item \textbf{Convenience} (18\%): ``easy'', ``quick''
+\item \textbf{Technical} (17\%): ``bluetooth'', ``battery''
+\item \textbf{Gift buyers} (15\%): ``gift'', ``birthday''
+\end{enumerate}
+
+\column{0.45\textwidth}
+\textbf{The Hidden 15\%:}
+\begin{itemize}
+\item Never said ``gift'' directly
+\item Found via language patterns
+\item Third-person references
+\item Price insensitive
+\item Seasonal patterns
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\textbf{A whole market segment hiding in plain sight - worth millions in revenue!}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 26: From Discovery to Action  
+\begin{frame}[t]{From Discovery to Design Decisions}
+\textbf{Segment-specific strategies:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{For Price-conscious (22\%):}
+\begin{itemize}
+\item Highlight value propositions
+\item Compare to competitors
+\item Offer bundles
+\end{itemize}
+
+\textbf{For Quality enthusiasts (28\%):}
+\begin{itemize}
+\item Technical specifications
+\item Audio samples
+\item Expert reviews
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{For Gift buyers (15\%):}
+\begin{itemize}
+\item Gift wrapping options
+\item Gift message features
+\item Holiday promotions
+\item Gift guides
+\end{itemize}
+
+\textbf{For Technical users (17\%):}
+\begin{itemize}
+\item Detailed specs
+\item Compatibility info
+\item Firmware updates
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide 27: From Clusters to Action
+\begin{frame}[t]{From Clusters to Action: Design Implications}
+\textbf{Immediate actions based on clustering:}
+
+\begin{enumerate}
+\item \textbf{Personalized landing pages}
+\begin{itemize}
+\item Different messaging per segment
+\item Relevant features highlighted
+\end{itemize}
+
+\item \textbf{Targeted email campaigns}
+\begin{itemize}
+\item Price alerts for value seekers
+\item New features for tech enthusiasts
+\end{itemize}
+
+\item \textbf{Product development priorities}
+\begin{itemize}
+\item 28\% care most about sound quality
+\item Focus R\&D on audio improvements
+\end{itemize}
+
+\item \textbf{Customer support training}
+\begin{itemize}
+\item Different segments, different needs
+\item Tailored support approaches
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Section 5: Bridge (2 slides)
+
+% Slide 28: What We Achieved
+\begin{frame}[t]{What We Achieved Today}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Traditional Approach:}
+\begin{itemize}
+\item 100 reviews read
+\item 2 segments identified
+\item 2 weeks of work
+\item \$5,000 cost
+\item Lots of guessing
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{ML-Powered Approach:}
+\begin{itemize}
+\item 10,000 reviews analyzed
+\item 5 segments discovered
+\item 4 hours total
+\item \$50 compute cost
+\item Data-driven insights
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlgreen}{\textbf{100x more data, 50x faster, 100x cheaper}}
+\end{center}
+
+\begin{tcolorbox}[colback=mlblue!20]
+\textbf{Key Learning: ML + Empathy = Understanding at Scale}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 29: Next Week's Challenge
+\begin{frame}[t]{Next Week's Challenge}
+\begin{center}
+\Large\textbf{We found 5 user segments...}\\
+\vspace{1em}
+\normalsize
+We know they exist. We see their patterns.\\
+We understand their keywords.\\
+\vspace{1em}
+\textbf{But...}\\
+\vspace{1em}
+\Large\textcolor{mlred}{\textbf{What are they actually FEELING?}}\\
+\vspace{1em}
+\normalsize
+Happy? Frustrated? Confused? Excited?\\
+\vspace{1em}
+\end{center}
+
+\begin{tcolorbox}[colback=mlorange!20]
+\textbf{Next Week: Transformers and NLP - Understanding Emotion in Text}\\
+How BERT reads between the lines to understand sentiment
+\end{tcolorbox}
+\end{frame}
+
+\end{document}

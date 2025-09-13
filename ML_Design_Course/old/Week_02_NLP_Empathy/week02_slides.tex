@@ -1,0 +1,986 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Title information
+\title{Week 2: What are users really saying?}
+\subtitle{Understanding emotions in text with NLP}
+\author{ML/AI/GenAI for Design Thinking}
+\institute{BSc Course - 12 Week Program}
+\date{2024}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% ============================================
+% PART 1: THE PROBLEM - HIDDEN EMOTIONS (6 slides)
+% ============================================
+
+% Slide 2: Text Has Hidden Emotions
+\begin{frame}[t]{Part 1: The Problem - Text Has Hidden Emotions}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{What users write:}
+\begin{itemize}
+\item ``Great product... if you like disappointment''
+\item ``Absolutely perfect! Never worked once''
+\item ``Can't complain'' (literally can't)
+\item ``Fine.'' (but are they really?)
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{What they actually mean:}
+\begin{itemize}
+\item Frustrated and sarcastic
+\item Extremely angry
+\item Forced acceptance
+\item Deeply unsatisfied
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlred!20]
+\centering
+\textbf{Human language is complex: sarcasm, context, subtle emotions}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 3: Traditional Keyword Matching Failures
+\begin{frame}[t]{Traditional Approach: Why Keyword Matching Fails}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Rule-based sentiment:}
+\begin{itemize}
+\item Count positive words (+1)
+\item Count negative words (-1)
+\item Sum the scores
+\item Classify as pos/neg/neutral
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Failure modes:}
+\begin{itemize}
+\item ``Not bad'' → Negative (wrong!)
+\item ``Terribly good'' → Mixed (wrong!)
+\item Misses context completely
+\item Can't detect sarcasm
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{The fundamental problem:}\\
+Words have different meanings in different contexts\\
+``I love waiting 3 hours'' - Sarcastic in reviews, genuine in romance novels
+\end{frame}
+
+% Slide 4: The Emotion Spectrum We Miss
+\begin{frame}[t]{The Emotional Spectrum Beyond Binary}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/sentiment_analysis_demo.pdf}
+\end{center}
+
+\textbf{Emotion Theory: Plutchik's Wheel}
+\begin{itemize}
+\item 8 primary emotions with intensities
+\item Complex emotions are combinations
+\item Context determines emotional interpretation
+\item Cultural variations in expression
+\end{itemize}
+\end{frame}
+
+% Slide 5: Cost of Misunderstanding
+\begin{frame}[t]{The Cost of Emotional Misunderstanding}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Business Impact:}
+\begin{itemize}
+\item 68\% customer loss from perceived indifference
+\item Wrong product decisions
+\item Failed feature prioritization
+\item Missed market signals
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Design Impact:}
+\begin{itemize}
+\item Building for wrong emotions
+\item Missing user pain points
+\item Tone-deaf messaging
+\item Poor user experience
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{The Scale Challenge:}
+\begin{itemize}
+\item Manual analysis: 100 reviews/week
+\item Digital products: 10,000+ reviews/week
+\item Human capacity: Linear growth
+\item Data volume: Exponential growth
+\end{itemize}
+\end{frame}
+
+% Slide 6: The Challenge Question
+\begin{frame}[t]{The Central Challenge}
+\begin{center}
+\Large\textbf{How can machines understand not just words,\\
+but the emotions and context behind them?}
+\end{center}
+
+\vspace{2em}
+\textbf{Requirements for solution:}
+\begin{enumerate}
+\item Understand context and word relationships
+\item Detect subtle patterns (sarcasm, negation)
+\item Process at scale (thousands per second)
+\item Adapt to different domains
+\item Provide interpretable results
+\end{enumerate}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{Enter: Natural Language Processing with Deep Learning}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 2: THEORY - NATURAL LANGUAGE PROCESSING (8 slides)
+% ============================================
+
+% Slide 7: NLP Evolution
+\begin{frame}[t]{Part 2: Natural Language Processing - The Evolution}
+\textbf{How Machines Learn to Read:}
+
+\begin{enumerate}
+\item \textbf{1950s - Rule-Based:} ``If contains 'good' then positive''
+   \begin{itemize}
+   \item Hand-crafted rules
+   \item Language-specific
+   \item Brittle and limited
+   \end{itemize}
+
+\item \textbf{1990s - Statistical:} Probability and frequencies
+   \begin{itemize}
+   \item Bag-of-words models
+   \item N-grams and Markov chains
+   \item Lost word order
+   \end{itemize}
+
+\item \textbf{2013 - Word Embeddings:} Words as vectors
+   \begin{itemize}
+   \item Word2Vec, GloVe
+   \item Semantic relationships
+   \item Still context-independent
+   \end{itemize}
+
+\item \textbf{2018 - Contextual Models:} Understanding changes meaning
+   \begin{itemize}
+   \item BERT, GPT
+   \item Context-dependent embeddings
+   \item Transfer learning
+   \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Slide 8: Word Embeddings and Vector Spaces
+\begin{frame}[t]{Word Embeddings: Meaning as Mathematics}
+\textbf{The Vector Space Model:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Concept:}
+\begin{itemize}
+\item Words → High-dimensional vectors
+\item Similar words → Nearby vectors
+\item Relationships → Vector arithmetic
+\item Meaning → Geometric position
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Properties:}
+\begin{itemize}
+\item King - Man + Woman = Queen
+\item Distance = Semantic similarity
+\item Clusters = Semantic categories
+\item Dimensions = Abstract features
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Limitations of Static Embeddings:}
+\begin{itemize}
+\item ``Bank'' (river) = ``Bank'' (financial) - Same vector!
+\item No understanding of word order
+\item Cannot handle new contexts
+\item Fixed representation regardless of usage
+\end{itemize}
+\end{frame}
+
+% Slide 9: Sequential vs Parallel Processing
+\begin{frame}[t]{Processing Models: Sequential vs Parallel}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Sequential (RNN/LSTM):}
+\begin{itemize}
+\item Process word by word
+\item Hidden state carries memory
+\item Long sequences → Vanishing gradients
+\item Cannot parallelize
+\item O(n) time complexity
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Parallel (Transformers):}
+\begin{itemize}
+\item Process all words simultaneously
+\item Attention replaces recurrence
+\item Handles long sequences well
+\item Fully parallelizable
+\item O(1) time complexity
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{The Parallel Advantage:}
+\begin{itemize}
+\item Training: 100x faster on same hardware
+\item Inference: Real-time processing possible
+\item Context: Can see entire document at once
+\item Scalability: Leverages modern GPU architecture
+\end{itemize}
+\end{frame}
+
+% Slide 10: Context Windows and Dependencies
+\begin{frame}[t]{Understanding Context and Dependencies}
+\textbf{Types of Language Dependencies:}
+
+\begin{enumerate}
+\item \textbf{Local Dependencies:} Adjacent words
+   \begin{itemize}
+   \item ``very good'' - Modifier + adjective
+   \item ``not bad'' - Negation
+   \end{itemize}
+
+\item \textbf{Long-range Dependencies:} Distant relationships
+   \begin{itemize}
+   \item ``The movie, despite great acting, was boring''
+   \item Subject-verb agreement across clauses
+   \end{itemize}
+
+\item \textbf{Semantic Dependencies:} Meaning relationships
+   \begin{itemize}
+   \item Coreference: ``John went to the store. He bought milk.''
+   \item Causality: ``It rained, so the game was cancelled''
+   \end{itemize}
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Context Window Sizes:}
+\begin{itemize}
+\item N-grams: 2-5 words
+\item LSTMs: 100-200 words effectively
+\item BERT: 512 tokens
+\item GPT-3: 2048 tokens
+\end{itemize}
+\end{frame}
+
+% Slide 11: Supervised vs Unsupervised Learning
+\begin{frame}[t]{Learning Paradigms in NLP}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Supervised Learning:}
+\begin{itemize}
+\item Requires labeled data
+\item Task-specific training
+\item High accuracy on specific task
+\item Limited generalization
+\item Example: Sentiment classification
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Unsupervised Learning:}
+\begin{itemize}
+\item No labels required
+\item Learns language patterns
+\item General language understanding
+\item Transfer to many tasks
+\item Example: Language modeling
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{The Pre-training Revolution:}
+\begin{enumerate}
+\item \textbf{Stage 1:} Unsupervised pre-training on massive text
+\item \textbf{Stage 2:} Supervised fine-tuning on specific task
+\item \textbf{Result:} Best of both worlds
+\end{enumerate}
+
+\textbf{Benefits:}
+\begin{itemize}
+\item Less labeled data needed (100s vs 100,000s)
+\item Better generalization
+\item Transfer learning across domains
+\end{itemize}
+\end{frame}
+
+% Slide 12: Classification vs Generation
+\begin{frame}[t]{NLP Tasks: Classification vs Generation}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Classification Tasks:}
+\begin{itemize}
+\item Sentiment analysis
+\item Named entity recognition
+\item Part-of-speech tagging
+\item Intent detection
+\end{itemize}
+\textbf{Output:} Discrete labels
+
+\column{0.5\textwidth}
+\textbf{Generation Tasks:}
+\begin{itemize}
+\item Machine translation
+\item Text summarization
+\item Question answering
+\item Dialogue systems
+\end{itemize}
+\textbf{Output:} Text sequences
+\end{columns}
+
+\vspace{1em}
+\textbf{Architectural Differences:}
+\begin{itemize}
+\item \textbf{Encoder-only (BERT):} Best for classification
+\item \textbf{Decoder-only (GPT):} Best for generation
+\item \textbf{Encoder-Decoder (T5):} Best for transformation
+\end{itemize}
+
+\textbf{Sentiment as Classification:}
+\begin{itemize}
+\item Input: Text sequence
+\item Processing: Contextual encoding
+\item Output: Probability distribution over emotions
+\end{itemize}
+\end{frame}
+
+% Slide 13: Evaluation Metrics
+\begin{frame}[t]{Measuring NLP Performance}
+\textbf{Classification Metrics:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Basic Metrics:}
+\begin{itemize}
+\item Accuracy: Overall correctness
+\item Precision: Positive prediction quality
+\item Recall: Positive class coverage
+\item F1-Score: Harmonic mean
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Advanced Metrics:}
+\begin{itemize}
+\item ROC-AUC: Threshold independence
+\item Cohen's Kappa: Agreement beyond chance
+\item Macro/Micro averaging
+\item Class-weighted scores
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Sentiment-Specific Challenges:}
+\begin{itemize}
+\item Class imbalance (more positive reviews)
+\item Subjective ground truth
+\item Multi-label emotions
+\item Sarcasm as special case
+\end{itemize}
+
+\textbf{Human Performance Baseline:}
+\begin{itemize}
+\item Inter-annotator agreement: 85-90\%
+\item Sarcasm detection: 70-75\%
+\item Emotion categorization: 80-85\%
+\end{itemize}
+\end{frame}
+
+% Slide 14: Limits of Traditional NLP
+\begin{frame}[t]{The Limits of Pre-Transformer NLP}
+\textbf{Fundamental Limitations:}
+
+\begin{enumerate}
+\item \textbf{Context Blindness:}
+   \begin{itemize}
+   \item Words treated independently
+   \item Lost long-range dependencies
+   \item No true understanding
+   \end{itemize}
+
+\item \textbf{Computational Bottlenecks:}
+   \begin{itemize}
+   \item Sequential processing required
+   \item Memory limitations
+   \item Training time measured in weeks
+   \end{itemize}
+
+\item \textbf{Generalization Failures:}
+   \begin{itemize}
+   \item Domain-specific models
+   \item Cannot transfer knowledge
+   \item Needs massive labeled data
+   \end{itemize}
+\end{enumerate}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\textbf{The Solution: Attention Mechanisms and Transformers}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 3: TRANSFORMERS AND BERT (8 slides)
+% ============================================
+
+% Slide 15: The Transformer Revolution
+\begin{frame}[t]{Part 3: The Transformer Revolution (2017)}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/transformer_process.pdf}
+\end{center}
+
+\textbf{``Attention Is All You Need'' - Vaswani et al.}
+\begin{itemize}
+\item No recurrence or convolution
+\item Pure attention mechanisms
+\item Parallel processing of sequences
+\item State-of-the-art on all NLP tasks
+\end{itemize}
+\end{frame}
+
+% Slide 16: Attention Mechanism Theory
+\begin{frame}[t]{Attention Mechanism: The Core Innovation}
+\textbf{Mathematical Intuition (Simplified):}
+
+\begin{enumerate}
+\item \textbf{Query-Key-Value Model:}
+   \begin{itemize}
+   \item Query (Q): What am I looking for?
+   \item Key (K): What information is available?
+   \item Value (V): The actual information
+   \end{itemize}
+
+\item \textbf{Attention Score:}
+   \begin{itemize}
+   \item Similarity = Q · K (dot product)
+   \item Normalize with softmax
+   \item Weight values by attention scores
+   \end{itemize}
+
+\item \textbf{Result:}
+   \begin{itemize}
+   \item Each word ``attends'' to all other words
+   \item Learns what relationships matter
+   \item Context-dependent representation
+   \end{itemize}
+\end{enumerate}
+
+\textbf{Analogy:} Like a student (Query) in a library (Keys) selecting relevant books (Values) based on their research topic
+\end{frame}
+
+% Slide 17: Multi-Head Attention
+\begin{frame}[t]{Multi-Head Attention: Multiple Perspectives}
+\textbf{Why Multiple Heads?}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Different Heads Learn:}
+\begin{itemize}
+\item Syntactic relationships
+\item Semantic relationships
+\item Positional patterns
+\item Domain-specific patterns
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{BERT Uses:}
+\begin{itemize}
+\item 12 attention heads
+\item Different representation subspaces
+\item Ensemble of perspectives
+\item Robust understanding
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Example: ``The bank is by the river''}
+\begin{itemize}
+\item Head 1: ``bank'' -- ``river'' (disambiguation)
+\item Head 2: ``The'' -- ``bank'' (determiner)
+\item Head 3: ``is'' -- ``bank'' (subject-verb)
+\item Head 4: ``by'' -- ``river'' (preposition)
+\end{itemize}
+
+Each head captures different linguistic phenomena
+\end{frame}
+
+% Slide 18: BERT Architecture
+\begin{frame}[t]{BERT: Bidirectional Encoder Representations from Transformers}
+\textbf{Architecture Overview:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Model Specifications:}
+\begin{itemize}
+\item 12 transformer layers
+\item 768 hidden dimensions
+\item 12 attention heads
+\item 110M parameters (base)
+\item 512 max sequence length
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Key Components:}
+\begin{itemize}
+\item Token embeddings
+\item Position embeddings
+\item Segment embeddings
+\item Layer normalization
+\item Dropout regularization
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Pre-training Objectives:}
+\begin{enumerate}
+\item \textbf{Masked Language Model (MLM):} Predict masked words
+\item \textbf{Next Sentence Prediction (NSP):} Understand relationships
+\end{enumerate}
+
+Trained on: 3.3 billion words (Wikipedia + BookCorpus)
+\end{frame}
+
+% Slide 19: Bidirectional vs Unidirectional
+\begin{frame}[t]{Bidirectional Understanding: Seeing the Full Picture}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Unidirectional (GPT):}
+\begin{itemize}
+\item Left-to-right processing
+\item Autoregressive prediction
+\item Good for generation
+\item Cannot see future context
+\end{itemize}
+Example: ``The movie was [?]''\\
+Only sees: ``The movie was''
+
+\column{0.5\textwidth}
+\textbf{Bidirectional (BERT):}
+\begin{itemize}
+\item Sees entire sequence
+\item Non-autoregressive
+\item Better for understanding
+\item Full context available
+\end{itemize}
+Example: ``The movie was [?] boring''\\
+Sees: ``The movie was'' + ``boring''
+\end{columns}
+
+\vspace{1em}
+\textbf{Impact on Sentiment Analysis:}
+\begin{itemize}
+\item ``Not bad at all'' - Needs to see ``all'' to understand ``not bad''
+\item ``Great... if you like disappointment'' - End reveals sarcasm
+\item Bidirectionality crucial for context understanding
+\end{itemize}
+\end{frame}
+
+% Slide 20: Pre-training and Fine-tuning Theory
+\begin{frame}[t]{Transfer Learning: From General to Specific}
+\textbf{Two-Stage Learning Process:}
+
+\begin{enumerate}
+\item \textbf{Pre-training (Unsupervised):}
+   \begin{itemize}
+   \item Learn general language patterns
+   \item No task-specific labels
+   \item Massive diverse text corpus
+   \item Weeks of computation
+   \end{itemize}
+
+\item \textbf{Fine-tuning (Supervised):}
+   \begin{itemize}
+   \item Adapt to specific task
+   \item Small labeled dataset
+   \item Task-specific head
+   \item Hours of computation
+   \end{itemize}
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Why Transfer Learning Works:}
+\begin{itemize}
+\item Lower layers: General features (syntax, grammar)
+\item Middle layers: Semantic understanding
+\item Upper layers: Task-specific patterns
+\item Shared knowledge across tasks
+\end{itemize}
+
+\textbf{Fine-tuning for Sentiment:} Add classification head, train on labeled reviews
+\end{frame}
+
+% Slide 21: Contextual Embeddings
+\begin{frame}[t]{Contextual Embeddings: Dynamic Meaning}
+\textbf{Static vs Contextual:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Static (Word2Vec):}
+\begin{itemize}
+\item ``Bank'' → Same vector always
+\item Context-independent
+\item One embedding per word
+\item Vocabulary limited
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Contextual (BERT):}
+\begin{itemize}
+\item ``Bank'' → Different by context
+\item Context-dependent
+\item Dynamic embeddings
+\item Subword tokenization
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Examples of Context Changing Meaning:}
+\begin{itemize}
+\item ``Apple'' in tech review vs recipe
+\item ``Sick'' in medical vs slang context
+\item ``Fire'' as danger vs excellence
+\item ``Lit'' as illumination vs excitement
+\end{itemize}
+
+\textbf{Result:} Each word's representation includes information from entire sequence
+\end{frame}
+
+% Slide 22: How BERT Understands Sentiment
+\begin{frame}[t]{BERT's Sentiment Understanding Process}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/bert_attention_heatmap.pdf}
+\end{center}
+
+\textbf{Key Mechanisms:}
+\begin{itemize}
+\item Attention weights show word relationships
+\item Negation patterns learned from data
+\item Sarcasm detected through contradiction
+\item Context modifies word sentiment
+\end{itemize}
+\end{frame}
+
+% ============================================
+% PART 4: SENTIMENT ANALYSIS THEORY (6 slides)
+% ============================================
+
+% Slide 23: Multi-dimensional Sentiment Space
+\begin{frame}[t]{Part 4: Multi-dimensional Sentiment Theory}
+\textbf{Beyond Positive/Negative:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Emotion Dimensions:}
+\begin{itemize}
+\item Valence (positive-negative)
+\item Arousal (calm-excited)
+\item Dominance (submissive-dominant)
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Plutchik's 8 Primary:}
+\begin{itemize}
+\item Joy -- Sadness
+\item Trust -- Disgust
+\item Fear -- Anger
+\item Surprise -- Anticipation
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Complex Emotions as Combinations:}
+\begin{itemize}
+\item Disappointment = Surprise + Sadness
+\item Contempt = Disgust + Anger
+\item Awe = Surprise + Fear
+\item Love = Joy + Trust
+\end{itemize}
+
+\textbf{BERT Output:} Probability distribution over emotion categories
+\end{frame}
+
+% Slide 24: Emotion Taxonomy and Categories
+\begin{frame}[t]{Emotion Taxonomy for Design}
+\textbf{Hierarchical Emotion Structure:}
+
+\begin{enumerate}
+\item \textbf{Primary Level:} Basic emotions (6-8 categories)
+\item \textbf{Secondary Level:} Combinations and intensities
+\item \textbf{Tertiary Level:} Domain-specific emotions
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Design-Relevant Emotions:}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Positive Engagement:}
+\begin{itemize}
+\item Delight
+\item Satisfaction
+\item Trust
+\item Excitement
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Negative Signals:}
+\begin{itemize}
+\item Frustration
+\item Confusion
+\item Disappointment
+\item Anxiety
+\end{itemize}
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Cultural Considerations:}
+\begin{itemize}
+\item Emotion expression varies by culture
+\item Sarcasm frequency differs
+\item Politeness strategies affect sentiment
+\end{itemize}
+\end{frame}
+
+% Slide 25: Context and Sarcasm Detection
+\begin{frame}[t]{Detecting Sarcasm and Complex Patterns}
+\textbf{Linguistic Markers of Sarcasm:}
+
+\begin{enumerate}
+\item \textbf{Positive-Negative Contrast:}
+   \begin{itemize}
+   \item ``Great product... if you enjoy failure''
+   \item Sentiment reversal mid-sentence
+   \end{itemize}
+
+\item \textbf{Hyperbole:}
+   \begin{itemize}
+   \item ``Absolutely the best thing ever created''
+   \item Exaggeration beyond reasonable
+   \end{itemize}
+
+\item \textbf{Context Mismatch:}
+   \begin{itemize}
+   \item ``Love waiting 3 hours''
+   \item Positive emotion + negative situation
+   \end{itemize}
+\end{enumerate}
+
+\textbf{BERT's Detection Method:}
+\begin{itemize}
+\item Learns contradiction patterns from training
+\item Attention focuses on contrasting elements
+\item Context embeddings capture incongruity
+\item Fine-tuning improves domain-specific sarcasm
+\end{itemize}
+\end{frame}
+
+% Slide 26: Domain Adaptation Concepts
+\begin{frame}[t]{Domain Adaptation: Specialized Understanding}
+\textbf{Why Domain Matters:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{General BERT:}
+\begin{itemize}
+\item Trained on books/Wikipedia
+\item General language patterns
+\item May miss domain terms
+\item Standard sentiment
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Domain-Adapted:}
+\begin{itemize}
+\item Fine-tuned on domain text
+\item Understands jargon
+\item Domain-specific sentiment
+\item Better accuracy
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Domain Examples:}
+\begin{itemize}
+\item \textbf{Gaming:} ``Nerf'' = negative, ``OP'' = positive
+\item \textbf{Finance:} ``Volatile'' = context-dependent
+\item \textbf{Medical:} ``Benign'' = positive
+\item \textbf{Food:} ``Rich'' = positive or negative by context
+\end{itemize}
+
+\textbf{Adaptation Process:}
+\begin{enumerate}
+\item Collect domain-specific labeled data
+\item Fine-tune pre-trained BERT
+\item Evaluate on domain test set
+\end{enumerate}
+\end{frame}
+
+% Slide 27: Performance Metrics Comparison
+\begin{frame}[t]{Comparative Performance Analysis}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/sentiment_comparison.pdf}
+\end{center}
+
+\textbf{Key Improvements:}
+\begin{itemize}
+\item Overall accuracy: 72\% → 95\% (+23\%)
+\item Sarcasm detection: 15\% → 87\% (+72\%)
+\item Negation handling: 45\% → 92\% (+47\%)
+\item Context understanding: 60\% → 94\% (+34\%)
+\end{itemize}
+\end{frame}
+
+% Slide 28: Human-AI Collaboration Theory
+\begin{frame}[t]{Human-AI Collaboration in Emotional Understanding}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{AI Strengths:}
+\begin{itemize}
+\item Scale (10,000+ texts)
+\item Consistency
+\item Pattern detection
+\item Quantification
+\item 24/7 availability
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Human Strengths:}
+\begin{itemize}
+\item Deep empathy
+\item Cultural nuance
+\item Creative interpretation
+\item Ethical judgment
+\item Context knowledge
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Collaboration Models:}
+\begin{enumerate}
+\item \textbf{AI-Assisted:} AI suggests, human decides
+\item \textbf{Human-in-the-loop:} Human validates AI output
+\item \textbf{Hybrid:} Division of labor by strength
+\end{enumerate}
+
+\textbf{Best Practice:}
+\begin{itemize}
+\item AI for initial analysis and pattern finding
+\item Humans for interpretation and decision-making
+\item Continuous feedback loop for improvement
+\end{itemize}
+\end{frame}
+
+% ============================================
+% APPENDIX: RESOURCES AND NEXT WEEK (2 slides)
+% ============================================
+
+% Slide 29: Key Concepts Summary
+\begin{frame}[t]{Appendix: Key Concepts Summary}
+\textbf{Core Theoretical Concepts:}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{NLP Foundation:}
+\begin{itemize}
+\item Vector space representations
+\item Context windows
+\item Supervised vs unsupervised
+\item Evaluation metrics
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Transformer Innovation:}
+\begin{itemize}
+\item Attention mechanisms
+\item Parallel processing
+\item Bidirectional context
+\item Transfer learning
+\end{itemize}
+\end{columns}
+
+\vspace{1em}
+\textbf{Sentiment Analysis Theory:}
+\begin{itemize}
+\item Multi-dimensional emotions
+\item Context-dependent meaning
+\item Sarcasm as contradiction
+\item Domain adaptation necessity
+\end{itemize}
+
+\textbf{Key Takeaway:}\\
+BERT understands language through learned patterns of attention,\\
+enabling nuanced emotional understanding at scale
+\end{frame}
+
+% Slide 30: Bridge to Next Week
+\begin{frame}[t]{Next Week: Attention Mechanisms in Detail}
+\begin{center}
+\Large\textbf{We understand emotions in individual texts...}\\
+\vspace{1em}
+\large But what patterns exist across thousands?
+\end{center}
+
+\vspace{1em}
+\textbf{Week 3 Preview: Attention - Finding What Matters}
+\begin{itemize}
+\item How attention weights are calculated
+\item Visualizing attention patterns
+\item Finding key phrases automatically
+\item Topic discovery through attention
+\item From attention to insights
+\end{itemize}
+
+\vspace{1em}
+\textbf{The Journey:}
+\begin{enumerate}
+\item Week 1: Clustering - Found user groups
+\item Week 2: NLP/BERT - Understood emotions
+\item Week 3: Attention - Discover what matters most
+\end{enumerate}
+\end{frame}
+
+\end{document}

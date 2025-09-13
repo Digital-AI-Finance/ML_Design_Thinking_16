@@ -1,0 +1,743 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Title information
+\title{Week 2: Understanding Emotions in Text}
+\subtitle{BERT + Empathize = What Users Really Mean}
+\author{ML/AI/GenAI for Design Thinking}
+\institute{BSc Course - 12 Week Program}
+\date{2024}
+
+\begin{document}
+
+% ============================================
+% PART 1: THE PROBLEM (Slides 1-4)
+% ============================================
+
+% Slide 1: Title
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide 2: Hidden Emotions in Text
+\begin{frame}[t]{The Problem: Hidden Emotions in Text}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{What users write:}
+\begin{itemize}
+\item ``Great product... if you like disappointment''
+\item ``Not bad at all''
+\item ``Fine.''
+\item ``Can't complain''
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{What they actually mean:}
+\begin{itemize}
+\item Angry (sarcasm)
+\item Happy (double negative)
+\item Unhappy (short response)
+\item Forced acceptance
+\end{itemize}
+\end{columns}
+
+\vspace{2em}
+\begin{tcolorbox}[colback=mlred!20]
+\centering
+\Large\textbf{Words alone don't tell the whole story}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 3: Why Keywords Fail
+\begin{frame}[t]{Why Keyword Matching Fails}
+\textbf{The ``Not Bad'' Problem:}
+
+\vspace{1em}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Text} & \textbf{Keyword Method} & \textbf{Reality} \\
+\midrule
+``Not bad'' & Negative & Positive \\
+``Terribly good'' & Mixed & Very Positive \\
+``I love waiting 3 hours'' & Positive & Negative (sarcasm) \\
+``Could be worse'' & Negative & Neutral/Positive \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{2em}
+\textbf{Why it fails:}
+\begin{itemize}
+\item Counts words, ignores relationships
+\item Misses context completely
+\item Can't detect sarcasm or tone
+\item Treats all ``not'' as negative
+\end{itemize}
+\end{frame}
+
+% Slide 4: The Challenge
+\begin{frame}[t]{The Challenge: Understanding Context}
+\begin{center}
+\Large\textbf{How can we teach computers to understand\\
+not just words, but what people really mean?}
+\end{center}
+
+\vspace{2em}
+\textbf{What we need:}
+\begin{enumerate}
+\item See relationships between words
+\item Understand that order matters
+\item Detect sarcasm and tone
+\item Work with thousands of reviews
+\end{enumerate}
+
+\vspace{2em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\textbf{Solution: BERT - A new way of reading text}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 2: THE SOLUTION - BERT (Slides 5-12)
+% ============================================
+
+% Slide 5: What is BERT?
+\begin{frame}[t]{What is BERT?}
+\textbf{BERT = Bidirectional Encoder Representations from Transformers}
+
+\vspace{1em}
+Simple explanation: \textbf{BERT reads all words at once, not one by one}
+
+\vspace{1em}
+\begin{center}
+\begin{tcolorbox}[colback=mlblue!10, width=0.8\textwidth]
+\textbf{Traditional:} The → movie → was → not → bad → at → all\\
+(Reads left to right, like humans)
+
+\vspace{0.5em}
+\textbf{BERT:} [The movie was not bad at all]\\
+(Sees everything simultaneously)
+\end{tcolorbox}
+\end{center}
+
+\vspace{1em}
+\textbf{Why this matters:}
+\begin{itemize}
+\item ``Not'' can look ahead to ``bad''
+\item ``At all'' can modify ``not bad''
+\item Context flows in both directions
+\end{itemize}
+\end{frame}
+
+% Slide 6: Bidirectional Reading
+\begin{frame}[t]{Bidirectional: Seeing Past AND Future}
+\begin{center}
+\textbf{Example: ``The movie was \_\_\_\_ boring''}
+\end{center}
+
+\vspace{1em}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Old Way (Left to Right):}
+\begin{itemize}
+\item Sees: ``The movie was''
+\item Guesses: good? bad? long?
+\item Can't use ``boring'' as hint
+\item Often wrong
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{BERT (Both Directions):}
+\begin{itemize}
+\item Sees: ``The movie was'' + ``boring''
+\item Knows: probably ``very'' or ``so''
+\item Uses full context
+\item Much more accurate
+\end{itemize}
+\end{columns}
+
+\vspace{1.5em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{BERT sees the whole sentence like humans do}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 7: Attention Mechanism
+\begin{frame}[t]{Attention: BERT Focuses on Important Words}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/bert_attention_heatmap.pdf}
+\end{center}
+
+\textbf{BERT learns which words to connect:}
+\begin{itemize}
+\item ``Not'' strongly connects to ``bad''
+\item ``Great'' connects to ``disappointment'' (sarcasm signal)
+\item Builds a web of word relationships
+\end{itemize}
+\end{frame}
+
+% Slide 8: Context Changes Meaning
+\begin{frame}[t]{Same Word, Different Meanings}
+\textbf{Context completely changes word meaning:}
+
+\vspace{1em}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Word} & \textbf{Context 1} & \textbf{Context 2} \\
+\midrule
+``Sick'' & ``I feel sick'' (negative) & ``That's sick!'' (positive slang) \\
+``Fire'' & ``Fire hazard'' (danger) & ``This song is fire'' (excellent) \\
+``Bank'' & ``River bank'' (geography) & ``Bank account'' (finance) \\
+``Apple'' & ``Apple pie'' (food) & ``Apple iPhone'' (tech) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1.5em}
+\textbf{How BERT handles this:}
+\begin{itemize}
+\item Creates different representations for each use
+\item Uses surrounding words to determine meaning
+\item No fixed dictionary - meaning emerges from context
+\end{itemize}
+\end{frame}
+
+% Slide 9: Training BERT
+\begin{frame}[t]{How BERT Learns: Two-Step Process}
+\begin{center}
+\begin{tcolorbox}[colback=mlgreen!10, width=0.9\textwidth]
+\textbf{Step 1: Pre-training (Learning Language)}\\
+Read millions of books and articles\\
+Learn grammar, facts, and patterns\\
+Like going to ``language school''
+\end{tcolorbox}
+
+\vspace{0.5em}
+↓
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlblue!10, width=0.9\textwidth]
+\textbf{Step 2: Fine-tuning (Learning Your Task)}\\
+Read labeled reviews (positive/negative)\\
+Learn what makes reviews positive or negative\\
+Like specialized job training
+\end{tcolorbox}
+\end{center}
+
+\vspace{1em}
+\textbf{Result:} BERT understands language AND your specific problem
+\end{frame}
+
+% Slide 10: BERT for Sentiment
+\begin{frame}[t]{How BERT Detects Emotions}
+\textbf{BERT's Process for ``This product is not bad at all'':}
+
+\vspace{1em}
+\begin{enumerate}
+\item \textbf{Read everything:} See all 7 words simultaneously
+\item \textbf{Connect words:} Link ``not'' with ``bad'', ``at all'' with phrase
+\item \textbf{Build understanding:} Recognize double negative pattern
+\item \textbf{Output emotion:} Positive (0.82 confidence)
+\end{enumerate}
+
+\vspace{1.5em}
+\begin{center}
+\begin{tcolorbox}[colback=mlpurple!10, width=0.8\textwidth]
+\textbf{Key insight:} BERT doesn't count words,\\
+it understands relationships
+\end{tcolorbox}
+\end{center}
+\end{frame}
+
+% Slide 11: Detecting Sarcasm
+\begin{frame}[t]{BERT Catches Sarcasm}
+\textbf{Example: ``Great product if you like disappointment''}
+
+\vspace{1em}
+\textbf{How BERT detects sarcasm:}
+\begin{enumerate}
+\item Sees contradiction: ``Great'' vs ``disappointment''
+\item High attention between conflicting words
+\item Pattern matches with training examples
+\item Outputs: Negative (0.88 confidence) + Sarcasm flag
+\end{enumerate}
+
+\vspace{1.5em}
+\textbf{Other sarcasm patterns BERT learns:}
+\begin{itemize}
+\item ``Perfect! It broke on day one''
+\item ``Wonderful 3-hour wait''
+\item ``Exactly what I wanted... not''
+\end{itemize}
+\end{frame}
+
+% Slide 12: Performance
+\begin{frame}[t]{BERT vs Traditional Methods}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{charts/sentiment_comparison.pdf}
+\end{center}
+
+\textbf{Key improvements:}
+\begin{itemize}
+\item Overall: 72\% → 95\% accuracy
+\item Sarcasm: 15\% → 87\% detection
+\item Speed trade-off: 100x slower but 23\% more accurate
+\end{itemize}
+\end{frame}
+
+% ============================================
+% PART 3: DESIGN THINKING - EMPATHIZE (Slides 13-16)
+% ============================================
+
+% Slide 13: Empathy at Scale
+\begin{frame}[t]{Empathize: Understanding 10,000 Users at Once}
+\textbf{The Design Challenge:}
+\begin{itemize}
+\item Manual reading: 100 reviews/day maximum
+\item Digital products: 10,000+ reviews/day
+\item Each review: Unique human experience
+\end{itemize}
+
+\vspace{1.5em}
+\textbf{BERT enables mass empathy:}
+\begin{itemize}
+\item Process thousands of reviews in minutes
+\item Understand subtle emotions and frustrations
+\item Detect patterns humans might miss
+\item Maintain consistency across all data
+\end{itemize}
+
+\vspace{1.5em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{BERT helps designers feel what thousands of users feel}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 14: Emotional Insights
+\begin{frame}[t]{Beyond Positive/Negative: Emotional Spectrum}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{charts/sentiment_analysis_demo.pdf}
+\end{center}
+
+\textbf{BERT reveals complex emotions:}
+\begin{itemize}
+\item Frustration vs Anger vs Disappointment
+\item Joy vs Satisfaction vs Relief
+\item Specific pain points and delights
+\end{itemize}
+\end{frame}
+
+% Slide 15: From Data to Design
+\begin{frame}[t]{Using Sentiment for Design Decisions}
+\textbf{BERT insights → Design actions:}
+
+\vspace{1em}
+\begin{enumerate}
+\item \textbf{Identify pain points:}\\
+   ``Love the app but login is frustrating'' → Redesign login
+
+\item \textbf{Understand priorities:}\\
+   80\% mention speed, 20\% mention features → Focus on performance
+
+\item \textbf{Detect confusion:}\\
+   Sarcasm about ``intuitive'' interface → Simplify design
+
+\item \textbf{Find delight moments:}\\
+   Joy about specific feature → Enhance and highlight
+\end{enumerate}
+
+\vspace{1em}
+\textbf{Result:} Data-driven empathy guides design choices
+\end{frame}
+
+% Slide 16: Human + AI
+\begin{frame}[t]{Combining BERT with Human Intuition}
+\textbf{BERT strengths:}
+\begin{itemize}
+\item Process volume
+\item Find patterns
+\item Consistent analysis
+\item Never tired
+\end{itemize}
+
+\textbf{Human strengths:}
+\begin{itemize}
+\item Understand context
+\item Creative solutions
+\item Ethical judgment
+\item Cultural nuance
+\end{itemize}
+
+\vspace{1.5em}
+\begin{tcolorbox}[colback=mlgreen!20]
+\centering
+\textbf{Best results: BERT finds patterns, humans interpret meaning}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================
+% PART 4: INTEGRATION (Slides 17-20)
+% ============================================
+
+% Slide 17: Real Example
+\begin{frame}[t]{Real World: Netflix Using BERT}
+\textbf{Netflix Subtitle Emotion Analysis:}
+
+\vspace{1em}
+\begin{center}
+\begin{tcolorbox}[colback=gray!10, width=0.9\textwidth]
+\textbf{Problem:} How to recommend shows based on mood?\\
+\textbf{Solution:} BERT analyzes subtitle emotions\\
+\textbf{Result:} Mood-based recommendations
+\end{tcolorbox}
+\end{center}
+
+\vspace{1em}
+\textbf{Process:}
+\begin{enumerate}
+\item BERT reads 50M+ subtitle files
+\item Identifies emotional patterns in shows
+\item Maps user viewing to emotional preferences
+\item Recommends shows matching desired mood
+\end{enumerate}
+
+\textbf{Outcome:} 15\% increase in viewing completion
+\end{frame}
+
+% Slide 18: Key Takeaway
+\begin{frame}[t]{The Key Insight}
+\begin{center}
+\Huge\textbf{Context Matters More Than Keywords}
+\end{center}
+
+\vspace{2em}
+\begin{itemize}
+\item \textbf{Old way:} Count positive and negative words
+\item \textbf{BERT way:} Understand relationships and context
+\item \textbf{Result:} Real understanding of human emotion
+\end{itemize}
+
+\vspace{2em}
+\begin{tcolorbox}[colback=mlblue!20]
+\centering
+\Large\textbf{BERT reads like a human, at machine scale}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 19: Bridge to Next Week
+\begin{frame}[t]{Next Week: From Understanding to Focusing}
+\textbf{This week:} BERT understands everything in text
+
+\vspace{1em}
+\textbf{The problem:} Too much information!
+\begin{itemize}
+\item Long reviews with key points buried
+\item Important feedback hidden in noise
+\item Can't process everything equally
+\end{itemize}
+
+\vspace{1.5em}
+\textbf{Next week:} Attention Mechanisms
+\begin{itemize}
+\item How to focus on what matters most
+\item Finding needles in haystacks
+\item Extracting key insights automatically
+\end{itemize}
+
+\vspace{1em}
+\begin{tcolorbox}[colback=mlorange!20]
+\centering
+\textbf{From understanding all to focusing on what matters}
+\end{tcolorbox}
+\end{frame}
+
+% Slide 20: Summary
+\begin{frame}[t]{Week 2 Summary}
+\begin{center}
+\Large\textbf{BERT + Empathize = Understanding Emotions}
+\end{center}
+
+\vspace{1.5em}
+\textbf{What we learned:}
+\begin{enumerate}
+\item Keywords fail because they ignore context
+\item BERT reads bidirectionally (all words at once)
+\item Context completely changes word meaning
+\item BERT catches sarcasm through contradiction patterns
+\item 95\% accuracy vs 72\% for traditional methods
+\end{enumerate}
+
+\vspace{1.5em}
+\textbf{For Design Thinking:}
+\begin{itemize}
+\item Scale empathy to thousands of users
+\item Understand complex emotions beyond positive/negative
+\item Combine BERT insights with human creativity
+\end{itemize}
+\end{frame}
+
+% ============================================
+% APPENDIX: TECHNICAL DETAILS (A1-A10)
+% ============================================
+
+% A1: NLP Evolution Timeline
+\begin{frame}[t]{Appendix A1: NLP Evolution Timeline}
+\textbf{History of Natural Language Processing:}
+
+\begin{itemize}
+\item \textbf{1950s - Rule-Based:} Hand-coded grammar rules
+\item \textbf{1980s - Statistical:} Probabilistic models
+\item \textbf{1990s - Machine Learning:} Naive Bayes, SVM
+\item \textbf{2013 - Word2Vec:} Words as vectors
+\item \textbf{2017 - Transformers:} Attention is all you need
+\item \textbf{2018 - BERT:} Bidirectional pre-training
+\item \textbf{2019 - GPT-2:} Large-scale generation
+\item \textbf{2020+ - Giant Models:} GPT-3, PaLM, Claude
+\end{itemize}
+
+Each generation built on previous insights, leading to today's powerful models.
+\end{frame}
+
+% A2: Word Embeddings Theory
+\begin{frame}[t]{Appendix A2: Word Embeddings - Vector Spaces}
+\textbf{Words as High-Dimensional Vectors:}
+
+\begin{itemize}
+\item Each word → 768-dimensional vector
+\item Similar words have similar vectors
+\item Relationships encoded geometrically
+\end{itemize}
+
+\textbf{Vector Arithmetic:}
+\begin{itemize}
+\item King - Man + Woman = Queen
+\item Paris - France + Japan = Tokyo
+\item Good - Bad = Happy - Sad (parallel relationships)
+\end{itemize}
+
+\textbf{Limitations of Static Embeddings:}
+\begin{itemize}
+\item One vector per word (context-independent)
+\item Can't handle polysemy (multiple meanings)
+\item Fixed vocabulary
+\end{itemize}
+\end{frame}
+
+% A3: Transformer Architecture
+\begin{frame}[t]{Appendix A3: Transformer Architecture Details}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{charts/transformer_process.pdf}
+\end{center}
+
+\textbf{Key Components:}
+\begin{itemize}
+\item Self-attention layers
+\item Feed-forward networks
+\item Layer normalization
+\item Residual connections
+\end{itemize}
+\end{frame}
+
+% A4: Multi-Head Attention
+\begin{frame}[t]{Appendix A4: Multi-Head Attention Concept}
+\textbf{Why Multiple Attention Heads?}
+
+\begin{itemize}
+\item Each head learns different relationships
+\item Head 1: Syntactic dependencies
+\item Head 2: Semantic similarity
+\item Head 3: Coreference resolution
+\item ... (12 heads total in BERT-base)
+\end{itemize}
+
+\textbf{Mathematical Intuition:}
+\begin{itemize}
+\item Query (Q): What am I looking for?
+\item Key (K): What information do I have?
+\item Value (V): What should I retrieve?
+\item Attention = softmax(QK'/sqrt(d)) * V
+\end{itemize}
+
+Combined heads provide rich, multi-faceted understanding.
+\end{frame}
+
+% A5: BERT Specifications
+\begin{frame}[t]{Appendix A5: BERT Technical Specifications}
+\textbf{BERT-Base Architecture:}
+\begin{itemize}
+\item 12 transformer layers
+\item 768 hidden dimensions
+\item 12 attention heads
+\item 110 million parameters
+\item 512 maximum sequence length
+\end{itemize}
+
+\textbf{BERT-Large Architecture:}
+\begin{itemize}
+\item 24 transformer layers
+\item 1024 hidden dimensions
+\item 16 attention heads
+\item 340 million parameters
+\item 512 maximum sequence length
+\end{itemize}
+
+\textbf{Training Data:}
+\begin{itemize}
+\item Wikipedia: 2.5B words
+\item BookCorpus: 800M words
+\item Total: 3.3B words
+\end{itemize}
+\end{frame}
+
+% A6: Pre-training Tasks
+\begin{frame}[t]{Appendix A6: BERT Pre-training Tasks}
+\textbf{1. Masked Language Model (MLM):}
+\begin{itemize}
+\item Randomly mask 15\% of tokens
+\item Predict masked words from context
+\item Example: ``The [MASK] was delicious'' → ``food''
+\item Forces bidirectional understanding
+\end{itemize}
+
+\textbf{2. Next Sentence Prediction (NSP):}
+\begin{itemize}
+\item Given two sentences, are they consecutive?
+\item 50\% actual next sentences
+\item 50\% random sentences
+\item Learns discourse relationships
+\end{itemize}
+
+These tasks teach BERT language structure without labels.
+\end{frame}
+
+% A7: Fine-tuning Process
+\begin{frame}[t]{Appendix A7: Fine-tuning for Specific Tasks}
+\textbf{Transfer Learning Process:}
+
+\begin{enumerate}
+\item Start with pre-trained BERT
+\item Add task-specific head (classification layer)
+\item Train on labeled data (much smaller dataset)
+\item Fine-tune all parameters (or freeze lower layers)
+\end{enumerate}
+
+\textbf{Common Fine-tuning Tasks:}
+\begin{itemize}
+\item Sentiment Analysis: Add binary classifier
+\item Named Entity Recognition: Token classification
+\item Question Answering: Span prediction
+\item Text Similarity: Sentence pair classification
+\end{itemize}
+
+\textbf{Typical Data Requirements:}
+\begin{itemize}
+\item Minimum: 1,000 examples
+\item Good: 10,000 examples
+\item Excellent: 100,000+ examples
+\end{itemize}
+\end{frame}
+
+% A8: Model Comparisons
+\begin{frame}[t]{Appendix A8: BERT vs Other Models}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Direction} & \textbf{Use Case} & \textbf{Params} \\
+\midrule
+BERT & Bidirectional & Understanding & 110M \\
+GPT-2 & Left-to-right & Generation & 1.5B \\
+RoBERTa & Bidirectional & Better BERT & 355M \\
+ALBERT & Bidirectional & Efficient BERT & 12M \\
+XLNet & Permutation & Best of both & 340M \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Differences:}
+\begin{itemize}
+\item GPT: Autoregressive (good for generation)
+\item BERT: Autoencoding (good for understanding)
+\item RoBERTa: BERT with more data, no NSP
+\item ALBERT: Parameter sharing for efficiency
+\end{itemize}
+\end{frame}
+
+% A9: Emotion Taxonomies
+\begin{frame}[t]{Appendix A9: Emotion Classification Systems}
+\textbf{Plutchik's Wheel of Emotions:}
+\begin{itemize}
+\item 8 primary emotions
+\item 3 intensity levels each
+\item Opposite pairs (joy-sadness, trust-disgust)
+\item Complex emotions as combinations
+\end{itemize}
+
+\textbf{Ekman's Basic Emotions:}
+\begin{itemize}
+\item Anger, Disgust, Fear
+\item Happiness, Sadness, Surprise
+\item Universal across cultures
+\end{itemize}
+
+\textbf{For Product Reviews:}
+\begin{itemize}
+\item Satisfaction/Dissatisfaction
+\item Delight/Frustration
+\item Trust/Skepticism
+\item Excitement/Disappointment
+\end{itemize}
+\end{frame}
+
+% A10: Implementation Code
+\begin{frame}[t]{Appendix A10: Simple BERT Implementation}
+\textbf{Python Code Example:}
+
+\begin{tcolorbox}[colback=gray!10]
+\footnotesize
+\texttt{from transformers import pipeline}\\
+\texttt{}\\
+\texttt{\# Load pre-trained BERT for sentiment}\\
+\texttt{analyzer = pipeline("sentiment-analysis")}\\
+\texttt{}\\
+\texttt{\# Analyze text}\\
+\texttt{text = "This product is not bad at all"}\\
+\texttt{result = analyzer(text)}\\
+\texttt{}\\
+\texttt{\# Output: [\{'label': 'POSITIVE', 'score': 0.82\}]}\\
+\texttt{}\\
+\texttt{\# Fine-tuning example}\\
+\texttt{from transformers import BertForSequenceClassification}\\
+\texttt{model = BertForSequenceClassification.from\_pretrained(}\\
+\texttt{    "bert-base-uncased", num\_labels=2)}
+\end{tcolorbox}
+
+Full implementation available in course repository.
+\end{frame}
+
+\end{document}

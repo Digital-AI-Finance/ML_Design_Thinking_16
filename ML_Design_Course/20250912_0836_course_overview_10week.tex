@@ -1,0 +1,1079 @@
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning}
+
+% Define colors
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+\definecolor{mlbrown}{RGB}{140, 86, 75}
+\definecolor{mlpink}{RGB}{227, 119, 194}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+\definecolor{mlyellow}{RGB}{255, 187, 120}
+\definecolor{mlcyan}{RGB}{23, 190, 207}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\title{\Large\textbf{Machine Learning for Smarter Innovation}\\
+\vspace{0.5em}
+\Large Augmenting Design Thinking with ML, AI, and Generative Models}
+\author{10-Week Journey Through the Innovation Pipeline}
+\date{}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Week 1: The Convergence - Slide 1
+\begin{frame}
+\frametitle{\Large Week 1: The Innovation Challenge}
+\framesubtitle{Why Traditional Design Needs AI Enhancement}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlred!10, colframe=mlred!50, title=Traditional Design Limits]
+\begin{itemize}
+\item \textbf{Scale}: Can interview 50 users, not 50,000
+\item \textbf{Speed}: Months for insights
+\item \textbf{Bias}: Designer's perspective dominates
+\item \textbf{Patterns}: Miss hidden connections
+\item \textbf{Iteration}: Slow feedback loops
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=AI-Enhanced Innovation]
+\begin{itemize}
+\item \textbf{Scale}: Analyze millions of data points
+\item \textbf{Speed}: Real-time insights
+\item \textbf{Objectivity}: Data-driven discovery
+\item \textbf{Patterns}: Find non-obvious relationships
+\item \textbf{Iteration}: Continuous learning
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{The Promise: 100x more insights, 10x faster innovation}}
+\end{center}
+\end{frame}
+
+% Week 1: Slide 2 - The Dual Pipeline (Part 1)
+\begin{frame}
+\frametitle{\Large Week 1: The Dual Pipeline}
+\framesubtitle{Where ML Meets Design Thinking}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/dual_pipeline.pdf}
+\end{center}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Two Powerful Methodologies Converge}}
+\end{center}
+\end{frame}
+
+% Week 1: Slide 2b - The Dual Pipeline (Part 2)
+\begin{frame}
+\frametitle{\Large Week 1: The Dual Pipeline (Continued)}
+\framesubtitle{Understanding Both Worlds}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=ML Pipeline]
+\normalsize
+\textbf{Data} $\rightarrow$ \textbf{Preprocess} $\rightarrow$ \textbf{Model} $\rightarrow$ \textbf{Evaluate} $\rightarrow$ \textbf{Deploy}
+\vspace{0.3em}
+\begin{itemize}
+\item Collect user behavior
+\item Clean and transform
+\item Train algorithms
+\item Validate accuracy
+\item Scale to production
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Design Pipeline]
+\normalsize
+\textbf{Empathize} $\rightarrow$ \textbf{Define} $\rightarrow$ \textbf{Ideate} $\rightarrow$ \textbf{Prototype} $\rightarrow$ \textbf{Test}
+\vspace{0.3em}
+\begin{itemize}
+\item Understand users
+\item Frame problems
+\item Generate solutions
+\item Build concepts
+\item Validate with users
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Integration = Innovation at Scale}}
+\end{center}
+\end{frame}
+
+% Week 1: Slide 3 - The Journey Ahead (Part 1)
+\begin{frame}
+\frametitle{\Large Week 1: Your Innovation Journey}
+\framesubtitle{10 Weeks to AI-Powered Design Mastery}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/journey_roadmap.pdf}
+\end{center}
+\end{frame}
+
+% Week 1: Slide 3b - The Journey Ahead (Part 2)
+\begin{frame}
+\frametitle{\Large Week 1: Your Innovation Journey (Continued)}
+\framesubtitle{What You'll Master in Each Stage}
+
+\begin{center}
+\Large
+\begin{tabular}{lll}
+\toprule
+\textbf{Stage} & \textbf{Weeks} & \textbf{Innovation Unlocked} \\
+\midrule
+\textcolor{mlpurple}{Empathize} & 2-3 & Discover hidden user needs at scale \\
+\textcolor{mlblue}{Define} & 4-5 & Identify the right problems to solve \\
+\textcolor{mlgreen}{Ideate} & 6-7 & Generate novel solutions with AI \\
+\textcolor{mlorange}{Prototype} & 8-9 & Build smart, adaptive concepts \\
+\textcolor{mlred}{Test} & 10 & Evolve through continuous learning \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Each week builds on the previous, creating compound learning}}
+\end{center}
+\end{frame}
+
+% Week 2: Understanding Hidden User Segments - Slide 1
+\begin{frame}
+\frametitle{\Large Week 2: The Diversity Problem}
+\framesubtitle{EMPATHIZE: Users Aren't Monolithic}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\Large
+\textbf{The Challenge:}
+\normalsize
+\begin{itemize}
+\item 1000 users = 1000 different needs?
+\item How do we find natural groupings?
+\item What patterns exist in behavior?
+\end{itemize}
+
+\vspace{0.5em}
+\Large
+\textbf{The Solution: K-Means Clustering}
+\normalsize
+\begin{itemize}
+\item Automatically discovers user segments
+\item No labels needed (unsupervised)
+\item Reveals unexpected tribes
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Innovation Opportunities]
+\textbf{Segment-Specific Solutions:}
+\begin{itemize}
+\item Power users: Advanced features
+\item Beginners: Simplified onboarding
+\item Price-sensitive: Freemium options
+\item Quality-focused: Premium tiers
+\item Social users: Community features
+\end{itemize}
+
+\vspace{0.3em}
+\textcolor{mlred}{\textbf{Key Insight:}} One size fits none. Personalization drives innovation.
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 2: Slide 2 - Clustering Animation
+\begin{frame}
+\frametitle{\Large Week 2: K-Means in Action}
+\framesubtitle{Watch User Segments Emerge}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/clustering_animation.pdf}
+\end{center}
+
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{5 Distinct User Segments Discovered}}
+\end{center}
+\end{frame}
+
+% Week 3: Decoding Emotional Context - Slide 1
+\begin{frame}
+\frametitle{\Large Week 3: Beyond Keywords}
+\framesubtitle{EMPATHIZE: What Users Say vs. What They Feel}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\begin{tcolorbox}[colback=mlred!10, colframe=mlred!50, title=Traditional Keyword Analysis Fails]
+\small
+\begin{tabular}{ll}
+``Not bad at all'' & = Negative? (has ``bad'') \\
+``Absolutely perfect if you like bugs'' & = Positive? (has ``perfect'') \\
+``Can't complain'' & = Neutral? \\
+``It just works'' & = ? \\
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{0.5em}
+
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=BERT Understands Context]
+\small
+\begin{tabular}{ll}
+``Not bad at all'' & = \textcolor{mlgreen}{Positive} \\
+``Absolutely perfect if you like bugs'' & = \textcolor{mlred}{Sarcasm/Negative} \\
+``Can't complain'' & = \textcolor{mlgreen}{Positive} \\
+``It just works'' & = \textcolor{mlgreen}{Satisfied} \\
+\end{tabular}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.43\textwidth}
+\Large\textbf{Innovation Insights:}
+\normalsize
+\begin{itemize}
+\item Address hidden frustrations
+\item Detect early warning signs
+\item Understand emotional journeys
+\item Identify delight moments
+\end{itemize}
+
+\vspace{0.5em}
+\textcolor{mlpurple}{\textbf{87\% sarcasm detection}}\\
+\textcolor{mlpurple}{\textbf{vs. 15\% with keywords}}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 3: Slide 2 - Emotion Spectrum
+\begin{frame}
+\frametitle{\Large Week 3: Sentiment Polarity Mapping}
+\framesubtitle{Context Makes All the Difference}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/sentiment_polarity.pdf}
+\end{center}
+\end{frame}
+
+% Week 4: Predicting Problem Patterns - Slide 1
+\begin{frame}
+\frametitle{\Large Week 4: From Symptoms to Root Causes}
+\framesubtitle{DEFINE: Pattern Recognition with Classification}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\Large\textbf{The Challenge:}
+\normalsize
+\begin{itemize}
+\item Users describe symptoms, not problems
+\item Multiple issues intertwined
+\item Root causes hidden in noise
+\end{itemize}
+
+\vspace{0.5em}
+\Large\textbf{Random Forest Classification:}
+\normalsize
+\begin{itemize}
+\item Identifies problem categories
+\item Finds feature combinations
+\item Handles complex interactions
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=Problem Categories Discovered]
+\begin{enumerate}
+\item \textbf{Usability Issues} (35\%)
+    \begin{itemize}
+    \small
+    \item Navigation confusion
+    \item Feature discovery
+    \end{itemize}
+\item \textbf{Performance Problems} (25\%)
+    \begin{itemize}
+    \small
+    \item Speed complaints
+    \item Resource usage
+    \end{itemize}
+\item \textbf{Missing Features} (20\%)
+\item \textbf{Integration Gaps} (15\%)
+\item \textbf{Other} (5\%)
+\end{enumerate}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Innovation Focus: Solve the right problem first}}
+\end{center}
+\end{frame}
+
+% Week 4: Slide 2 - Decision Tree
+\begin{frame}
+\frametitle{\Large Week 4: Decision Pathways}
+\framesubtitle{How Problems Branch Into Innovation Opportunities}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/decision_tree.pdf}
+\end{center}
+\end{frame}
+
+% Week 5: Discovering Hidden Themes - Slide 1
+\begin{frame}
+\frametitle{\Large Week 5: Finding Signal in Noise}
+\framesubtitle{DEFINE: Topic Modeling Reveals Latent Needs}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\Large\textbf{The Discovery Process:}
+\normalsize
+
+\begin{tcolorbox}[colback=mlyellow!20, colframe=mlorange!50]
+\textbf{Input:} 2000 unstructured feedback texts
+\vspace{0.3em}
+
+\textbf{LDA/BERTopic Processing:}
+\begin{itemize}
+\item Extracts themes automatically
+\item No predefined categories
+\item Finds co-occurring concepts
+\end{itemize}
+\vspace{0.3em}
+
+\textbf{Output:} Hidden problem clusters
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.43\textwidth}
+\Large\textbf{Themes Discovered:}
+\normalsize
+\begin{enumerate}
+\item \textcolor{mlred}{``Workflow interruption''}
+\item \textcolor{mlblue}{``Learning curve''}
+\item \textcolor{mlgreen}{``Social features''}
+\item \textcolor{mlorange}{``Data privacy''}
+\item \textcolor{mlpurple}{``Customization''}
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Innovation Insight:}\\
+Users couldn't articulate these needs directly - AI found them in the patterns
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 5: Slide 2 - Topic Network
+\begin{frame}
+\frametitle{\Large Week 5: Topic Constellation}
+\framesubtitle{Interconnected Themes Create Innovation Spaces}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/topic_network.pdf}
+\end{center}
+\end{frame}
+
+% Week 6: AI-Powered Ideation - Slide 1
+\begin{frame}
+\frametitle{\Large Week 6: Breaking Creative Blocks}
+\framesubtitle{IDEATE: GPT as Your Creative Partner}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlred!10, colframe=mlred!50, title=Human Creativity Limits]
+\begin{itemize}
+\item Cognitive bias
+\item Limited exploration space
+\item Fixation on first ideas
+\item Experience boundaries
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.5em}
+
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=AI Enhancement]
+\begin{itemize}
+\item Endless variations
+\item Cross-domain connections
+\item No judgment or ego
+\item Builds on any concept
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\Large\textbf{Prompt Engineering:}
+\normalsize
+
+\textbf{Temperature = 0.3} (Conservative)
+\begin{itemize}
+\small
+\item Safe, practical ideas
+\item Close to existing solutions
+\end{itemize}
+
+\textbf{Temperature = 0.7} (Balanced)
+\begin{itemize}
+\small
+\item Novel yet feasible
+\item Good for exploration
+\end{itemize}
+
+\textbf{Temperature = 1.0} (Wild)
+\begin{itemize}
+\small
+\item Unexpected connections
+\item Breakthrough potential
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 6: Slide 2 - Chain of Thought
+\begin{frame}
+\frametitle{\Large Week 6: Building on Ideas}
+\framesubtitle{Chain-of-Thought Innovation}
+
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50]
+\textbf{Example Innovation Chain:}
+
+\begin{enumerate}
+\item \textbf{Base Idea:} ``Help users track habits''
+\item \textbf{AI Expansion:} ``Add social accountability''
+\item \textbf{AI Variation:} ``Gamify with streaks and rewards''
+\item \textbf{AI Combination:} ``AI coach that adapts to personality''
+\item \textbf{AI Twist:} ``Reverse tracking - AI suggests new habits based on goals''
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{1 idea $\rightarrow$ 100 variations in minutes}}
+\end{center}
+\end{frame}
+
+% Week 6: Slide 3 - Idea Tree
+\begin{frame}
+\frametitle{\Large Week 6: Idea Evolution Tree}
+\framesubtitle{How Concepts Branch and Grow}
+
+\begin{columns}[T]
+\begin{column}{0.65\textwidth}
+\includegraphics[width=\textwidth]{course_visuals/idea_tree.pdf}
+\end{column}
+
+\begin{column}{0.33\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Key Insights]
+\normalsize
+\textbf{Each branch =}\\ \textbf{10x variations}
+\vspace{0.3em}
+
+\textcolor{mlblue}{\textbf{AI explores}}\\ \textcolor{mlblue}{\textbf{parallel paths}}
+\vspace{0.3em}
+
+\textcolor{mlred}{\textbf{Prune weak}}\\ \textcolor{mlred}{\textbf{branches early}}
+\vspace{0.3em}
+
+\textcolor{mlpurple}{\textbf{Best ideas}}\\ \textcolor{mlpurple}{\textbf{combine branches}}
+\end{tcolorbox}
+
+\vspace{0.5em}
+\Large\textbf{Innovation Rate:}
+\normalsize
+\begin{itemize}
+\item 100 ideas/minute
+\item 70\% novel concepts
+\item 15\% breakthrough
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 6: Slide 4 - Temperature Control
+\begin{frame}
+\frametitle{\Large Week 6: Temperature Control}
+\framesubtitle{Balancing Creativity and Coherence}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/temperature_control.pdf}
+\end{center}
+\end{frame}
+
+% Week 6: Slide 5 - Combinatorial Ideation
+\begin{frame}
+\frametitle{\Large Week 6: Combinatorial Ideation}
+\framesubtitle{Innovation Through Unexpected Connections}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/combinatorial_ideation.pdf}
+\end{center}
+\end{frame}
+
+% Week 6: Slide 6 - Idea Selection Metrics
+\begin{frame}
+\frametitle{\Large Week 6: Idea Selection Metrics}
+\framesubtitle{Pruning the Evolution Tree}
+
+\begin{center}
+\includegraphics[width=0.84\textwidth]{course_visuals/idea_metrics.pdf}
+\end{center}
+\end{frame}
+
+% Week 7: Feature Impact - Slide 1
+\begin{frame}
+\frametitle{\Large Week 7: What Really Matters?}
+\framesubtitle{IDEATE: SHAP Values Reveal Feature Impact}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\Large\textbf{The Question:}
+\normalsize
+Which features drive user satisfaction?
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=mlyellow!20, colframe=mlorange!50]
+\textbf{SHAP Analysis Reveals:}
+\begin{itemize}
+\item Feature contribution to outcomes
+\item Interaction effects
+\item Non-linear relationships
+\item Counterfactual scenarios
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\Large\textbf{Innovation Focus:}
+\normalsize
+
+\textcolor{mlgreen}{\textbf{High Impact:}}
+\begin{itemize}
+\item Response time (-0.35)
+\item Ease of use (+0.42)
+\item Customization (+0.28)
+\end{itemize}
+
+\textcolor{mlred}{\textbf{Low Impact:}}
+\begin{itemize}
+\item Color scheme (+0.03)
+\item Logo placement (-0.01)
+\item Footer design (+0.02)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Insight:} Invest in what matters
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 7: Slide 2 - SHAP Waterfall
+\begin{frame}
+\frametitle{\Large Week 7: Feature Impact Waterfall}
+\framesubtitle{Cumulative Effect on User Satisfaction}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/shap_waterfall.pdf}
+\end{center}
+\end{frame}
+
+% Week 7: Slide 3 - Feature Interactions
+\begin{frame}
+\frametitle{\Large Week 7: Feature Interaction Effects}
+\framesubtitle{The Hidden Multipliers of Innovation}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/feature_interactions.pdf}
+\end{center}
+\end{frame}
+
+% Week 8: Structured Generation - Slide 1
+\begin{frame}
+\frametitle{\Large Week 8: From Ideas to Consistent Prototypes}
+\framesubtitle{PROTOTYPE: Structured Output Generation}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlred!10, colframe=mlred!50, title=The Consistency Challenge]
+\begin{itemize}
+\item Free-form AI outputs vary
+\item Need standardized formats
+\item Must meet constraints
+\item Require validation
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.5em}
+
+\Large\textbf{Solution: JSON Schemas}
+\normalsize
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!50]
+\small\texttt{\{}\\
+\texttt{\ \ "feature\_name": "string",}\\
+\texttt{\ \ "description": "string",}\\
+\texttt{\ \ "user\_benefit": "string",}\\
+\texttt{\ \ "technical\_spec": "object",}\\
+\texttt{\ \ "priority": "high|medium|low"}\\
+\texttt{\}}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Guardrails Ensure Quality]
+\textbf{Validation Rules:}
+\begin{itemize}
+\item Format compliance
+\item Business logic checks
+\item Safety constraints
+\item Consistency validation
+\end{itemize}
+
+\textbf{Benefits:}
+\begin{itemize}
+\item Rapid prototyping
+\item Consistent outputs
+\item Integration-ready
+\item Scalable generation
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 8: Slide 2 - Pipeline Flow
+\begin{frame}
+\frametitle{\Large Week 8: Generation Pipeline}
+\framesubtitle{From Input to Validated Prototype}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/pipeline_flow.pdf}
+\end{center}
+\end{frame}
+
+% Week 8: Slide 3 - Validation Rules
+\begin{frame}
+\frametitle{\Large Week 8: Validation Rules \& Guardrails}
+\framesubtitle{Ensuring Quality at Every Step}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/validation_flow.pdf}
+\end{center}
+\end{frame}
+
+% Week 8: Slide 4 - Template Generation
+\begin{frame}
+\frametitle{\Large Week 8: Template-Based Generation}
+\framesubtitle{Consistency at Scale}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/template_generation.pdf}
+\end{center}
+\end{frame}
+
+% Week 9: Smart Validation - Slide 1
+\begin{frame}
+\frametitle{\Large Week 9: Beyond Accuracy}
+\framesubtitle{PROTOTYPE: Multi-Metric Evaluation}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\Large\textbf{Evaluation Dimensions:}
+\normalsize
+
+\begin{enumerate}
+\item \textbf{Accuracy:} Does it work?
+\item \textbf{Fairness:} Works for everyone?
+\item \textbf{Robustness:} Handles edge cases?
+\item \textbf{Novelty:} Truly innovative?
+\item \textbf{Usability:} Easy to implement?
+\item \textbf{Scalability:} Grows with users?
+\item \textbf{Cost:} Resource efficient?
+\item \textbf{Safety:} No harmful outputs?
+\end{enumerate}
+\end{column}
+
+\begin{column}{0.43\textwidth}
+\begin{tcolorbox}[colback=mlpurple!10, colframe=mlpurple!50, title=Innovation Validation]
+\textbf{Key Questions:}
+\begin{itemize}
+\item Does it solve the real problem?
+\item Is it genuinely novel?
+\item Will users adopt it?
+\item Can we build it?
+\end{itemize}
+
+\vspace{0.5em}
+\textcolor{mlred}{\textbf{Trade-offs:}}\\
+Higher accuracy might reduce fairness. More novelty might hurt usability.
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 9: Slide 2 - Radar Chart
+\begin{frame}
+\frametitle{\Large Week 9: Prototype Comparison}
+\framesubtitle{Multi-Dimensional Innovation Assessment}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/radar_comparison.pdf}
+\end{center}
+\end{frame}
+
+% Week 10: A/B Testing - Slide 1
+\begin{frame}
+\frametitle{\Large Week 10: Testing at Scale}
+\framesubtitle{TEST: Statistical Validation of Innovation}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\Large\textbf{A/B Testing Framework:}
+\normalsize
+
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50]
+\textbf{Variant A:} Original design\\
+\textbf{Variant B:} AI-suggested improvement\\
+\vspace{0.3em}
+\textbf{Sample Size:} 10,000 users\\
+\textbf{Confidence:} 95\%\\
+\textbf{Duration:} 2 weeks
+\end{tcolorbox}
+
+\vspace{0.5em}
+\textbf{Multi-Armed Bandits:}
+\begin{itemize}
+\item Explore vs. exploit
+\item Adaptive allocation
+\item Minimize regret
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\Large\textbf{Results:}
+\normalsize
+
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50]
+\textbf{Conversion Rate:}
+\begin{itemize}
+\item A: 3.2\% $\pm$ 0.3\%
+\item B: 4.7\% $\pm$ 0.4\%
+\item \textcolor{mlgreen}{Improvement: +47\%}
+\end{itemize}
+
+\textbf{User Satisfaction:}
+\begin{itemize}
+\item A: 7.2/10
+\item B: 8.5/10
+\item \textcolor{mlgreen}{Improvement: +18\%}
+\end{itemize}
+
+\textbf{Statistical Significance:}\\
+p-value < 0.001 (significant)
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 10: Slide 2 - Bias Detection
+\begin{frame}
+\frametitle{\Large Week 10: Ensuring Fair Innovation}
+\framesubtitle{TEST: Bias Detection and Mitigation}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlred!10, colframe=mlred!50, title=Bias Types to Detect]
+\begin{itemize}
+\item \textbf{Demographic:} Age, gender, location
+\item \textbf{Behavioral:} Usage patterns
+\item \textbf{Historical:} Past interactions
+\item \textbf{Representation:} Data coverage
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.5em}
+
+\Large\textbf{Fairness Metrics:}
+\normalsize
+\begin{itemize}
+\item Demographic parity
+\item Equalized odds
+\item Calibration fairness
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Innovation Principle]
+\Large\textbf{Inclusive by Design}
+\normalsize
+
+\vspace{0.5em}
+Innovation should work for:
+\begin{itemize}
+\item All user segments
+\item Different abilities
+\item Various contexts
+\item Global audiences
+\end{itemize}
+
+\vspace{0.5em}
+\textcolor{mlpurple}{\textbf{Result:}}\\
+Broader market reach\\
+Higher user satisfaction\\
+Ethical AI deployment
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Week 10: Slide 3 - Evolution Timeline
+\begin{frame}
+\frametitle{\Large Week 10: Continuous Innovation}
+\framesubtitle{Learning and Evolving with Users}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/evolution_timeline.pdf}
+\end{center}
+
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Each iteration brings compound innovation gains}}
+\end{center}
+\end{frame}
+
+% Week 10: Slide 4 - Statistical Significance Part 1
+\begin{frame}
+\frametitle{\Large Week 10: P-Values and Confidence}
+\framesubtitle{Understanding Statistical Significance}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/statistical_significance_part1.pdf}
+\end{center}
+\end{frame}
+
+% Week 10: Slide 5 - Statistical Significance Part 2
+\begin{frame}
+\frametitle{\Large Week 10: Sample Size and Errors}
+\framesubtitle{Making Reliable Decisions}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{course_visuals/statistical_significance_part2.pdf}
+\end{center}
+\end{frame}
+
+% Summary Slide
+\begin{frame}
+\frametitle{\Large The Innovation Formula}
+\framesubtitle{Your Journey from Data to Innovation}
+
+\begin{center}
+\Large
+\begin{tcolorbox}[colback=mlpurple!10, colframe=mlpurple!50, width=0.8\textwidth]
+\textbf{Design Thinking} + \textbf{Machine Learning} = \textbf{Scalable Innovation}
+\end{tcolorbox}
+\end{center}
+
+\vspace{0.5em}
+
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{center}
+\textcolor{mlblue}{\Large\textbf{Empathize}}\\
+\normalsize
+Hidden segments\\
+Emotional context
+\end{center}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{center}
+\textcolor{mlgreen}{\Large\textbf{Define}}\\
+\normalsize
+Problem patterns\\
+Latent themes
+\end{center}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{center}
+\textcolor{mlorange}{\Large\textbf{Ideate}}\\
+\normalsize
+AI creativity\\
+Impact analysis
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{center}
+\textcolor{mlred}{\Large\textbf{Prototype}}\\
+\normalsize
+Structured generation\\
+Multi-metric validation
+\end{center}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{center}
+\textcolor{mlpurple}{\Large\textbf{Test}}\\
+\normalsize
+Statistical validation\\
+Continuous evolution
+\end{center}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Ready to innovate?}}
+\end{center}
+\end{frame}
+
+% Conclusion Slide 1: The Unified Pipeline
+\begin{frame}
+\frametitle{\Large Conclusion: The Unified Pipeline}
+\framesubtitle{You've Integrated Both Worlds}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{course_visuals/unified_pipeline.pdf}
+\end{center}
+
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=ML Mastery]
+\normalsize
+\textbf{Technical Skills:}
+\begin{itemize}
+\item Clustering
+\item NLP/BERT
+\item SHAP Analysis
+\item Generation
+\item Validation
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Design Mastery]
+\normalsize
+\textbf{Human Skills:}
+\begin{itemize}
+\item Deep Empathy
+\item Problem Framing
+\item Creative Ideation
+\item Rapid Prototyping
+\item User Validation
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlpurple!10, colframe=mlpurple!50, title=Integration]
+\normalsize
+\textbf{Synergy:}
+\begin{itemize}
+\item Each feeds the other
+\item Continuous loops
+\item Amplified impact
+\item Scalable innovation
+\item Data-driven creativity
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Conclusion Slide 2: Your Innovation Impact
+\begin{frame}
+\frametitle{\Large Conclusion: Your Innovation Impact}
+\framesubtitle{From Learning to Leading}
+
+\begin{center}
+\Large
+\begin{tabular}{llc}
+\toprule
+\textbf{Journey Stage} & \textbf{What You Learned} & \textbf{Impact Multiplier} \\
+\midrule
+\textcolor{mlpurple}{Weeks 1-2} & Discovered hidden patterns & \textbf{10x} deeper insights \\
+\textcolor{mlblue}{Weeks 3-5} & Defined real problems & \textbf{70\%} better framing \\
+\textcolor{mlgreen}{Weeks 6-7} & Generated breakthrough ideas & \textbf{100x} more innovations \\
+\textcolor{mlorange}{Weeks 8-9} & Built smart prototypes & \textbf{3x} faster validation \\
+\textcolor{mlred}{Week 10} & Evolved continuously & \textbf{Compound} gains \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Your Next Step: Apply, Innovate, Transform}}
+\end{center}
+
+\vspace{0.5em}
+
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlgreen!20, colframe=mlgreen!50]
+\centering
+\Large\textbf{1. Choose}\\
+\normalsize
+Pick a real problem\\
+in your domain
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlblue!20, colframe=mlblue!50]
+\centering
+\Large\textbf{2. Apply}\\
+\normalsize
+Use the unified\\
+pipeline approach
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colback=mlpurple!20, colframe=mlpurple!50]
+\centering
+\Large\textbf{3. Share}\\
+\normalsize
+Spread your\\
+innovation impact
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}

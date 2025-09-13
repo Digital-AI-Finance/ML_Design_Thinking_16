@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "Bash(pdflatex:*)",
+      "Bash(start:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
