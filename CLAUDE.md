@@ -4,139 +4,235 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-LaTeX/Beamer course materials for "Machine Learning for Smarter Innovation" - a BSc-level 10-week course (310 slides) demonstrating how ML/AI augments design thinking processes through innovation discovery rather than user analysis.
+This repository contains "Machine Learning for Smarter Innovation" - a comprehensive BSc-level course demonstrating how ML/AI augments design thinking processes. The course bridges technical ML knowledge with human-centered design methodology across 10 weeks (310 slides total).
 
-## Code Architecture
-
-### Directory Structure
+## Current Directory Structure
 ```
 ML_Design_Thinking_16/
-├── Week_01/                        # COMPLETE - Full implementation with Priority 1&2 improvements
-│   ├── 20250913_1430_week01_priority2_partial.tex  # Latest version (52 pages)
-│   ├── charts/                     # 20+ ML visualizations (all innovation-focused)
-│   ├── scripts/                    # Python generators using sklearn/matplotlib
-│   └── previous/                   # Version history
-├── Week_02-10/                     # PLANNED - Structure ready, content pending
-├── ML_Design_Course/               # Course-wide resources
-│   ├── course_visuals/            # Shared visualizations
-│   └── full_course_content_toc.md # Complete 310-slide specification
-└── *.py                           # Automation tools
+├── Week_01/                         # COMPLETED - Full implementation with improvements
+│   ├── 20250913_2133_week01_modular.tex   # Modular main file with \input commands
+│   ├── part*.tex                    # 4 parts + appendix modules
+│   ├── week01_discovery_worksheet.tex      # Expanded 9-page worksheet with pipelines
+│   ├── charts/                      # 50+ generated visualizations
+│   ├── scripts/                     # Chart generation scripts  
+│   ├── archive/                     # Old versions (20+ files)
+│   └── temp/                        # Compilation auxiliary files
+├── Week_02-10/                      # PLANNED - Structure ready, content pending
+├── ML_Design_Course/
+│   ├── 20250912_0848_course_overview_10week.tex  # Overview presentation
+│   └── full_course_content_toc.md  # Complete 310-slide outline
+├── check_font_sizes.py             # Font consistency validator
+├── fix_overfull_charts.py          # Auto-fix overfull warnings
+└── compile_slides.py                # Automated compilation with cleanup
 ```
 
-### Python Chart Generation Architecture
-All visualizations use real ML algorithms with reproducible seeds:
-- **Base pattern**: sklearn algorithms → matplotlib visualization → PDF/PNG output
-- **Data scale**: 1000-10000 points per visualization
-- **Standard size**: `figsize=(14, 10)` for consistency
-- **Color scheme**: `mlblue=#1f77b4`, `mlorange=#ff7f0e`, `mlgreen=#2ca02c`, `mlred=#d62728`, `mlpurple=#9467bd`
+## Course Architecture
 
-### LaTeX Slide Structure
-Each week follows a 49-slide structure with consistent formatting:
-```latex
-% Part structure (31 base slides + transitions + dividers = ~49 total)
-% 1. Opening Power Chart (1 slide)
-% 2. Part 1: Foundation (3 slides + divider)
-% 3. Part 2: Technical ML (10 slides + divider)
-% 4. Part 3: Innovation Pattern Analysis (8 slides + divider)
-% 5. Part 4: Summary & Practice (5 slides + divider)
-% 6. Appendix: Technical Details (4-6 slides)
+### Core Structure
+- **10 Weeks**: Each aligned with design thinking stages (Empathize → Define → Ideate → Prototype → Test)
+- **31 Slides per Week**: Consistent 4-part structure plus appendix
+- **310 Total Slides**: Complete journey from ML basics to advanced applications
+
+### Weekly Slide Structure (Mandatory)
+```
+1. Opening Power Chart      # Compelling visualization hook
+2-4. Part 1: Foundation     # Problem statement & context (with section divider)
+5-14. Part 2: Technical     # ML algorithms & implementation (with section divider)
+15-22. Part 3: Design       # Human-centered applications (with section divider)
+23-27. Part 4: Summary      # Case study & practice (with section divider)
+28-31. Appendix            # Mathematical details (optional)
 ```
 
-## Essential Commands
+### Critical Improvements (Week 1 Pattern)
+1. **Section Dividers**: Clear visual breaks between 4 parts
+2. **Transition Slides**: Bridges between major topics
+3. **Problem-First**: Problem statement before each methodology
+4. **Narrative Flow**: Smooth progression from problem → solution → application
 
+## Building and Compilation
+
+### LaTeX/PDF Compilation (Windows)
 ```bash
-# Build and compile slides
-cd Week_01
-python ../compile_slides.py 20250913_1430_week01_priority2_partial.tex
+# Compile with automatic cleanup (recommended)
+python compile_slides.py Week_01/20250913_2133_week01_modular.tex
 
-# Quality control
-python ../check_font_sizes.py *.tex      # Verify exactly 2 font sizes
-python ../fix_overfull_charts.py *.tex   # Auto-fix overfull boxes
+# Manual compilation
+pdflatex filename.tex
+pdflatex filename.tex  # Run twice for TOC/references
 
-# Chart generation
-cd scripts
-python create_convergence_flow.py        # Individual chart
-python generate_all_charts.py            # Batch generation (if exists)
+# If PDF is locked by viewer
+pdflatex -jobname=filename_v2 filename.tex
 
-# Manual LaTeX compilation
-pdflatex -interaction=nonstopmode filename.tex
-pdflatex -jobname=filename_v2 filename.tex  # If PDF locked
-
-# Cleanup auxiliary files
-mkdir -p temp && move *.aux *.log *.nav *.out *.snm *.toc *.vrb temp/ 2>nul
+# Clean auxiliary files after compilation
+mkdir -p temp && move *.aux *.log *.nav *.out *.snm *.toc *.vrb temp/ 2>nul || true
 ```
 
-## Critical Content Alignment
+### Quality Checks
+```bash
+# Check font size consistency (max 3 sizes allowed)
+python check_font_sizes.py filename.tex
 
-### Innovation-Focused Terminology (MANDATORY)
-The course explores ML for **innovation discovery**, not user understanding:
+# Fix overfull boxes automatically
+python fix_overfull_charts.py filename.tex
 
-| ❌ Never Use | ✅ Always Use |
-|--------------|---------------|
-| User segments | Innovation categories |
-| User personas | Innovation archetypes |
-| User needs/pain points | Innovation opportunities |
-| User journey | Innovation evolution |
-| Empathy maps | Pattern maps |
-| User behavior | Innovation patterns |
-
-### LaTeX Technical Requirements
-- **Font sizes**: Exactly 2 (`\Large` for titles, `\normalsize` for content)
-- **No small fonts**: Never use `\small`, `\tiny`, `\footnotesize`
-- **Column layouts**: `0.43/0.55` split with charts always on right
-- **Chart widths**: `0.85\textwidth` (full), `0.75` (medium), `0.65` (sidebar)
-- **No Unicode**: ASCII only, use `` `` for quotes
-- **Colors**: Use predefined `mlblue`, `mlorange`, `mlgreen`, `mlred`, `mlpurple`
-
-## Week 1 Specific Implementation
-
-### Current Status
-- **52 pages** with complete Priority 1 fixes and 50% Priority 2 enhancements
-- **20+ charts** all displaying correctly (no placeholders)
-- **Innovation-aligned** throughout (no user-centric language)
-- **Production ready** with comparison tables, decision trees, Python code examples
-
-### Key Improvements Implemented
-1. Algorithm comparison table (slide 17)
-2. Decision tree for algorithm selection (slide 18)
-3. Evaluation metrics comparison (slide 21)
-4. Python code examples in appendix (slide 50)
-5. All 6 missing innovation charts created
-
-### Charts Created for Week 1
+# Verify slide count
+grep -c "begin{frame}" filename.tex  # Should be ~48-49 with improvements (31 base + enhancements)
 ```
-innovation_patterns_visual.pdf    # Market segments with opportunities
-innovation_archetypes.pdf         # Five innovation types
-opportunity_zones.pdf              # White space identification
-innovation_adjacencies.pdf         # Innovation synergy network
-opportunity_heatmap.pdf            # Scoring matrix
-clustering_decision_tree.pdf      # Algorithm selection guide
-evaluation_metrics_comparison.pdf  # Metrics behavior comparison
+
+## Visualization Development
+
+### Chart Requirements
+- **Real ML algorithms** (no fake data)
+- **Sample size**: 1000-10000 points
+- **Consistent styling** across all charts
+- **Save both formats**: PDF (print) and PNG (preview)
+
+### Standard Chart Template
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans  # Use real ML
+
+plt.style.use('seaborn-v0_8-whitegrid')
+np.random.seed(42)
+fig, ax = plt.subplots(figsize=(14, 10))  # Standard size
+
+# Color palette
+colors = {
+    'mlblue': '#1f77b4',
+    'mlorange': '#ff7f0e', 
+    'mlgreen': '#2ca02c',
+    'mlred': '#d62728',
+    'mlpurple': '#9467bd'
+}
+
+# Save outputs
+plt.savefig('chart_name.pdf', dpi=300, bbox_inches='tight')
+plt.savefig('chart_name.png', dpi=150, bbox_inches='tight')
 ```
+
+## LaTeX/Beamer Standards
+
+### Document Configuration
+```latex
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+```
+
+### Critical LaTeX Rules
+- **Font sizes**: Exactly 3 (`\Large`, `\normalsize`, `\small`)
+- **Columns**: `0.48/0.48` (equal) or `0.55/0.43` (unequal)
+- **Chart widths**: `0.85` (full), `0.75` (medium), `0.65` (sidebar)
+- **No Unicode**: ASCII only (no emojis, special symbols)
+- **Quotes**: Use `` `` not " "
+- **Lists**: `\begin{itemize}` not HTML tags
+
+## Current Week Development Status
+
+| Week | Topic | Status | Key Files |
+|------|-------|--------|-----------|
+| 1 | Clustering & Empathy | ✅ Complete | `Week_01/20250913_2133_week01_modular.tex` |
+| 2 | Advanced Clustering | 🔄 Planned | Focus: Dynamic segmentation |
+| 3 | NLP & Sentiment | 🔄 Planned | Focus: Context understanding |
+| 4 | Classification | 🔄 Planned | Focus: Problem patterns |
+| 5 | Topic Modeling | 🔄 Planned | Focus: Hidden themes |
+| 6 | Generative AI | 🔄 Planned | Focus: Creative exploration |
+| 7 | SHAP Analysis | 🔄 Planned | Focus: Feature importance |
+| 8 | Structured Output | 🔄 Planned | Focus: Consistent generation |
+| 9 | Multi-Metric Validation | 🔄 Planned | Focus: Beyond accuracy |
+| 10 | A/B Testing | 🔄 Planned | Focus: Statistical validation |
+
+## File Naming Convention
+```
+YYYYMMDD_HHMM_description.tex  # Timestamp versioning
+Week_##/scripts/create_*.py    # Visualization generators
+Week_##/charts/*.pdf           # Generated charts
+Week_##/previous/              # Version history
+```
+
+## Automation Tools
+
+### `compile_slides.py`
+Compiles LaTeX with automatic cleanup and PDF opening
+
+### `fix_overfull_charts.py`
+Auto-adjusts chart sizes to fix overfull warnings
+- Strategy: >100pt: 20%, 50-100pt: 12%, 20-50pt: 7%, <20pt: 5%
+
+### `check_font_sizes.py`
+Verifies font consistency with auto-fix option
 
 ## Development Workflow
 
-1. **Timestamp versions**: `YYYYMMDD_HHMM_description.tex`
-2. **Generate charts first**: Create visualizations before slide content
-3. **Quality checks**: Run font/overfull checks before compilation
-4. **Version control**: Move old versions to `previous/`
-5. **Clean builds**: Use `compile_slides.py` for consistent output
+1. **Create timestamp**: `YYYYMMDD_HHMM` format
+2. **Copy template**: From successful Week 1 structure
+3. **Add improvements**: Section dividers, transitions, problem slides
+4. **Generate charts**: Use real ML algorithms
+5. **Check quality**: Font sizes, overfull boxes
+6. **Compile PDF**: With cleanup
+7. **Version control**: Move old to `previous/`
 
-## Course Structure Reference
+## Content Guidelines
 
-- **Week 1**: Clustering for Innovation Discovery (COMPLETE)
-- **Week 2**: Advanced Clustering Techniques
-- **Week 3**: NLP for Context Understanding
-- **Week 4**: Classification for Problem Definition
-- **Week 5**: Topic Modeling for Hidden Themes
-- **Week 6**: Generative AI for Ideation
-- **Week 7**: SHAP for Feature Prioritization
-- **Week 8**: Structured Generation
-- **Week 9**: Multi-Metric Validation
-- **Week 10**: Testing, Ethics & Evolution
+### BSc-Level Requirements
+- Visual explanations over mathematics
+- Complex math → appendix only
+- Industry examples must be verified
+- Show concepts, not code on slides
+- Focus on practical application
 
-## Key Resources
+### Slide Content Rules
+- One main concept per slide
+- Maximum 5 bullet points
+- Charts speak for themselves
+- Problem before solution
+- Real data, real algorithms
 
-- Course outline: `AI_Innovation_Course_Outline.md` (625 lines)
-- Full TOC: `ML_Design_Course/full_course_content_toc.md` (588 lines)
-- Week 1 status: `Week_01/FINAL_IMPROVEMENT_REPORT.md`
+## Critical Success Patterns (from Week 1)
+
+1. **Opening Hook**: Power visualization that shows end result
+2. **Transition**: "But first, let's understand the problem..."
+3. **Problem Statement**: Clear pain points before each method
+4. **Technical Depth**: Progressive complexity with visual aids
+5. **Design Bridge**: "What this means for users..."
+6. **Real Application**: Industry case study (e.g., Spotify)
+7. **Call to Action**: Practice exercise with clear tasks
+
+## Development Best Practices
+
+### From Week 1 Improvements
+- **Always add section dividers** between 4 main parts
+- **Include transition slides** to bridge major topic changes
+- **Start with problems** before presenting solutions
+- **Use real ML algorithms** (KMeans, DBSCAN, etc.) not fake data
+- **Include "The [X] Challenge" slides** to frame each methodology
+- **Build narrative flow** from opening hook to final practice
+
+### Quality Assurance Checklist
+- [ ] Font sizes: Exactly 3 (\Large, \normalsize, \small)
+- [ ] Column widths: Consistent (0.48/0.48 or 0.55/0.43)
+- [ ] Chart widths: Standardized (0.85, 0.75, or 0.65)
+- [ ] Section dividers: All 4 parts clearly marked
+- [ ] Transition slides: Smooth flow between topics
+- [ ] Problem statements: Before each methodology
+- [ ] Real data: Actual ML algorithms used
+- [ ] Slide count: ~48-49 with improvements (31 base + enhancements)
+
+## Common Issues and Solutions
+
+| Issue | Solution | Prevention |
+|-------|----------|------------|
+| Overfull hbox | Run `fix_overfull_charts.py` | Use standard chart widths |
+| Font inconsistency | Run `check_font_sizes.py` | Stick to 3 sizes only |
+| PDF locked | Use `-jobname` parameter | Close PDF viewer first |
+| Missing transitions | Add bridge slides | Use Week 1 as template |
+| No problem context | Add "Challenge" slides | Problem before solution |
+
+## Version Control Strategy
+
+1. **Timestamp all files**: YYYYMMDD_HHMM format
+2. **Keep previous versions**: Move to `previous/` folder
+3. **Track improvements**: Use descriptive suffixes (_improved, _final)
+4. **Document changes**: Update changelog.md after major edits

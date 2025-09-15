@@ -23,9 +23,22 @@
 \definecolor{mlyellow}{RGB}{255, 187, 120}
 \definecolor{mlcyan}{RGB}{23, 190, 207}
 
-% Remove navigation symbols
+% Remove navigation symbols and add custom footer
 \setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}Part \insertpartnumber/4
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}Week 1: Clustering
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}Slide \insertframenumber{} of \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
 
 \title{\Large\textbf{Machine Learning for Smarter Innovation}\\
 \vspace{0.5em}
@@ -39,6 +52,43 @@
 % Title slide
 \begin{frame}
 \titlepage
+\end{frame}
+
+% Prerequisites Slide
+\begin{frame}
+\frametitle{\Large Prerequisites \& What You Need}
+\framesubtitle{Setting You Up for Success}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=What You Need to Know]
+\normalsize
+\begin{itemize}
+\item Basic Python (variables, loops, functions)
+\item High school math (averages, distances)
+\item How to use Jupyter notebooks
+\item Basic data concepts (tables, rows, columns)
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=What We'll Provide]
+\normalsize
+\begin{itemize}
+\item All code templates
+\item Step-by-step instructions
+\item Visual explanations
+\item Practice datasets
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{No machine learning experience required!}}
+\end{center}
 \end{frame}
 
 % Slide 2: Course Overview - The Innovation Trinity
@@ -83,11 +133,11 @@ What we'll explore:\\
 % Learning Objectives for Part 1
 \begin{frame}
 \frametitle{\Large Part 1: Learning Objectives}
-\framesubtitle{What You'll Master in This Section}
+\framesubtitle{What You'll Learn in This Section}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title={By the end of Part 1, you will:}]
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title={By the end of Part 1, you will be able to:}]
 \normalsize
 \begin{itemize}
 \item \textbf{Understand} the limitations of traditional innovation approaches
@@ -213,7 +263,7 @@ What we'll explore:\\
 % Slide 6: Your Innovation Journey Chart
 \begin{frame}
 \frametitle{\Large Your Innovation Journey}
-\framesubtitle{10 Weeks to AI-Powered Design Mastery}
+\framesubtitle{10 Weeks to Understanding AI-Powered Design}
 
 \begin{center}
 \includegraphics[width=0.85\textwidth]{../ML_Design_Course/course_visuals/journey_roadmap.pdf}
@@ -223,7 +273,7 @@ What we'll explore:\\
 % Slide 7: Your Innovation Journey Details
 \begin{frame}
 \frametitle{\Large Your Innovation Journey (Continued)}
-\framesubtitle{What You'll Master in Each Stage}
+\framesubtitle{What You'll Learn in Each Stage}
 
 \begin{center}
 \Large
@@ -294,6 +344,42 @@ What we'll explore:\\
 \end{center}
 \end{frame}
 
+% CHECKPOINT SLIDE 1
+\begin{frame}
+\frametitle{\Large Check Your Understanding - Part 1}
+\framesubtitle{Quick Knowledge Check}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=True or False?]
+\normalsize
+\begin{enumerate}
+\item Clustering requires labeled data \textcolor{mlred}{(F)}
+\item ML can process more data than humans \textcolor{mlgreen}{(T)}
+\item Design thinking has 5 stages \textcolor{mlgreen}{(T)}
+\item Clustering finds hidden patterns \textcolor{mlgreen}{(T)}
+\end{enumerate}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Can You Explain?]
+\normalsize
+\begin{itemize}
+\item What is the dual pipeline approach?
+\item Why combine ML with design thinking?
+\item What problem does clustering solve?
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Ready for Part 2? Let's dive into the technical details!}}
+\end{center}
+\end{frame}
+
 % TRANSITION TO PART 2
 \begin{frame}
 \frametitle{\Large Now Let's Get Technical}
@@ -325,7 +411,7 @@ Let the data reveal its own natural groups\\
 \Large\textbf{Technical Core}\\
 \vspace{2em}
 \Large
-What we'll master:\\
+What we'll learn:\\
 \vspace{1em}
 \normalsize
 \begin{itemize}
@@ -336,7 +422,7 @@ What we'll master:\\
 \item Feature importance analysis
 \end{itemize}
 \vspace{2em}
-\Large\textcolor{mlpurple}{\textbf{Building your ML toolkit}}
+\Large\textcolor{mlpurple}{\textbf{Learning the basics step by step}}
 \end{center}
 \end{frame}
 
@@ -347,29 +433,29 @@ What we'll master:\\
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title={By the end of Part 2, you will:}]
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title={By the end of Part 2, you will understand:}]
 \normalsize
 \begin{itemize}
-\item \textbf{Implement} K-means clustering
-\item \textbf{Apply} the elbow method
-\item \textbf{Calculate} distance metrics
-\item \textbf{Evaluate} cluster quality
-\item \textbf{Compare} different algorithms
-\item \textbf{Select} appropriate methods
+\item \textbf{How} K-means clustering works
+\item \textbf{What} the elbow method shows us
+\item \textbf{Why} we measure distances
+\item \textbf{How to check} if clusters are good
+\item \textbf{Differences} between algorithms
+\item \textbf{When to use} each method
 \end{itemize}
 \end{tcolorbox}
 \end{column}
 
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Hands-on Skills]
+\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Practical Skills]
 \normalsize
 \begin{itemize}
-\item Code K-means from scratch
-\item Interpret silhouette scores
-\item Choose between algorithms
-\item Tune parameters effectively
-\item Handle different data shapes
-\item Preprocess data correctly
+\item Use K-means step by step
+\item Understand quality scores
+\item Pick the right algorithm
+\item Adjust settings properly
+\item Work with different patterns
+\item Prepare data for analysis
 \end{itemize}
 \end{tcolorbox}
 \end{column}
@@ -424,23 +510,24 @@ What we'll master:\\
 % Slide 9: What is Clustering?
 \begin{frame}
 \frametitle{\Large What is Clustering?}
-\framesubtitle{Finding Natural Groups in Innovation Data}
+\framesubtitle{Like Organizing a Messy Room - Finding Things That Belong Together}
 
 \begin{columns}[T]
 \begin{column}{0.43\textwidth}
 \Large\textbf{Clustering Finds:}
 \normalsize
 \begin{itemize}
-\item Natural groupings
-\item Similar approaches
-\item Hidden patterns
-\item Innovation relationships
+\item Natural groupings (like sorting laundry by color)
+\item Similar approaches (things that work the same way)
+\item Hidden patterns (connections you didn't see before)
+\item Innovation relationships (which ideas go together)
 \end{itemize}
 
 \vspace{0.5em}
 \begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50]
 \textbf{Key Insight:}\\
-Innovations with similar features address similar opportunities
+Things that look similar often belong in the same group\\
+\textit{(Just like organizing books by topic on a shelf)}
 \end{tcolorbox}
 \end{column}
 
@@ -454,19 +541,19 @@ Innovations with similar features address similar opportunities
 
 % Slide 10: K-Means Algorithm
 \begin{frame}
-\frametitle{\Large K-Means: The Workhorse Algorithm}
-\framesubtitle{How It Organizes Your Innovations}
+\frametitle{\Large K-Means: The Basic Clustering Method}
+\framesubtitle{Like Finding Neighborhoods in a City}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \Large\textbf{The Process:}
 \normalsize
 \begin{enumerate}
-\item Choose K (number of clusters)
-\item Place K random centroids
-\item Assign points to nearest centroid
-\item Move centroids to cluster mean
-\item Repeat until stable
+\item Choose K \textit{(number of clusters)}
+\item Place K random centroids \textit{(initial group centers)}
+\item Assign points to nearest centroid \textit{(by calculating distances)}
+\item Update centroids \textit{(move to cluster mean)}
+\item Repeat until convergence \textit{(no changes occur)}
 \end{enumerate}
 
 \vspace{0.5em}
@@ -559,7 +646,7 @@ Iteration 1 $\rightarrow$ Iteration 3 $\rightarrow$ Iteration 5 $\rightarrow$ \t
 % Slide 12: Choosing K - Elbow Method
 \begin{frame}
 \frametitle{\Large The Elbow Method}
-\framesubtitle{Finding the Optimal Number of Clusters}
+\framesubtitle{How Many Groups Should We Have? (Like Goldilocks - Not Too Few, Not Too Many)}
 
 \begin{columns}[T]
 \begin{column}{0.43\textwidth}
@@ -594,7 +681,7 @@ Best trade-off between simplicity and accuracy
 % Slide 13: Distance Metrics
 \begin{frame}
 \frametitle{\Large Distance Metrics}
-\framesubtitle{How We Measure Similarity}
+\framesubtitle{Different Ways to Measure "How Close" Things Are}
 
 \begin{center}
 \includegraphics[width=0.85\textwidth]{charts/distance_visual.pdf}
@@ -604,24 +691,24 @@ Best trade-off between simplicity and accuracy
 \begin{column}{0.32\textwidth}
 \begin{center}
 \textbf{Euclidean}\\
-\normalsize Direct distance\\
-Best for continuous data
+\normalsize "As the crow flies" distance\\
+(Like measuring with a ruler)
 \end{center}
 \end{column}
 
 \begin{column}{0.32\textwidth}
 \begin{center}
 \textbf{Manhattan}\\
-\normalsize City-block distance\\
-Good for grid-like data
+\normalsize Walking distance in a city\\
+(Can't walk through buildings!)
 \end{center}
 \end{column}
 
 \begin{column}{0.32\textwidth}
 \begin{center}
 \textbf{Cosine}\\
-\normalsize Angle between vectors\\
-Ideal for text/preferences
+\normalsize Direction similarity\\
+(Are they pointing the same way?)
 \end{center}
 \end{column}
 \end{columns}
@@ -630,16 +717,16 @@ Ideal for text/preferences
 % Slide 14: Cluster Quality
 \begin{frame}
 \frametitle{\Large Cluster Quality Metrics}
-\framesubtitle{How Good Are Your Groups?}
+\framesubtitle{Are Our Groups Any Good? (Like Checking Your Work)}
 
 \begin{columns}[T]
 \begin{column}{0.43\textwidth}
 \Large\textbf{Silhouette Score:}
 \normalsize
 \begin{itemize}
-\item Ranges from -1 to +1
-\item Higher = better separation
-\item Our score: \textbf{0.73}
+\item Ranges from -1 to +1 \textit{(mathematical measure)}
+\item Higher = better separation \textit{(clearer groups)}
+\item Our score: \textbf{0.73} \textit{(good clustering!)}
 \end{itemize}
 
 \vspace{0.5em}
@@ -697,18 +784,18 @@ Ideal for text/preferences
 
 % Slide 15: Beyond K-Means - DBSCAN
 \begin{frame}
-\frametitle{\Large DBSCAN: Density-Based Clustering}
-\framesubtitle{Finding Natural Boundaries, Not Forcing Shapes}
+\frametitle{\Large DBSCAN: Finding Groups Naturally}
+\framesubtitle{Like Finding Groups of People at a Party - Where Are the Crowds?}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \Large\textbf{DBSCAN Advantages:}
 \normalsize
 \begin{itemize}
-\item No need to specify K
-\item Finds arbitrary shapes
-\item Identifies outliers
-\item Handles noise well
+\item No need to specify K \textit{(finds groups automatically)}
+\item Finds arbitrary shapes \textit{(not just circles)}
+\item Identifies outliers \textit{(points that don't belong)}
+\item Handles noise well \textit{(robust to random points)}
 \end{itemize}
 
 \vspace{0.5em}
@@ -913,13 +1000,66 @@ K-Means: Forces spherical shapes | DBSCAN: Finds natural boundaries
 \end{center}
 \end{frame}
 
+% CHECKPOINT SLIDE 2
+\begin{frame}
+\frametitle{\Large Check Your Understanding - Part 2}
+\framesubtitle{Technical Concepts Review}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=Quick Quiz]
+\normalsize
+\begin{enumerate}
+\item K in K-means stands for:
+   \begin{itemize}
+   \small
+   \item[$\square$] Kernel
+   \item[$\checkmark$] Number of clusters
+   \item[$\square$] Constant
+   \end{itemize}
+\item DBSCAN finds:
+   \begin{itemize}
+   \small
+   \item[$\square$] Only circles
+   \item[$\checkmark$] Any shape clusters
+   \item[$\square$] Exactly K groups
+   \end{itemize}
+\end{enumerate}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Can You Calculate?]
+\normalsize
+If Silhouette Score = 0.75:
+\begin{itemize}
+\item Is this good? \textcolor{mlgreen}{Yes!}
+\item Range is [-1, 1]
+\item Higher = better separation
+\end{itemize}
+\vspace{0.5em}
+\textbf{Remember:}
+\begin{itemize}
+\item Elbow method finds optimal K
+\item Scale your data first!
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Great job! Now let's apply these concepts!}}
+\end{center}
+\end{frame}
+
 % TRANSITION TO PART 3
 \begin{frame}
 \frametitle{\Large From Algorithms to Innovation Insights}
 \framesubtitle{What Does This Mean for Innovation Opportunities?}
 
 \begin{center}
-\Large\textbf{We've mastered the technical tools:}\\
+\Large\textbf{We've learned the technical tools:}\\
 \normalsize
 Clustering, metrics, quality measures\\
 \vspace{1em}
@@ -962,11 +1102,11 @@ What we'll create:\\
 % Learning Objectives for Part 3
 \begin{frame}
 \frametitle{\Large Part 3: Learning Objectives}
-\framesubtitle{Innovation Applications You'll Master}
+\framesubtitle{Innovation Applications You'll Explore}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title={By the end of Part 3, you will:}]
+\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title={By the end of Part 3, you will be able to:}]
 \normalsize
 \begin{itemize}
 \item \textbf{Create} innovation archetypes
@@ -1154,6 +1294,50 @@ Disruptive | Incremental | Platform-Based | Service-Oriented | Hybrid Models
 \end{center}
 \end{frame}
 
+% CHECKPOINT SLIDE 3
+\begin{frame}
+\frametitle{\Large Check Your Understanding - Part 3}
+\framesubtitle{Application Knowledge Check}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Match the Application]
+\normalsize
+Match algorithm to use case:
+\begin{enumerate}
+\item Customer segmentation
+   \textcolor{mlblue}{→ K-means}
+\item Finding outliers
+   \textcolor{mlgreen}{→ DBSCAN}
+\item Creating taxonomy
+   \textcolor{mlpurple}{→ Hierarchical}
+\item Overlapping groups
+   \textcolor{mlorange}{→ GMM}
+\end{enumerate}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlpurple!10, colframe=mlpurple!50, title=Design Thinking]
+\normalsize
+\textbf{How does clustering help in:}
+\begin{itemize}
+\item \textbf{Empathize}: Find user groups
+\item \textbf{Define}: Identify patterns
+\item \textbf{Ideate}: Discover opportunities
+\item \textbf{Prototype}: Target solutions
+\item \textbf{Test}: Validate segments
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{1em}
+\begin{center}
+\Large\textcolor{mlpurple}{\textbf{Excellent! Ready to practice with real data?}}
+\end{center}
+\end{frame}
+
 % TRANSITION TO PART 4
 \begin{frame}
 \frametitle{\Large Putting It All Together}
@@ -1169,8 +1353,8 @@ Disruptive | Incremental | Platform-Based | Service-Oriented | Hybrid Models
 \Large\textcolor{mlpurple}{\textbf{Now let's see it in action}}\\
 \vspace{1em}
 \normalsize
-Real companies using these exact techniques\\
-to drive innovation breakthroughs
+How these techniques work in practice\\
+to find patterns in data
 \end{center}
 \end{frame}
 
@@ -1202,8 +1386,8 @@ What we'll do:\\
 
 % Slide 27: Real-World Clustering Patterns
 \begin{frame}
-\frametitle{\Large Real-World Clustering Patterns}
-\framesubtitle{Common Applications and Success Metrics}
+\frametitle{\Large How Clustering is Used}
+\framesubtitle{Common Applications and Results}
 
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
@@ -1213,22 +1397,22 @@ What we'll do:\\
 \end{column}
 
 \begin{column}{0.43\textwidth}
-\Large\textbf{Common Applications:}
+\Large\textbf{Academic Applications:}
 \normalsize
 \begin{itemize}
-\item Innovation portfolio management
-\item Technology trend clustering
-\item Opportunity space mapping
-\item Anomaly detection
+\item Student performance analysis \textit{(grouping by learning styles)}
+\item Research paper categorization \textit{(organizing by topics)}
+\item Course recommendation systems \textit{(matching students to courses)}
+\item Exam question classification \textit{(grouping by difficulty)}
 \end{itemize}
 
 \vspace{0.5em}
-\textbf{Typical Results:}
+\textbf{Benefits You'll See:}
 \begin{itemize}
-\item Engagement: +35-45\%
-\item Retention: +20-30\%
-\item Conversion: +15-25\%
-\item Processing time: -60\%
+\item Better understanding of patterns
+\item Faster data analysis
+\item More accurate groupings
+\item Clearer insights from data
 \end{itemize}
 \end{column}
 \end{columns}
@@ -1533,12 +1717,14 @@ What we'll do:\\
 
 % Appendix Slide 1: K-Means Mathematics
 \begin{frame}
-\frametitle{\Large Appendix: K-Means Mathematics}
-\framesubtitle{The Mathematical Foundation}
+\frametitle{\Large Appendix: K-Means Mathematics (Optional)}
+\framesubtitle{The Mathematical Foundation - For Those Interested}
 
-\Large\textbf{Objective Function (Inertia):}
+\Large\textbf{What K-means tries to minimize:}
 \normalsize
 $$J = \sum_{i=1}^{n} \sum_{j=1}^{k} w_{ij} ||x_i - \mu_j||^2$$
+
+\textit{In simple terms: Make points close to their group centers}
 
 Where:
 \begin{itemize}
@@ -1559,8 +1745,8 @@ Where:
 
 % Appendix Slide 2: Distance Metrics Formulas
 \begin{frame}
-\frametitle{\Large Appendix: Distance Metrics}
-\framesubtitle{Mathematical Definitions}
+\frametitle{\Large Appendix: Distance Metrics (Optional)}
+\framesubtitle{Different Ways to Measure "How Far Apart" Things Are}
 
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
@@ -1593,8 +1779,8 @@ $$d(x,y) = \sqrt{(x-y)^T S^{-1} (x-y)}$$
 
 % Appendix Slide 3: Silhouette Coefficient
 \begin{frame}
-\frametitle{\Large Appendix: Silhouette Coefficient}
-\framesubtitle{Measuring Cluster Quality}
+\frametitle{\Large Appendix: Silhouette Score Explained}
+\framesubtitle{How We Know If Groups Are Good}
 
 \Large\textbf{Silhouette Score for point $i$:}
 \normalsize
@@ -1623,8 +1809,8 @@ $$S = \frac{1}{n} \sum_{i=1}^{n} s(i)$$
 
 % Appendix Slide 4: PCA for Visualization
 \begin{frame}
-\frametitle{\Large Appendix: PCA for Cluster Visualization}
-\framesubtitle{Dimensionality Reduction}
+\frametitle{\Large Appendix: Visualizing High-Dimensional Data}
+\framesubtitle{Making Complex Data Viewable in 2D}
 
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
@@ -1667,8 +1853,8 @@ $$S = \frac{1}{n} \sum_{i=1}^{n} s(i)$$
 
 % Appendix Slide 5: DBSCAN Algorithm
 \begin{frame}
-\frametitle{\Large Appendix: DBSCAN Algorithm}
-\framesubtitle{Density-Based Clustering Details}
+\frametitle{\Large Appendix: How DBSCAN Works}
+\framesubtitle{Finding Groups Based on How Close Points Are}
 
 \Large\textbf{Key Parameters:}
 \normalsize
