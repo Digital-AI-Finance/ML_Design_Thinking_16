@@ -200,6 +200,37 @@ Verifies font consistency with auto-fix option
 6. **Real Application**: Industry case study (e.g., Spotify)
 7. **Call to Action**: Practice exercise with clear tasks
 
+## Common Issues and Solutions
+
+| Issue | Solution | Prevention |
+|-------|----------|------------|
+| Overfull hbox | Run `fix_overfull_charts.py` | Use standard chart widths |
+| Font inconsistency | Run `check_font_sizes.py` | Stick to 3 sizes only |
+| PDF locked | Use `-jobname` parameter | Close PDF viewer first |
+| Missing transitions | Add bridge slides | Use Week 1 as template |
+| No problem context | Add "Challenge" slides | Problem before solution |
+
+## Version Control Strategy
+
+1. **Timestamp all files**: YYYYMMDD_HHMM format
+2. **Keep previous versions**: Move to `previous/` folder
+3. **Track improvements**: Use descriptive suffixes (_improved, _final)
+4. **Document changes**: Update changelog.md after major edits
+
+## Discovery Materials
+
+### Current Working Files
+- **week01_discovery_worksheet.tex** - Expanded 9-page academic worksheet
+  - Exercise 1-2: Pattern recognition and innovation sorting
+  - Exercise 3: ML Pipeline (Data → Preprocess → Model → Evaluate → Deploy)
+  - Exercise 4: DT Pipeline (Empathize → Define → Ideate → Prototype → Test)
+  - Exercise 5: Pipeline convergence analysis
+  - Reflection: Methodological synthesis with 6 academic questions
+
+### Archived Versions (in archive/)
+- Multiple handout versions (enhanced, simplified, pre-lesson)
+- Various pedagogical approaches tested and refined
+
 ## Development Best Practices
 
 ### From Week 1 Improvements
@@ -219,20 +250,3 @@ Verifies font consistency with auto-fix option
 - [ ] Problem statements: Before each methodology
 - [ ] Real data: Actual ML algorithms used
 - [ ] Slide count: ~48-49 with improvements (31 base + enhancements)
-
-## Common Issues and Solutions
-
-| Issue | Solution | Prevention |
-|-------|----------|------------|
-| Overfull hbox | Run `fix_overfull_charts.py` | Use standard chart widths |
-| Font inconsistency | Run `check_font_sizes.py` | Stick to 3 sizes only |
-| PDF locked | Use `-jobname` parameter | Close PDF viewer first |
-| Missing transitions | Add bridge slides | Use Week 1 as template |
-| No problem context | Add "Challenge" slides | Problem before solution |
-
-## Version Control Strategy
-
-1. **Timestamp all files**: YYYYMMDD_HHMM format
-2. **Keep previous versions**: Move to `previous/` folder
-3. **Track improvements**: Use descriptive suffixes (_improved, _final)
-4. **Document changes**: Update changelog.md after major edits
