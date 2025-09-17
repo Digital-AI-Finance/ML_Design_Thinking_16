@@ -6,30 +6,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repository contains "Machine Learning for Smarter Innovation" - a comprehensive BSc-level course demonstrating how ML/AI augments design thinking processes. The course bridges technical ML knowledge with human-centered design methodology across 10 weeks (310 slides total).
 
-## Current Directory Structure
-```
-ML_Design_Thinking_16/
-├── Week_01/                         # COMPLETED - Full implementation with latest improvements
-│   ├── 20250913_2133_week01_modular.tex   # Modular main file with \input commands
-│   ├── part1_foundation.tex        # Part 1: Foundation & Problem Statement
-│   ├── part2_technical.tex         # Part 2: Technical ML Content  
-│   ├── part3_design.tex            # Part 3: Design Integration
-│   ├── part4_summary.tex           # Part 4: Summary & Practice
-│   ├── appendix_technical.tex      # Technical appendix
-│   ├── week01_modular_updated.pdf  # Latest compiled version (87 pages)
-│   ├── week01_discovery_worksheet.tex      # Expanded 9-page worksheet
-│   ├── charts/                      # 50+ generated visualizations
-│   ├── scripts/                     # Chart generation scripts  
-│   ├── archive/                     # Old versions (20+ files)
-│   └── temp/                        # Compilation auxiliary files
-├── Week_02-10/                      # PLANNED - Structure ready, content pending
-├── ML_Design_Course/
-│   ├── 20250912_0848_course_overview_10week.tex  # Overview presentation
-│   └── full_course_content_toc.md  # Complete 310-slide outline
-├── check_font_sizes.py             # Font consistency validator
-├── fix_overfull_charts.py          # Auto-fix overfull warnings
-└── compile_slides.py                # Automated compilation with cleanup
-```
+## High-Level Architecture
+
+### Course Material Organization
+The course uses a **modular LaTeX architecture** with separate files for each section, enabling parallel development and easier maintenance. Each week follows an identical 4-part structure plus appendix, with all content linked through a main `.tex` file using `\input` commands.
+
+### Jupyter Notebook Integration  
+Three comprehensive notebooks per week provide **interactive learning experiences**:
+- **Part 1**: Foundation setup with all helper functions defined in Section 0
+- **Part 2**: Technical implementation with algorithm demonstrations
+- **Part 3**: Practice exercises with solutions and case studies
+
+All notebooks follow a **function-first architecture** where:
+1. All functions are defined at the beginning (Section 0: Complete Function Library)
+2. The rest of the notebook calls these functions for demonstrations
+3. This enables modular testing and reuse across notebooks
+
+### Visualization Pipeline
+Charts follow a **standardized generation pipeline**:
+1. Python scripts in `scripts/` generate both PDF and PNG versions
+2. All visualizations use real ML algorithms (no synthetic data)
+3. Consistent color palette and styling across all 50+ charts
+4. Charts are designed to be self-explanatory without accompanying text
 
 ## Course Architecture
 
@@ -54,36 +52,60 @@ ML_Design_Thinking_16/
 3. **Problem-First**: Problem statement before each methodology
 4. **Narrative Flow**: Smooth progression from problem → solution → application
 
-## Building and Compilation
+## Common Commands
 
-### LaTeX/PDF Compilation (Windows)
+### LaTeX Compilation (Windows)
 ```bash
-# Compile with automatic cleanup (recommended)
-python compile_slides.py Week_01/20250913_2133_week01_modular.tex
-
-# Manual compilation
+# Standard compilation (run twice for TOC/references)
 pdflatex filename.tex
-pdflatex filename.tex  # Run twice for TOC/references
+pdflatex filename.tex
 
-# If PDF is locked by viewer
+# If PDF is locked by viewer, use alternative job name
 pdflatex -jobname=filename_v2 filename.tex
-# Or use updated name
-pdflatex -jobname=week01_modular_updated 20250913_2133_week01_modular.tex
 
 # Clean auxiliary files after compilation (PowerShell)
-powershell -Command "Move-Item '*.aux', '*.log', '*.nav', '*.snm', '*.toc', '*.vrb', '*.out' -Destination 'temp\' -Force -ErrorAction SilentlyContinue"
+powershell -Command "New-Item -ItemType Directory -Force -Path temp; Move-Item *.aux,*.log,*.nav,*.snm,*.toc,*.vrb,*.out -Destination temp -Force -ErrorAction SilentlyContinue"
+
+# Verify slide count (Windows)
+findstr /c:"begin{frame}" filename.tex
 ```
 
-### Quality Checks
+### Jupyter Notebook Development
 ```bash
-# Check font size consistency (max 3 sizes allowed)
-python check_font_sizes.py filename.tex
+# Start notebook server
+jupyter notebook
 
-# Fix overfull boxes automatically
-python fix_overfull_charts.py filename.tex
+# Execute all cells in a notebook
+jupyter nbconvert --to notebook --execute Week_01/Week01_Part1_Setup_Foundation.ipynb --output executed.ipynb
 
-# Verify slide count
-grep -c "begin{frame}" filename.tex  # Should be ~48-49 with improvements (31 base + enhancements)
+# Convert notebook to Python script
+jupyter nbconvert --to python Week_01/Week01_Part1_Setup_Foundation.ipynb
+
+# Run all three notebooks in sequence
+python -c "import subprocess; [subprocess.run(['jupyter', 'nbconvert', '--to', 'notebook', '--execute', f'Week_01/Week01_Part{i}_{name}.ipynb'], check=True) for i, name in enumerate(['Setup_Foundation', 'Technical_Design', 'Practice_Advanced'], 1)]"
+```
+
+### Python Visualization Generation
+```bash
+# Install required packages
+pip install numpy pandas matplotlib seaborn scikit-learn jupyter
+
+# Generate all Week 1 charts
+cd Week_01/scripts
+python create_clustering_demo.py
+python create_kmeans_process.py
+
+# Batch generate all visualizations
+for %f in (*.py) do python %f
+```
+
+### Testing and Validation
+```bash
+# Check for formatting issues in notebooks
+python -c "import json; [print(f'{nb}: OK') if json.load(open(f'Week_01/{nb}', encoding='utf-8')) else None for nb in ['Week01_Part1_Setup_Foundation.ipynb', 'Week01_Part2_Technical_Design.ipynb', 'Week01_Part3_Practice_Advanced.ipynb']]"
+
+# Count functions in notebooks
+python -c "import json, re; nb=json.load(open('Week_01/Week01_Part1_Setup_Foundation.ipynb', encoding='utf-8')); src=''.join([''.join(c['source']) for c in nb['cells'] if c['cell_type']=='code']); print(f'Functions: {len(re.findall(r\"def \w+\", src))}')"
 ```
 
 ## Visualization Development
@@ -160,17 +182,6 @@ Week_##/charts/*.pdf           # Generated charts
 Week_##/previous/              # Version history
 ```
 
-## Automation Tools
-
-### `compile_slides.py`
-Compiles LaTeX with automatic cleanup and PDF opening
-
-### `fix_overfull_charts.py`
-Auto-adjusts chart sizes to fix overfull warnings
-- Strategy: >100pt: 20%, 50-100pt: 12%, 20-50pt: 7%, <20pt: 5%
-
-### `check_font_sizes.py`
-Verifies font consistency with auto-fix option
 
 ## Development Workflow
 
@@ -235,19 +246,16 @@ Verifies font consistency with auto-fix option
   - Exercise 5: Pipeline convergence analysis
   - Reflection: Methodological synthesis with 6 academic questions
 
-### Jupyter Notebooks (NEW)
-- **Week01_Part1_Setup_Foundation.ipynb** - Complete setup and foundation
-  - Section 0: All 21 helper functions (visualization, data generation, clustering, innovation analysis)
-  - Section 1: Pre-Discovery exploration (3 subsections with exercises)
-  - Section 2: Foundation & Context (5 subsections including dual pipeline)
-- **Week01_Part2_Technical_Design.ipynb** - Technical algorithms and design integration
-  - Section 3: All clustering algorithms (K-Means, DBSCAN, Hierarchical, GMM)
-  - Section 4: Design applications (archetypes, taxonomy, opportunity analysis, ecosystem)
-- **Week01_Part3_Practice_Advanced.ipynb** - Practice and advanced topics
-  - Section 5: Spotify case study and innovation challenge
-  - Section 6: Advanced visualizations (PCA/t-SNE, 3D, Dashboard)
-  - Section 7: Hands-on exercises with solutions
-  - Section 8: Quick reference guide
+### Jupyter Notebooks Structure
+Each week contains 3 notebooks with **function-first architecture**:
+- **Week01_Part1_Setup_Foundation.ipynb** (40 cells) - Foundation with 35 functions in Section 0
+- **Week01_Part2_Technical_Design.ipynb** (48 cells) - Technical deep-dive with 32 algorithm functions
+- **Week01_Part3_Practice_Advanced.ipynb** (40 cells) - Practice exercises with 16 case study functions
+
+All notebooks have been reorganized so that:
+- Cell 0-1: Header and imports
+- Cell 2-4: Complete Function Library (all functions defined here)
+- Cell 5+: Function calls and demonstrations only
 
 ## Recent Slide Modifications (Latest Session)
 

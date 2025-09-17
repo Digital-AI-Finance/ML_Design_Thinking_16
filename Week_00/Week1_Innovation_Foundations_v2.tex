@@ -1,0 +1,587 @@
+\documentclass[8pt]{beamer}
+\usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{multicol}
+\usepackage{amsmath}
+
+% Color definitions
+\definecolor{mlblue}{RGB}{31, 119, 180}
+\definecolor{mlorange}{RGB}{255, 127, 14}
+\definecolor{mlgreen}{RGB}{44, 160, 44}
+\definecolor{mlred}{RGB}{214, 39, 40}
+\definecolor{mlpurple}{RGB}{148, 103, 189}
+\definecolor{mlgray}{RGB}{127, 127, 127}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Clean itemize/enumerate
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Reduce margins for more content space
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+% Title information
+\title{Week 1: Innovation Foundations}
+\subtitle{Supervised vs Unsupervised Learning}
+\author{BSc Course - ML for Design Thinking}
+\institute{Machine Learning \& Generative AI for Innovation}
+\date{Week 1 of 12}
+
+\begin{document}
+
+% Title slide
+\begin{frame}[t]
+\titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}[t]{Week 1 Overview}
+\tableofcontents
+\vfill
+\footnotesize
+\textbf{Core Concept:} Understanding the fundamental difference between supervised and unsupervised learning paradigms. Foundation for systematic innovation through machine learning approaches.
+\end{frame}
+
+% Section 1: The Innovation Challenge
+\section{The Innovation Challenge}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large The Innovation Challenge\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Opening Problem}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{The Challenge:}
+\begin{itemize}
+\item 95\% of new products fail
+\item Traditional methods insufficient
+\item Need systematic approach
+\item Data-driven insights required
+\end{itemize}
+\vspace{10pt}
+\textbf{Core Question:}\\
+How can we systematically innovate when 95\% of new products fail?
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{figures/innovation_failure_rate.pdf}
+\end{column}
+\end{columns}
+\vfill
+\footnotesize
+\textbf{This Week:} Foundation of ML thinking. Two fundamental learning paradigms. Integration with design thinking process.
+\end{frame}
+
+% Section 2: Learning Paradigms
+\section{Learning Paradigms in ML}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Learning Paradigms in ML\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Supervised vs Unsupervised Learning}
+\centering
+\includegraphics[width=0.95\textwidth]{figures/learning_paradigms.pdf}
+\vspace{10pt}
+\small Key insight: Supervised learning uses labeled data, unsupervised discovers hidden patterns
+\vfill
+\footnotesize
+\textbf{Applications:} Supervised for prediction and classification. Unsupervised for exploration and discovery. Both essential for comprehensive innovation strategy.
+\end{frame}
+
+\begin{frame}[t]{Core Concepts}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Supervised Learning:}
+\begin{itemize}
+\item Function: $f: X \rightarrow Y$
+\item Training with labels
+\item Examples: Email spam detection, success prediction
+\item Use: When outcomes are known
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Unsupervised Learning:}
+\begin{itemize}
+\item Function: $f: X \rightarrow Z$
+\item No labels required
+\item Examples: Customer segmentation, pattern discovery
+\item Use: Exploring unknown structures
+\end{itemize}
+\end{column}
+\end{columns}
+\vfill
+\begin{equation}
+\text{Supervised Loss: } L = \frac{1}{n} \sum_{i=1}^{n} (y_i - f(x_i))^2
+\end{equation}
+\end{frame}
+
+\begin{frame}[t]{Mathematical Foundations}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/loss_functions_comparison.pdf}
+\vfill
+\begin{align}
+\text{Supervised: } & \min_\theta \sum_{i=1}^{n} \mathcal{L}(y_i, f_\theta(x_i)) + \lambda R(\theta) \\
+\text{Unsupervised: } & \min \sum_{j=1}^{k} \sum_{i \in C_j} ||x_i - \mu_j||^2
+\end{align}
+\end{frame}
+
+\begin{frame}[t]{When to Use Which Method}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+Problem Type & Learning Method & Example Application \\
+\midrule
+Prediction & Supervised & Will this design succeed? \\
+Classification & Supervised & Categorize user feedback \\
+Discovery & Unsupervised & Find hidden patterns \\
+Segmentation & Unsupervised & Group similar users \\
+Generation & Generative AI & Create new ideas \\
+Optimization & Reinforcement & Find best sequence \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vfill
+\footnotesize
+\textbf{Decision Framework:} Use supervised when labels exist. Use unsupervised for exploration. Combine both for comprehensive analysis.
+\end{frame}
+
+% Section 3: Design Thinking Integration
+\section{Integration with Design Thinking}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Integration with Design Thinking\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{ML-Enhanced Design Process}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/design_ml_integration.pdf}
+\vfill
+\footnotesize
+\textbf{Key Integration:} Each design thinking stage benefits from different ML approaches. Empathize uses unsupervised learning. Define uses classification. Ideate leverages generative AI.
+\end{frame}
+
+\begin{frame}[t]{Design Thinking Stages \& ML Methods}
+\begin{columns}[T]
+\begin{column}{0.35\textwidth}
+\textbf{Five Stages:}
+\begin{enumerate}
+\item Empathize
+\item Define
+\item Ideate
+\item Prototype
+\item Test
+\end{enumerate}
+\vspace{10pt}
+\textbf{ML Enhancement:}\\
+Each stage augmented with appropriate ML technique
+\end{column}
+\begin{column}{0.6\textwidth}
+\begin{table}
+\footnotesize
+\begin{tabular}{ll}
+\toprule
+Stage & ML Method \\
+\midrule
+Empathize & Clustering (unsupervised) \\
+Define & Classification (supervised) \\
+Ideate & Generative AI \\
+Prototype & Prediction (supervised) \\
+Test & Both paradigms \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{10pt}
+\includegraphics[width=\textwidth]{figures/learning_objectives.pdf}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Section 4: Practical Applications
+\section{Practical Applications}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Practical Applications\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Supervised Learning: Decision Boundaries}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/decision_boundary.pdf}
+\vspace{5pt}
+\small Innovation success prediction using supervised classification
+\vfill
+\footnotesize
+\textbf{Application:} Predict which innovations will succeed based on features like innovation score and feasibility. Random Forest classifier creates non-linear decision boundaries.
+\end{frame}
+
+\begin{frame}[t]{Unsupervised Learning: Pattern Discovery}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/clustering_results.pdf}
+\vspace{5pt}
+\small Discovering hidden innovation patterns without labels
+\vfill
+\footnotesize
+\textbf{Discovery:} K-Means clustering reveals 5 distinct innovation types. No prior labels needed. Patterns emerge from data structure alone.
+\end{frame}
+
+\begin{frame}[t]{Performance Comparison}
+\centering
+\includegraphics[width=\textwidth]{figures/performance_comparison.pdf}
+\vfill
+\footnotesize
+\textbf{Impact:} ML-assisted innovation generates 100x more ideas. Success rate improves 7x. Time reduced by 90\%. Full integration maximizes all metrics.
+\end{frame}
+
+\begin{frame}[t]{Model Learning Curves}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/learning_curves.pdf}
+\vfill
+\footnotesize
+\textbf{Convergence:} Training and validation scores converge indicating good generalization. No overfitting observed. Model ready for deployment.
+\end{frame}
+
+% Section 5: Algorithm Details
+\section{Algorithm Fundamentals}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Algorithm Fundamentals\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Supervised Learning Algorithm}
+\textbf{Random Forest Classifier:}
+\begin{enumerate}
+\item Bootstrap sample from training data
+\item Build decision tree with random feature subset
+\item Repeat for n\_estimators trees
+\item Aggregate predictions by voting
+\end{enumerate}
+\vspace{10pt}
+\textbf{Key Parameters:}
+\begin{itemize}
+\item n\_estimators: Number of trees (typically 100-500)
+\item max\_depth: Tree depth (controls overfitting)
+\item min\_samples\_split: Minimum samples to split node
+\end{itemize}
+\vfill
+\begin{equation}
+\hat{y} = \text{mode}\{h_1(x), h_2(x), ..., h_n(x)\}
+\end{equation}
+\end{frame}
+
+\begin{frame}[t]{Unsupervised Learning Algorithm}
+\textbf{K-Means Clustering:}
+\begin{enumerate}
+\item Initialize k centroids randomly
+\item Assign each point to nearest centroid
+\item Update centroids as mean of assigned points
+\item Repeat until convergence
+\end{enumerate}
+\vspace{10pt}
+\textbf{Convergence Criteria:}
+\begin{itemize}
+\item Centroids stop moving
+\item Maximum iterations reached
+\item Inertia improvement below threshold
+\end{itemize}
+\vfill
+\begin{equation}
+\mu_j = \frac{1}{|C_j|} \sum_{x_i \in C_j} x_i
+\end{equation}
+\end{frame}
+
+\begin{frame}[t]{Generative AI Integration}
+\textbf{Temperature Control in Generation:}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Temperature Effects:}
+\begin{itemize}
+\item T $\rightarrow$ 0: Deterministic
+\item T = 1: Balanced
+\item T $\rightarrow$ $\infty$: Random
+\end{itemize}
+\vspace{10pt}
+\textbf{Applications:}
+\begin{itemize}
+\item Low T: Focused ideation
+\item Medium T: Diverse ideas
+\item High T: Creative exploration
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{figures/chaos_to_order_preview.pdf}
+\end{column}
+\end{columns}
+\vfill
+\begin{equation}
+P'(w_i) = \frac{\exp(z_i/T)}{\sum_j \exp(z_j/T)}
+\end{equation}
+\end{frame}
+
+% Section 6: Problem Evolution
+\section{Emerging Challenge}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Emerging Challenge\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Success Creates New Problems}
+\centering
+\includegraphics[width=\textwidth]{figures/problem_evolution_w1.pdf}
+\vfill
+\footnotesize
+\textbf{Problem Evolution:} Week 1 success generates 5000+ ideas. Too many to handle manually. Need systematic organization. Week 2 will introduce K-Means clustering solution.
+\end{frame}
+
+\begin{frame}[t]{The Chaos Problem}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\textbf{Current State:}
+\begin{itemize}
+\item 5000+ generated ideas
+\item No organization
+\item Hidden relationships
+\item Overwhelming complexity
+\end{itemize}
+\vspace{10pt}
+\textbf{Next Week's Solution:}
+\begin{itemize}
+\item K-Means clustering
+\item Automatic categorization
+\item Theme identification
+\item Systematic organization
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{figures/integration_challenge.pdf}
+\end{column}
+\end{columns}
+\vfill
+\footnotesize
+\textbf{Preview:} Week 2 will teach K-Means clustering algorithm to bring order to chaos.
+\end{frame}
+
+% Section 7: Summary
+\section{Week 1 Summary}
+
+\begin{frame}[t]
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{title}
+\usebeamerfont{title}\Large Week 1 Summary\par
+\end{beamercolorbox}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{Key Takeaways}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Concepts Learned:}
+\begin{itemize}
+\item Supervised vs Unsupervised
+\item When to use each method
+\item Mathematical foundations
+\item Design thinking integration
+\item Practical applications
+\end{itemize}
+\vspace{10pt}
+\textbf{Skills Developed:}
+\begin{itemize}
+\item Identify learning paradigms
+\item Choose appropriate methods
+\item Understand algorithms
+\item Apply to innovation
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Key Insights:}
+\begin{enumerate}
+\item ML transforms innovation
+\item Supervised predicts success
+\item Unsupervised finds patterns
+\item Generative AI amplifies ideas
+\item Integration multiplies impact
+\end{enumerate}
+\vspace{10pt}
+\textbf{Problem Chain:}\\
+\small Success $\rightarrow$ Too many ideas $\rightarrow$ Need organization (Week 2)
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Learning Objectives Achieved}
+\begin{table}
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+Objective & Status \\
+\midrule
+Understand supervised learning & \checkmark \\
+Understand unsupervised learning & \checkmark \\
+Differentiate use cases & \checkmark \\
+Apply to design thinking & \checkmark \\
+Recognize problem evolution & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{10pt}
+\centering
+\includegraphics[width=0.7\textwidth]{figures/metrics_comparison.pdf}
+\vfill
+\footnotesize
+\textbf{Next Week:} K-Means Clustering - Organizing the chaos of 5000 ideas
+\end{frame}
+
+\begin{frame}[t]{Assignment}
+\textbf{Individual Tasks:}
+\begin{enumerate}
+\item Compare supervised and unsupervised learning approaches
+\item Identify three real-world applications for each paradigm
+\item Analyze when to use which method
+\item Prepare for K-Means clustering next week
+\end{enumerate}
+\vspace{10pt}
+\textbf{Group Discussion:}
+\begin{itemize}
+\item How does ML enhance traditional design thinking?
+\item What are the limitations of each learning paradigm?
+\item How can we combine both for maximum impact?
+\end{itemize}
+\vfill
+\footnotesize
+\textbf{Reading:} Bishop, Pattern Recognition and Machine Learning, Chapter 1. Hastie et al., Elements of Statistical Learning, Sections 2.1-2.3
+\end{frame}
+
+% Appendix
+\appendix
+\section{Appendix}
+
+\begin{frame}[t]{Mathematical Details}
+\textbf{Supervised Learning - Gradient Descent:}
+\begin{align}
+\theta_{t+1} &= \theta_t - \alpha \nabla_\theta L(\theta_t) \\
+\nabla_\theta L &= \frac{1}{n} \sum_{i=1}^{n} \nabla_\theta \ell(f_\theta(x_i), y_i)
+\end{align}
+\vspace{10pt}
+\textbf{Unsupervised Learning - K-Means Objective:}
+\begin{align}
+J &= \sum_{j=1}^{k} \sum_{i \in C_j} ||x_i - \mu_j||^2 \\
+\frac{\partial J}{\partial \mu_j} &= -2 \sum_{i \in C_j} (x_i - \mu_j) = 0 \\
+\mu_j &= \frac{1}{|C_j|} \sum_{i \in C_j} x_i
+\end{align}
+\end{frame}
+
+\begin{frame}[t]{Complexity Analysis}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+Algorithm & Time Complexity & Space Complexity \\
+\midrule
+Random Forest & $O(n \cdot m \cdot \log n \cdot t)$ & $O(n \cdot t)$ \\
+K-Means & $O(n \cdot k \cdot i \cdot d)$ & $O(n \cdot d)$ \\
+Neural Network & $O(n \cdot l \cdot m^2)$ & $O(l \cdot m^2)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{10pt}
+\footnotesize
+Where: n = samples, m = features, t = trees, k = clusters, i = iterations, d = dimensions, l = layers
+\vfill
+\textbf{Practical Considerations:}
+\begin{itemize}
+\item Random Forest scales well with data size
+\item K-Means sensitive to initialization
+\item Deep learning requires large datasets
+\item Choose based on data characteristics
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Common Pitfalls and Solutions}
+\begin{table}
+\centering
+\footnotesize
+\begin{tabular}{p{2.5cm}p{2.5cm}p{3cm}}
+\toprule
+Problem & Symptom & Solution \\
+\midrule
+Overfitting & High train, low test accuracy & Regularization, cross-validation \\
+Wrong k & Poor clustering & Elbow method, silhouette \\
+Imbalanced data & Biased predictions & SMOTE, class weights \\
+Feature scaling & Distorted clusters & StandardScaler \\
+High dimensions & Curse of dimensionality & PCA, feature selection \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vfill
+\footnotesize
+\textbf{Best Practices:}
+\begin{itemize}
+\item Always visualize data first
+\item Use cross-validation for model selection
+\item Scale features for distance-based methods
+\item Check assumptions before applying algorithms
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Resources and References}
+\textbf{Essential Reading:}
+\begin{itemize}
+\item Bishop, C. (2006). Pattern Recognition and Machine Learning
+\item Hastie, T. et al. (2009). Elements of Statistical Learning
+\item Murphy, K. (2012). Machine Learning: A Probabilistic Perspective
+\end{itemize}
+\vspace{10pt}
+\textbf{Online Resources:}
+\begin{itemize}
+\item scikit-learn documentation
+\item Andrew Ng's Machine Learning Course
+\item Fast.ai Practical Deep Learning
+\end{itemize}
+\vspace{10pt}
+\textbf{Tools Required:}
+\begin{itemize}
+\item Python 3.8+
+\item scikit-learn, pandas, numpy, matplotlib
+\item Jupyter notebooks
+\end{itemize}
+\end{frame}
+
+\end{document}

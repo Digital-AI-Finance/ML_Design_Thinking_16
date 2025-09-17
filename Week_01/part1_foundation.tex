@@ -132,7 +132,67 @@ What we'll explore:\\
 \end{center}
 \end{frame}
 
-% Slide 4: The Dual Pipeline Chart
+% Design Thinking Recap (moved here before Dual Pipeline)
+\begin{frame}
+\frametitle{\Large Quick Recap: The Design Thinking Process}
+\framesubtitle{You've Seen This Before - Let's Connect It to ML}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9, transform shape]
+    % Define styles
+    \tikzstyle{stage} = [rectangle, rounded corners, minimum width=2.2cm, minimum height=1cm, text centered, draw=black, line width=1pt]
+    \tikzstyle{arrow} = [thick,->,>=stealth]
+    
+    % Draw stages
+    \node[stage, fill=mlblue!30] (empathize) at (0,0) {\shortstack{\textbf{Empathize}\\Understand users}};
+    \node[stage, fill=mlorange!30] (define) at (3,0) {\shortstack{\textbf{Define}\\Frame problems}};
+    \node[stage, fill=mlgreen!30] (ideate) at (6,0) {\shortstack{\textbf{Ideate}\\Generate ideas}};
+    \node[stage, fill=mlred!30] (prototype) at (9,0) {\shortstack{\textbf{Prototype}\\Build solutions}};
+    \node[stage, fill=mlpurple!30] (test) at (12,0) {\shortstack{\textbf{Test}\\Validate impact}};
+    
+    % Draw arrows
+    \draw[arrow] (empathize) -- (define);
+    \draw[arrow] (define) -- (ideate);
+    \draw[arrow] (ideate) -- (prototype);
+    \draw[arrow] (prototype) -- (test);
+    
+    % Feedback loop
+    \draw[arrow, dashed, gray] (test.south) .. controls (6,-1.5) .. (empathize.south);
+    
+    % Label
+    \node at (6,-2) {\large\textcolor{mlpurple}{\textbf{Iteration is key}}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5em}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=Traditional Approach]
+\small
+\begin{itemize}
+\item Manual interviews
+\item Limited sample size
+\item Qualitative insights
+\item Slow iteration
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=ML-Enhanced Approach]
+\small
+\begin{itemize}
+\item Data-driven discovery
+\item Massive scale analysis
+\item Quantitative patterns
+\item Real-time adaptation
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% The Dual Pipeline Chart
 \begin{frame}
 \frametitle{\Large The Dual Pipeline}
 \framesubtitle{Where ML Meets Design Thinking}
@@ -147,48 +207,6 @@ What we'll explore:\\
 \end{center}
 \end{frame}
 
-% Slide 5: The Dual Pipeline Comparison
-\begin{frame}
-\frametitle{\Large The Dual Pipeline (Continued)}
-\framesubtitle{Understanding Both Worlds}
-
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=ML Pipeline]
-\normalsize
-\textbf{Data} $\rightarrow$ \textbf{Preprocess} $\rightarrow$ \textbf{Model} $\rightarrow$ \textbf{Evaluate} $\rightarrow$ \textbf{Deploy}
-\vspace{0.3em}
-\begin{itemize}
-\item Collect innovation data
-\item Clean and transform
-\item Train algorithms
-\item Validate accuracy
-\item Scale to production
-\end{itemize}
-\end{tcolorbox}
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlorange!10, colframe=mlorange!50, title=Design Pipeline]
-\normalsize
-\textbf{Empathize} $\rightarrow$ \textbf{Define} $\rightarrow$ \textbf{Ideate} $\rightarrow$ \textbf{Prototype} $\rightarrow$ \textbf{Test}
-\vspace{0.3em}
-\begin{itemize}
-\item Understand innovation needs
-\item Frame problems
-\item Generate solutions
-\item Build concepts
-\item Validate innovation impact
-\end{itemize}
-\end{tcolorbox}
-\end{column}
-\end{columns}
-
-\vspace{0.5em}
-\begin{center}
-\Large\textcolor{mlpurple}{\textbf{Integration = Innovation at Scale}}
-\end{center}
-\end{frame}
 
 % Slide 6: Your Innovation Journey Chart
 \begin{frame}
@@ -197,83 +215,6 @@ What we'll explore:\\
 
 \begin{center}
 \includegraphics[width=0.95\textwidth]{../ML_Design_Course/course_visuals/journey_roadmap.pdf}
-\end{center}
-\end{frame}
-
-% Slide 7: Your Innovation Journey Details
-\begin{frame}
-\frametitle{\Large Your Innovation Journey (Continued)}
-\framesubtitle{What You'll Learn in Each Stage}
-
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\textbf{\large Innovation Stages}
-\vspace{0.5em}
-
-\textcolor{mlpurple}{\textbf{Discover (Weeks 1-2)}}\\
-Find hidden innovation opportunities
-
-\vspace{0.5em}
-\textcolor{mlblue}{\textbf{Define (Weeks 3-4)}}\\
-Identify the right problems to solve
-
-\vspace{0.5em}
-\textcolor{mlgreen}{\textbf{Ideate (Weeks 5-6)}}\\
-Generate novel solutions with AI
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\textbf{\large Building Innovation Skills}
-\vspace{0.5em}
-
-\textcolor{mlorange}{\textbf{Prototype (Weeks 7-8)}}\\
-Build smart, adaptive concepts
-
-\vspace{0.5em}
-\textcolor{mlred}{\textbf{Test (Weeks 9-10)}}\\
-Evolve through continuous learning
-
-\vspace{0.5em}
-\textcolor{mlpurple}{\textbf{This Week:}}\\
-Clustering for Innovation Pattern Discovery
-\end{column}
-\end{columns}
-\end{frame}
-
-% Slide 8: Week 1 Focus
-\begin{frame}
-\frametitle{\Large Week 1: Clustering for Innovation}
-\framesubtitle{From Scattered Ideas to Innovation Patterns}
-
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\Large\textbf{What We'll Learn:}
-\normalsize
-\begin{itemize}
-\item How clustering reveals innovation categories
-\item K-means algorithm fundamentals
-\item Finding the optimal number of clusters
-\item Quality metrics for validation
-\item Advanced clustering techniques
-\end{itemize}
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\Large\textbf{Design Applications:}
-\normalsize
-\begin{itemize}
-\item Create innovation archetypes
-\item Map innovation evolution paths
-\item Identify opportunities systematically
-\item Prioritize design efforts
-\item Scale analysis to thousands of ideas
-\end{itemize}
-\end{column}
-\end{columns}
-
-\vspace{0.5em}
-\begin{center}
-\Large\textcolor{mlpurple}{\textbf{Goal: Transform scattered ideas into innovation patterns}}
 \end{center}
 \end{frame}
 
@@ -288,62 +229,3 @@ Clustering for Innovation Pattern Discovery
 \end{center}
 \end{frame}
 
-% CHECKPOINT SLIDE 1
-\begin{frame}
-\frametitle{\Large Check Your Understanding - Part 1}
-\framesubtitle{Quick Knowledge Check \hfill \textcolor{mlblue}{\textbf{Progress: 1/3}}}
-
-\begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlblue!10, colframe=mlblue!50, title=True or False?]
-\normalsize
-\begin{enumerate}
-\item Clustering requires labeled data \textcolor{mlred}{(F)}
-\item ML can process more data than humans \textcolor{mlgreen}{(T)}
-\item Design thinking has 5 stages \textcolor{mlgreen}{(T)}
-\item Clustering finds hidden patterns \textcolor{mlgreen}{(T)}
-\end{enumerate}
-\end{tcolorbox}
-\end{column}
-
-\begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=mlgreen!10, colframe=mlgreen!50, title=Can You Explain?]
-\normalsize
-\begin{itemize}
-\item What is the dual pipeline approach?
-\item Why combine ML with design thinking?
-\item What problem does clustering solve?
-\end{itemize}
-\end{tcolorbox}
-\end{column}
-\end{columns}
-
-\vspace{1em}
-\begin{center}
-\Large\textcolor{mlpurple}{\textbf{Ready for Part 2? Let's dive into the technical details!}}\\
-\vspace{0.3em}
-\normalsize\textit{Next: Clustering algorithms, evaluation metrics, and implementation}
-\end{center}
-\end{frame}
-
-% TRANSITION TO PART 2
-\begin{frame}
-\frametitle{\Large Now Let's Get Technical}
-\framesubtitle{From Understanding the Problem to Finding Solutions}
-
-\begin{center}
-\Large\textbf{We've seen the challenge:}\\
-\normalsize
-Thousands of innovation ideas with hidden connections\\
-\vspace{1em}
-\Large\textbf{Traditional approach:}\\
-\normalsize
-Manual segmentation based on demographics\\
-\vspace{1em}
-\Large\textcolor{mlgreen}{\textbf{The ML solution:}}\\
-\normalsize
-Let the data reveal its own natural groups\\
-\vspace{2em}
-\Large\textcolor{mlpurple}{\textbf{Enter: Clustering Algorithms}}
-\end{center}
-\end{frame}
